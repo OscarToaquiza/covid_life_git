@@ -1,3 +1,14 @@
+/*
+*
+* ESTE MENSAJE SE ENCUENTRA EN LA RAMA  "DESARROLLO"
+* LA RAMA MASTER SE LLAMARÁ "PRODUCCION"
+* DONDE ESTE MENSAJE NO CONSTA
+*
+*
+* DESARROLLO_SIGNOS VITALES
+* Oscar Toaquiza.
+* */
+
 package com.covid.life;
 
 import androidx.appcompat.app.AppCompatActivity;
