@@ -2,7 +2,10 @@ package com.covid.life.manage.camera;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.covid.life.R;
@@ -10,6 +13,9 @@ import com.covid.life.R;
 import org.opencv.android.OpenCVLoader;
 
 public class pre_camera extends AppCompatActivity {
+
+    Button btnIrTemperatura;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +27,17 @@ public class pre_camera extends AppCompatActivity {
         }else{
             Toast.makeText(this,"Erro al cargar OpenCV... :(", Toast.LENGTH_LONG).show();
         }
+
+        btnIrTemperatura = findViewById(R.id.btnIrTemperatura);
+        btnIrTemperatura.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Intent formularioLayout = new Intent( v.getContext() , MainActivity.class);
+                //startActivity(formularioLayout);
+            }
+        });
+
+
 
     }
 }

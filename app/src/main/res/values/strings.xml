@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Covid Life</string>
+    <string name="btn_home">Iniciar</string>
+
+    <string name="btn_tomar_pulsos">Tomar Signos Vitales</string>
+    <string name="text__titulo_pulso_cardiaco">Ritmo Cardiaco Promedio</string>
+    <string name="text_pulso_cardiaco"> -- </string>
+    <string name="text_tiutlo_temperatura">Temperatura Promedio</string>
+    <string name="text_temperatura"> -- ªC </string>
 </resources>
