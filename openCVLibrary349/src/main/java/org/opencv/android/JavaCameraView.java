@@ -139,6 +139,11 @@ public class JavaCameraView extends CameraBridgeViewBase implements PreviewCallb
             /* Now set camera parameters */
             try {
                 Camera.Parameters params = mCamera.getParameters();
+
+                /* Activar la el flash de la camara.. */
+                params.setFlashMode(params.FLASH_MODE_TORCH);
+                mCamera.setParameters(params);
+                // --------
                 Log.d(TAG, "getSupportedPreviewSizes()");
                 List<android.hardware.Camera.Size> sizes = params.getSupportedPreviewSizes();
 

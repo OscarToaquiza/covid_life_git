@@ -54,4 +54,10 @@
         android:textSize="24sp"
         android:textStyle="normal" />
 
+    <com.jjoe64.graphview.GraphView
+        android:id="@+id/grafica"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        ></com.jjoe64.graphview.GraphView>
+
 </LinearLayout>
