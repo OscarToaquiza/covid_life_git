@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.covid.life.MainActivity;
 import com.covid.life.R;
+import com.covid.life.form.activity_paciente;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -65,17 +66,19 @@ public class activity_login extends AppCompatActivity {
         // validations for input email and password
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(getApplicationContext(),
-                    "Please enter email!!",
+                    "Ingrese su email !!",
                     Toast.LENGTH_LONG)
                     .show();
+            progressbar.setVisibility(View.GONE);
             return;
         }
 
         if (TextUtils.isEmpty(password)) {
             Toast.makeText(getApplicationContext(),
-                    "Please enter password!!",
+                    "Ingrese su contraseña !!",
                     Toast.LENGTH_LONG)
                     .show();
+            progressbar.setVisibility(View.GONE);
             return;
         }
 
@@ -89,7 +92,7 @@ public class activity_login extends AppCompatActivity {
                             {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(getApplicationContext(),
-                                            "Login successful!!",
+                                            "Bienvenido !!",
                                             Toast.LENGTH_LONG)
                                             .show();
 
@@ -100,7 +103,7 @@ public class activity_login extends AppCompatActivity {
                                     // intent to home activity
                                     Intent intent
                                             = new Intent(activity_login.this,
-                                            MainActivity.class);
+                                            activity_paciente.class);
                                     startActivity(intent);
                                 }
 
@@ -108,7 +111,7 @@ public class activity_login extends AppCompatActivity {
 
                                     // sign-in failed
                                     Toast.makeText(getApplicationContext(),
-                                            "Login failed!!",
+                                            "Inicio de sesión fallida !!",
                                             Toast.LENGTH_LONG)
                                             .show();
 
@@ -117,5 +120,19 @@ public class activity_login extends AppCompatActivity {
                                 }
                             }
                         });
+    }
+
+    public void recuperarPass(View view) {
+        Intent intent
+                = new Intent(activity_login.this,
+                activity_recuperar.class);
+        startActivity(intent);
+    }
+
+    public void registrar(View view) {
+        Intent intent
+                = new Intent(activity_login.this,
+                activity_registration.class);
+        startActivity(intent);
     }
 }

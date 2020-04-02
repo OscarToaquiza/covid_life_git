@@ -1,3 +1,55 @@
 <resources>
     <string name="app_name">Covid Life</string>
+    <string name="title_activity_paciente"> Paciente</string>
+    <string name="action_settings">Settings</string>
+    <string name="spn_title">-- Seleccione --</string>
+
+    <string-array name="aislamiento">
+        <item>MPS</item>
+        <item>IESS</item>
+        <item>ISSFA</item>
+        <item>ISSPOL</item>
+        <item>PRIVADO</item>
+    </string-array>
+
+    <string-array name="seleccion">
+        <item>Si</item>
+        <item>No</item>
+    </string-array>
+
+
+    <string-array name="generos">
+        <item>Mujer</item>
+        <item>Hombre</item>
+        <item>Prefiero no decirlo</item>
+    </string-array>
+
+    <string-array name="provincias">
+        <item>Azuay</item>
+        <item>Bolívar</item>
+        <item>Cañar</item>
+        <item>Carchi</item>
+        <item>Cotopaxi</item>
+        <item>Chimborazo</item>
+        <item>Imbabura</item>
+        <item>Loja</item>
+        <item>Pichincha </item>
+        <item>Tungurahua </item>
+        <item>Esmeraldas </item>
+        <item>Manabí  </item>
+        <item>Los Ríos   </item>
+        <item>Santa Elena  </item>
+        <item>Guayas   </item>
+        <item>Santo Domingo de los Tsáchilas   </item>
+        <item>El Oro   </item>
+        <item>Morona Santiago   </item>
+        <item>Napo    </item>
+        <item>Orellana    </item>
+        <item>Pastaza    </item>
+        <item>Sucumbíos    </item>
+        <item>Galapagos </item>
+        <item>Zamora Chinchipe    </item>
+    </string-array>
+
+
 </resources>
