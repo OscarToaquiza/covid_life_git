@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.covid.life.R;
 
@@ -45,6 +46,7 @@ public class camera_data extends Activity implements CameraBridgeViewBase.CvCame
     private Chronometer mChronometer;
     private Button btnSendData;
     private ImageButton btnStartTime;
+    private long secondTotal;
 
     //Variables para manejar los frames de video
     private List<Mat> channels;
@@ -98,11 +100,17 @@ public class camera_data extends Activity implements CameraBridgeViewBase.CvCame
                     btnStartTime.setImageResource(R.drawable.icon_play_red);
                     mChronometer.setBase(SystemClock.elapsedRealtime());
                     mChronometer.start();
+                    showElapsedTime();
                 }else{
                     mIsRecord = false;
                     btnSendData.setEnabled(!mIsRecord);
                     btnStartTime.setImageResource(R.drawable.icon_play_green);
+                    //Toast.makeText(getApplicationContext(), "Tiempo transurrido" + mChronometer.getText().toString(),Toast.LENGTH_SHORT).show();
+
                     mChronometer.stop();
+                    showElapsedTime();
+
+
                 }
             }
         });
@@ -114,10 +122,18 @@ public class camera_data extends Activity implements CameraBridgeViewBase.CvCame
                 //onBackPressed();
                 Intent formularioSintomas = new Intent(v.getContext() , pre_camera.class);
                 formularioSintomas.putExtra("Puntos", mDataPoints );
+                formularioSintomas.putExtra("Segundos", secondTotal );
                 startActivity(formularioSintomas);
                 finish();
             }
         });
+    }
+
+    private void showElapsedTime() {
+        long elapsedMillis = (SystemClock.elapsedRealtime() - mChronometer.getBase() );
+        secondTotal = elapsedMillis / 1000;
+        Toast.makeText(this, "Tiempo en segundos: " + secondTotal,
+                Toast.LENGTH_SHORT).show();
     }
 
     // Metodos autogenerados
