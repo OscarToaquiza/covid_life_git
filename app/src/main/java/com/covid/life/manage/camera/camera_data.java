@@ -213,17 +213,19 @@ public class camera_data extends Activity implements CameraBridgeViewBase.CvCame
             //Log.d( "R",red.submat(            708,           710,          10,           12 ).dump());
             //Log.d( "-",red.submat(( ancho/2 )- 2,(ancho/2) + 2,(alto/2) - 2,( alto/2 )+ 2).dump());
 
-            PX1 =   Core.mean( channelRed.submat(            10,           12,           10,           12 )).val[0];
-            PX2 =   Core.mean( channelRed.submat( ( witdhFRame/2 )-2,( witdhFRame/2 )+2,          10,           12 )).val[0];
-            PX3 =   Core.mean( channelRed.submat(     witdhFRame -12,    witdhFRame -10,          10,           12 )).val[0];
 
-            PX4 =   Core.mean( channelRed.submat(            10,           12,(heigthFrame/2) - 2,( heigthFrame/2 )+ 2) ).val[0];
-            PX5 =   Core.mean( channelRed.submat(( witdhFRame/2 )- 2,(witdhFRame/2) + 2,(heigthFrame/2) - 2,( heigthFrame/2 )+ 2) ).val[0];
-            PX6 =   Core.mean( channelRed.submat(    witdhFRame - 12,    witdhFRame -10,(heigthFrame/2) - 2,( heigthFrame/2 )+ 2) ).val[0];
+            PX1 = getMatrizCentral(                       0,                   0,      (int) (witdhFRame/3),     (int)(heigthFrame/3) );
+            PX2 = getMatrizCentral(      (int) witdhFRame/3,                   0,(int) (witdhFRame/3)*2,     (int)(heigthFrame/3) );
+            PX3 = getMatrizCentral(  (int) (witdhFRame/3)*2,                   0,                witdhFRame,     (int)(heigthFrame/3) );
 
-            PX7 =   Core.mean( channelRed.submat(            10,           12,   heigthFrame - 12,    heigthFrame - 10 )).val[0];
-            PX8 =   Core.mean( channelRed.submat(( witdhFRame/2 )- 2,(witdhFRame/2) + 2,    heigthFrame -12,    heigthFrame - 10 )).val[0];
-            PX9 =   Core.mean( channelRed.submat(    witdhFRame - 12,    witdhFRame -10,    heigthFrame -12,    heigthFrame - 10) ).val[0];
+            PX4 = getMatrizCentral(                      0 , (int) heigthFrame/3,    (int) witdhFRame/3,(int)(heigthFrame/3)*2 );
+            PX5 = getMatrizCentral(     (int) witdhFRame/3 , (int) heigthFrame/3,(int) (witdhFRame/3)*2,(int)(heigthFrame/3)*2 );
+            PX6 = getMatrizCentral(  (int) (witdhFRame/3)*2, (int) heigthFrame/3,         (int) witdhFRame ,(int)(heigthFrame/3)*2 );
+
+            PX7 = getMatrizCentral(                     0 , (int)(heigthFrame/3)*2,(int)    witdhFRame/3 ,        (int)heigthFrame);
+            PX8 = getMatrizCentral(    (int) witdhFRame/3 , (int)(heigthFrame/3)*2,(int) (witdhFRame/3)*2, (int) (int)heigthFrame );
+            PX9 = getMatrizCentral( (int)(witdhFRame/3)*2 , (int)(heigthFrame/3)*2,    (int)      witdhFRame ,            heigthFrame );
+
 
             valueY = (PX1+PX2+PX3+PX4+PX5+PX6+PX7+PX8 +PX9) / 9;
             // Agregando los puntos de la gráfica
@@ -259,4 +261,31 @@ public class camera_data extends Activity implements CameraBridgeViewBase.CvCame
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
+
+    // devemos dividir a la imagen 6 cuadrantes.
+    /*
+    |1|2|3|
+    |4|5|6|
+    |7|8|9|
+
+    Enviar los puntos iniciales, y los puntos finales del cuadrante. a ese punto le resto -2 +2
+
+    Se debe enviar como parametros los siguientes:
+    int posicionXInicial, int posicionXFinal, int posicionYInicial, int posicionYFinal
+     */
+
+    private Double getMatrizCentral(  int xi, int yi, int xf, int yf   ){
+        Double promedioMatrizPIxeles = 0.0;
+
+        int xo = xf;
+        int yo = yi;
+
+        int xm = ( (xf -xi)/2 ) + xi;
+        int ym = ( (yf -yi)/2 ) + yo;
+
+        promedioMatrizPIxeles =   Core.mean( channelRed.submat(xm - 2,xm + 2, ym - 2,ym + 2) ).val[0];
+
+        return  promedioMatrizPIxeles;
+
+    };
 }
