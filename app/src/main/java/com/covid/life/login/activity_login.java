@@ -14,12 +14,11 @@ import android.widget.Toast;
 
 import com.covid.life.MainActivity;
 import com.covid.life.R;
-import com.covid.life.form.activity_paciente;
+import com.covid.life.form.activity_test;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 public class activity_login extends AppCompatActivity {
     private EditText emailTextView, passwordTextView;
@@ -103,7 +102,7 @@ public class activity_login extends AppCompatActivity {
                                     // intent to home activity
                                     Intent intent
                                             = new Intent(activity_login.this,
-                                            activity_paciente.class);
+                                            MainActivity.class);
                                     startActivity(intent);
                                 }
 
@@ -125,7 +124,7 @@ public class activity_login extends AppCompatActivity {
     public void recuperarPass(View view) {
         Intent intent
                 = new Intent(activity_login.this,
-                activity_recuperar.class);
+                activity_test.class);
         startActivity(intent);
     }
 

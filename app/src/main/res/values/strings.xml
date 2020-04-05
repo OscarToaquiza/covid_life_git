@@ -3,6 +3,23 @@
     <string name="title_activity_paciente"> Paciente</string>
     <string name="action_settings">Settings</string>
     <string name="spn_title">-- Seleccione --</string>
+    <string name="bienvenida">
+        Trataremos de ayudarte con sencillos pasos ante el COVID 19.\n
+        Responde a las preguntas y te guiaremos en tu estado de salud.\n
+        Esta herramienta no reemplaza al 171 en Ecuador.\n
+    </string>
+
+    <string name="inicio">
+        ¿Crees tener síntomas del Coronavirus?\n\n\n
+        ¡Empecemos!
+    </string>
+
+    <string name="fiebre">
+        ¿Tiene fiebre mayor de 38°C?\n\n
+        Necesitas la ayuda de un termómetro
+    </string>
+
+
 
     <string-array name="aislamiento">
         <item>MPS</item>
@@ -50,6 +67,12 @@
         <item>Galapagos </item>
         <item>Zamora Chinchipe    </item>
     </string-array>
+    <string name="title_activity_test">activity_test</string>
+    <string name="tab_text_1">Instrucciones</string>
+    <string name="tab_text_2">Inicio</string>
+    <string name="tab_text_3">Fiebre</string>
+    <string name="tab_text_4">Tos</string>
 
-
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

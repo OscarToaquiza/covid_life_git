@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.covid.life" >
+    package="com.covid.life">
 
     <application
         android:allowBackup="true"
@@ -8,16 +8,19 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".form.activity_test"
+            android:label="@string/title_activity_test"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".form.activity_paciente"
             android:label="@string/title_activity_paciente"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".login.activity_recuperar" />
         <activity android:name=".login.activity_registration" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".login.activity_login" >
+        <activity android:name=".login.activity_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
