@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.fragment_tos">
+    tools:context=".fragments.fragment_comidas">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -42,18 +42,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="114dp"
                     android:padding="10dp"
-                    android:src="@drawable/ic_wb_cloudy" />
+                    android:src="@drawable/ic_fastfood" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="¿Tiene tos?"
+                    android:text="¿Ha perdido el olfato o las comidas no tienen sabor?"
                     android:textSize="25dp"
-                    android:padding="60dp"/>
+                    android:padding="20dp"/>
 
                 <Button
-                    android:id="@+id/btnTosSi"
+                    android:id="@+id/btnComidasSi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
@@ -63,7 +63,7 @@
                     android:textStyle="bold" />
 
                 <Button
-                    android:id="@+id/btnTosNo"
+                    android:id="@+id/btnComidasNo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"

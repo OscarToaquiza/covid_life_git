@@ -7,26 +7,25 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.covid.life.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link fragment_instrucciones#newInstance} factory method to
+ * Use the {@link fragment_respirar#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fragment_instrucciones extends Fragment {
+public class fragment_respirar extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private Button btnContinuar;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    public fragment_instrucciones() {
+    public fragment_respirar() {
         // Required empty public constructor
     }
 
@@ -36,11 +35,11 @@ public class fragment_instrucciones extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment activity_instrucciones.
+     * @return A new instance of fragment activity_respirar.
      */
     // TODO: Rename and change types and number of parameters
-    public static fragment_instrucciones newInstance(String param1, String param2) {
-        fragment_instrucciones fragment = new fragment_instrucciones();
+    public static fragment_respirar newInstance(String param1, String param2) {
+        fragment_respirar fragment = new fragment_respirar();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -60,11 +59,7 @@ public class fragment_instrucciones extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_instrucciones, container, false);
-
-        return view;
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_respirar, container, false);
     }
-
-
-
 }

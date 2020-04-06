@@ -13,9 +13,14 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.covid.life.R;
+import com.covid.life.fragments.fragment_actividades;
+import com.covid.life.fragments.fragment_comidas;
+import com.covid.life.fragments.fragment_contagio;
+import com.covid.life.fragments.fragment_diarrea;
 import com.covid.life.fragments.fragment_fiebre;
 import com.covid.life.fragments.fragment_inicio;
 import com.covid.life.fragments.fragment_instrucciones;
+import com.covid.life.fragments.fragment_respirar;
 import com.covid.life.fragments.fragment_tos;
 
 
@@ -35,6 +40,11 @@ public class PlaceholderFragment extends Fragment {
             case 2: fragment = new fragment_inicio(); break;
             case 3: fragment = new fragment_fiebre(); break;
             case 4: fragment = new fragment_tos(); break;
+            case 5: fragment = new fragment_comidas(); break;
+            case 6: fragment = new fragment_respirar(); break;
+            case 7: fragment = new fragment_actividades(); break;
+            case 8: fragment = new fragment_diarrea(); break;
+            case 9: fragment = new fragment_contagio(); break;
 
         }
         return fragment;

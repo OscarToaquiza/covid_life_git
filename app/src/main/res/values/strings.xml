@@ -19,7 +19,26 @@
         Necesitas la ayuda de un termómetro
     </string>
 
+    <string name="respirar">
+        ¿Tiene sensación de falta de aire o dificultad para respirar?\n\n
+        Le cuesta o es incomodo respirar de inicio brusco, sin ninguna causa antes ya experimentada.
+    </string>
 
+    <string name="contagio">
+        ¿Ha tenido contacto estrecho con personas enfermas de coronavirus?\n\n
+        Incluye si en su barrio, trabajo o algún lugar donde haya viajado
+        y conozca Ud que hay casos confirmados de coronavirus en los últimos 14 días.
+    </string>
+
+    <string name="NoSospecho">
+        Según la información proporcionada, al momento usted no es un
+        caso sospechoso de infección de Coronavirus. Le sugerimos que
+        se quede en en casa y lea el instructivo que le enviaremos
+        a continuación.
+    </string>
+    <string name="NoSospechoInfo">
+        ¡QUÉDATE EN CASA!\n\nINFORMACIÓN
+    </string>
 
     <string-array name="aislamiento">
         <item>MPS</item>
