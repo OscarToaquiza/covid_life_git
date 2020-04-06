@@ -8,9 +8,6 @@
     android:orientation="vertical"
     tools:context=".login.activity_login">
 
-    <!-- TextView for heading -->
-
-    <!-- Edit text for email -->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -43,14 +40,15 @@
                     android:textAlignment="center"
                     android:textSize="30sp"
                     android:textStyle="bold"
-                    android:padding="25dp"
-                    />
+                    android:padding="25dp" />
 
                 <EditText
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Ingrese su Email" />
+                    android:hint="Ingrese su Email"
+                    android:layout_marginBottom="10dp"
+                    android:imeOptions="actionDone"/>
 
                 <!-- Edit text for password -->
                 <EditText
@@ -58,7 +56,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Ingrese su contraseña"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:layout_marginBottom="10dp"
+                    android:imeOptions="actionDone"/>
 
                 <!-- Button for Login with text "Login" -->
                 <Button
@@ -68,37 +68,37 @@
                     android:background="@color/colorPrimary"
                     android:textColor="@color/colorBlanco"
                     android:text="Inicia sesión"/>
-
+                <!--
                 <TextView
                     android:id="@+id/registro"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:text="Regístrate"
                     android:textAllCaps="false"
                     android:textStyle="bold"
                     android:onClick="registrar"
-                    android:padding="15dp"/>
-
+                    android:padding="15dp"
+                    android:textColor="@color/colorPrimary"/>
+                -->
                 <TextView
                     android:id="@+id/recuperar"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:text="Recupera tu contraseña"
                     android:textStyle="bold"
                     android:onClick="recuperarPass"
-                    android:padding="15dp"/>
+                    android:padding="20dp"
+                    android:textColor="@color/colorPrimary"/>
 
-                <!-- ProgressBar for Loading Time -->
+
                 <ProgressBar
                     android:id="@+id/progressBar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:visibility="gone" />
-
-
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

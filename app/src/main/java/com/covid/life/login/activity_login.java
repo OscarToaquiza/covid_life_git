@@ -124,7 +124,7 @@ public class activity_login extends AppCompatActivity {
     public void recuperarPass(View view) {
         Intent intent
                 = new Intent(activity_login.this,
-                activity_test.class);
+                activity_recuperar.class);
         startActivity(intent);
     }
 

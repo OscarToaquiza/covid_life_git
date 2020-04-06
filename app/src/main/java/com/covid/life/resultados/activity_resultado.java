@@ -49,7 +49,8 @@ public class activity_resultado extends AppCompatActivity {
             txtResultado.setText("Baja SOSPECHA");
             txtDetalle.setText("Según la información proporcionada, al momento usted es un caso sospechoso de portar" +
                     " coronavirus, por lo que debe permanecer en su casa en aislamiento. A continuación le enviaremos el instructivo.");
-            txtInformacion.setText("¡QUÉDATE EN CASA!\n\nLea atentamente estas recomendaciones y llame al 171. las personas con las que usted convive también deben recibir esta información.");
+            txtInformacion.setText("¡QUÉDATE EN CASA!\n\nLea atentamente estas recomendaciones y llame al 171. " +
+                    "las personas con las que usted convive también deben recibir esta información.");
             txtEnlace.setText("https://www.salud.gob.ec/medidas-de-proteccion-basicas-contra-el-nuevo-coronavirus/");
             btn.setText("Salir");
             btn.setOnClickListener(new View.OnClickListener() {
