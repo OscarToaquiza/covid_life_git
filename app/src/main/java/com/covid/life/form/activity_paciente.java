@@ -3,13 +3,10 @@ package com.covid.life.form;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.covid.life.MainActivity;
-import com.covid.life.login.activity_registration;
+import com.covid.life.menu.activity_menu_inicio;
 import com.covid.life.models.Paciente;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,13 +18,20 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.covid.life.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
@@ -42,6 +46,8 @@ public class activity_paciente extends AppCompatActivity {
     private Paciente paciente;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private int validar = 0;
+    private ProgressBar progressbar;
+    private FirebaseAuth mAuth;
 
 
     @Override
@@ -52,6 +58,10 @@ public class activity_paciente extends AppCompatActivity {
         setSupportActionBar(toolbar);
         paciente= new Paciente();
         datos =  getIntent().getExtras().getStringArray("datos");
+
+        mAuth = FirebaseAuth.getInstance();
+        String  udi = mAuth.getCurrentUser().getUid();
+        paciente.setId(udi);
 
         btnGuardar = findViewById(R.id.guardar);
         cvAntecedentes = (CardView) findViewById(R.id.antecedentes);
@@ -72,7 +82,7 @@ public class activity_paciente extends AppCompatActivity {
         txtEnfermedad = findViewById(R.id.enfermedad);
         txtAlergia = findViewById(R.id.alergia);
         txtCerco = findViewById(R.id.cerco);
-
+        progressbar = findViewById(R.id.progressBarPaciente);
         sGenero.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -87,10 +97,7 @@ public class activity_paciente extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 guardarPaciente();
-                /*Intent intent
-                        = new Intent(getApplicationContext(),
-                        MainActivity.class);
-                startActivity(intent);*/
+
             }
         });
 
@@ -104,23 +111,33 @@ public class activity_paciente extends AppCompatActivity {
             cvAntecedentes.setVisibility(View.VISIBLE);
         } else {
             cvAntecedentes.setVisibility(View.GONE);
-            paciente.setEs_embarazada(FALSE);
-            paciente.setEsta_dando_lactar(FALSE);
         }
     }
 
     private void guardarPaciente(){
         obtenerDatos();
         obtenerSpinners();
-        if(validar == 1){
+        if(obtenerText()==FALSE){
+            return;
+        }
+        obtenerFecha();
+        progressbar.setVisibility(View.VISIBLE);
             db.collection("paciente")
                     .add(paciente)
                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
                             Toast.makeText(getApplicationContext(),
-                                    "DocumentSnapshot added with ID: " + documentReference.getId(), Toast.LENGTH_SHORT)
+                                    "Bienvenido !!", Toast.LENGTH_SHORT)
                                     .show();
+                            progressbar.setVisibility(View.GONE);
+                            finish();
+                            Intent intent
+                                    = new Intent(getApplicationContext(),
+                                    activity_menu_inicio.class);
+                            startActivity(intent);
+
+
 
                         }
                     })
@@ -130,26 +147,120 @@ public class activity_paciente extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(),
                                     "Error: "+e.getMessage(), Toast.LENGTH_SHORT)
                                     .show();
-
+                            progressbar.setVisibility(View.GONE);
                         }
                     });
-        }else{
-            Toast.makeText(getApplicationContext(),
-                    "COMPLETE TODOS LOS DATOS !!! ", Toast.LENGTH_SHORT)
-                    .show();
-        }
+
 
     }
     private void obtenerDatos(){
         paciente.setCedula(datos[0]);
         paciente.setNombres(datos[1]);
-        paciente.setApellido(datos[2]);
+        paciente.setApellidos(datos[2]);
         paciente.setCorreo(datos[3]);
     }
 
+    private  boolean obtenerText(){
+        if (TextUtils.isEmpty(txtTelefono.getText().toString().trim())) {
+            Toast.makeText(getApplicationContext(),
+                    "Ingrese su  número de teléfono ", Toast.LENGTH_LONG)
+                    .show();
+            return FALSE;
+        }
 
+        if (TextUtils.isEmpty(txtCanton.getText().toString().trim())) {
+            Toast.makeText(getApplicationContext(),
+                    "Ingrese el canton ", Toast.LENGTH_LONG)
+                    .show();
+            return FALSE;
+        }
 
-    private void obtenerSpinners() {
+        if (TextUtils.isEmpty(txtDireccion.getText().toString().trim())) {
+            Toast.makeText(getApplicationContext(),
+                    "Ingrese su direccion ", Toast.LENGTH_LONG)
+                    .show();
+            return FALSE;
+        }
+
+        if (TextUtils.isEmpty(txtEnfermedad.getText().toString().trim())) {
+            Toast.makeText(getApplicationContext(),
+                    "Ingrese la enfermedad, en caso de no tener ingrese: \"NINGUNA\" ", Toast.LENGTH_LONG)
+                    .show();
+            return FALSE;
+        }
+
+        if (TextUtils.isEmpty(txtAlergia.getText().toString().trim())) {
+            Toast.makeText(getApplicationContext(),
+                    "Ingrese el medicamento, en caso de no tener ingrese: \"NINGUNA\" ", Toast.LENGTH_LONG)
+                    .show();
+            return FALSE;
+        }
+
+        if (TextUtils.isEmpty(txtCerco.getText().toString().trim())) {
+            Toast.makeText(getApplicationContext(),
+                    "Ingrese el numero de familiares, en caso de no tener ingrese: \"0\" ", Toast.LENGTH_LONG)
+                    .show();
+            return FALSE;
+        }
+        paciente.setAlergia_medicamentos(txtAlergia.getText().toString().trim());
+        paciente.setFamiliares_cerco(Integer.valueOf(txtCerco.getText().toString().trim()));
+        paciente.setTiene_diagnosticado_enfermedad(txtEnfermedad.getText().toString().trim());
+        paciente.setDireccion(txtDireccion.getText().toString().trim());
+        paciente.setCanton(txtCanton.getText().toString().trim());
+        paciente.setTelefono(txtTelefono.getText().toString().trim());
+        return TRUE;
+    }
+
+    private void obtenerFecha(){
+        Calendar calendar = new GregorianCalendar(dtFechaNacimiento.getYear(), dtFechaNacimiento.getMonth(), dtFechaNacimiento.getDayOfMonth());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date fechaNacimiento = new Date(calendar.getTimeInMillis());
+        Date fechaCreacion = new Date();
+        paciente.setFechaNacimiento(fechaNacimiento);
+        paciente.setFecha_creacion(fechaCreacion);
+    }
+    private void obtenerSpinners(){
+        paciente.setGenero(sGenero.getSelectedItem().toString());
+        paciente.setProvincia(sProvincia.getSelectedItem().toString());
+        paciente.setAislado_por(sAislamiento.getSelectedItem().toString());
+
+        if(sPresion.getSelectedItem().toString().trim().equals("Si"))
+            paciente.setTiene_presion_alta(TRUE);
+        else
+            paciente.setTiene_presion_alta(FALSE);
+
+        if(sDiabetes.getSelectedItem().toString().trim().equals("Si"))
+            paciente.setTiene_diabetes(TRUE);
+        else
+            paciente.setTiene_diabetes(FALSE);
+
+        if(sFumador.getSelectedItem().toString().trim().equals("Si"))
+            paciente.setFue_es_fumador(TRUE);
+        else
+            paciente.setFue_es_fumador(FALSE);
+
+        if(sCancer.getSelectedItem().toString().trim().equals("Si"))
+            paciente.setEs_diagnosticado_cancer(TRUE);
+        else
+            paciente.setEs_diagnosticado_cancer(FALSE);
+
+        if(sDiscapacidad.getSelectedItem().toString().trim().equals("Si"))
+            paciente.setTiene_carnet_discapacidad(TRUE);
+        else
+            paciente.setTiene_carnet_discapacidad(FALSE);
+
+        if(sEmbarazada.getSelectedItem().toString().trim().equals("Si"))
+            paciente.setEs_embarazada(TRUE);
+        else
+            paciente.setEs_embarazada(FALSE);
+
+        if(sLactar.getSelectedItem().toString().trim().equals("Si"))
+            paciente.setEsta_dando_lactar(TRUE);
+        else
+            paciente.setEsta_dando_lactar(FALSE);
+    }
+
+    /*private void obtenerSpinners() {
         if(sGenero.getSelectedItemPosition()!=0){
             paciente.setGenero(sGenero.getSelectedItem().toString());
             validar = 1;
@@ -179,7 +290,7 @@ public class activity_paciente extends AppCompatActivity {
         }else
             validar=0;
 
-       /* if(sDiabetes.getSelectedItemPosition() != 0){
+        if(sDiabetes.getSelectedItemPosition() != 0){
             if(sDiabetes.getSelectedItem().toString().trim().equals("Si"))
                 paciente.setTiene_diabetes(TRUE);
             else
@@ -231,7 +342,7 @@ public class activity_paciente extends AppCompatActivity {
                 paciente.setEsta_dando_lactar(FALSE);
             validar=1;
         }else
-            validar=0;*/
+            validar=0;
 
-    }
+    }*/
 }

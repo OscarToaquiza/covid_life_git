@@ -19,7 +19,7 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="300dp"
-            android:layout_height="525dp"
+            android:layout_height="575dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:gravity="center"
@@ -50,27 +50,35 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Ingresa tu Cédula "
-                    android:layout_marginBottom="10dp"/>
+                    android:layout_marginBottom="10dp"
+                    android:inputType="number"
+                    android:imeOptions="actionSend"/>
 
                 <EditText
                     android:id="@+id/nombres"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Ingresa tus Nombres"
-                    android:layout_marginBottom="10dp"/>
+                    android:layout_marginBottom="10dp"
+                    android:inputType="textCapSentences|textAutoCorrect"
+                    android:imeOptions="actionSend"/>
                 <EditText
                     android:id="@+id/apellidos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Ingresa tus Apellidos"
-                    android:layout_marginBottom="10dp"/>
+                    android:layout_marginBottom="10dp"
+                    android:inputType="textCapSentences|textAutoCorrect"
+                    android:imeOptions="actionSend"/>
 
                 <EditText
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Ingresa tu Email"
-                    android:layout_marginBottom="10dp"/>
+                    android:layout_marginBottom="10dp"
+                    android:inputType="textCapSentences|textAutoCorrect"
+                    android:imeOptions="actionSend"/>
 
                 <!-- Edit text for password -->
                 <EditText

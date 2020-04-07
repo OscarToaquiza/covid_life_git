@@ -3,13 +3,15 @@ package com.covid.life.models;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.GeoPoint;
 
+import java.util.Date;
+
 public class Paciente {
     private String id;
     private String cedula;
     private String nombres;
-    private String apellido;
+    private String apellidos;
     private String correo;
-    private Timestamp fechaNacimiento;
+    private Date fechaNacimiento;
     private String genero;
     private String provincia;
     private String canton;
@@ -28,16 +30,16 @@ public class Paciente {
     private boolean tiene_presion_alta;
     private int estado_actual;
     private int familiares_cerco;
-    private Timestamp fecha_creacion;
+    private Date fecha_creacion;
 
     public Paciente() {
     }
 
-    public Paciente(String id, String cedula, String nombres, String apellido, String correo, Timestamp fechaNacimiento, String genero, String provincia, String canton, String telefono, GeoPoint ubicacion, String direccion, String aislado_por, String alergia_medicamentos, String tiene_diagnosticado_enfermedad, boolean es_diagnosticado_cancer, boolean es_embarazada, boolean esta_dando_lactar, boolean fue_es_fumador, boolean tiene_carnet_discapacidad, boolean tiene_diabetes, boolean tiene_presion_alta, int estado_actual, int familiares_cerco, Timestamp fecha_creacion) {
+    public Paciente(String id, String cedula, String nombres, String apellidos, String correo, Date fechaNacimiento, String genero, String provincia, String canton, String telefono, GeoPoint ubicacion, String direccion, String aislado_por, String alergia_medicamentos, String tiene_diagnosticado_enfermedad, boolean es_diagnosticado_cancer, boolean es_embarazada, boolean esta_dando_lactar, boolean fue_es_fumador, boolean tiene_carnet_discapacidad, boolean tiene_diabetes, boolean tiene_presion_alta, int estado_actual, int familiares_cerco, Date fecha_creacion) {
         this.id = id;
         this.cedula = cedula;
         this.nombres = nombres;
-        this.apellido = apellido;
+        this.apellidos = apellidos;
         this.correo = correo;
         this.fechaNacimiento = fechaNacimiento;
         this.genero = genero;
@@ -85,12 +87,12 @@ public class Paciente {
         this.nombres = nombres;
     }
 
-    public String getApellido() {
-        return apellido;
+    public String getApellidos() {
+        return apellidos;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
     public String getCorreo() {
@@ -101,11 +103,11 @@ public class Paciente {
         this.correo = correo;
     }
 
-    public Timestamp getFechaNacimiento() {
+    public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Timestamp fechaNacimiento) {
+    public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
@@ -253,11 +255,11 @@ public class Paciente {
         this.familiares_cerco = familiares_cerco;
     }
 
-    public Timestamp getFecha_creacion() {
+    public Date getFecha_creacion() {
         return fecha_creacion;
     }
 
-    public void setFecha_creacion(Timestamp fecha_creacion) {
+    public void setFecha_creacion(Date fecha_creacion) {
         this.fecha_creacion = fecha_creacion;
     }
 }

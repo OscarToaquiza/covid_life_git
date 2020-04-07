@@ -26,7 +26,7 @@ public class activity_registration extends AppCompatActivity {
     private EditText emailTextView, passwordTextView, txtNombres,txtApellidos,txtCedula;
     private CheckBox cbTerminos;
     private Button Btn;
-    public ProgressBar progressbar;
+    private ProgressBar progressbar;
     private FirebaseAuth mAuth;
     private String[] datos;
 
@@ -72,10 +72,6 @@ public class activity_registration extends AppCompatActivity {
     private void registerNewUser()
     {
 
-        // show the visibility of progress bar to show loading
-        progressbar.setVisibility(View.VISIBLE);
-
-        // Take the value of two edit texts in Strings
         String email, password;
         email = emailTextView.getText().toString().trim();
         password = passwordTextView.getText().toString().trim();
@@ -97,7 +93,7 @@ public class activity_registration extends AppCompatActivity {
 
         if (TextUtils.isEmpty(txtApellidos.getText().toString())) {
             Toast.makeText(getApplicationContext(),
-                    "Ingrese sus apeliidos!!",
+                    "Ingrese sus apellidos!!",
                     Toast.LENGTH_LONG)
                     .show();
             return;
@@ -118,8 +114,8 @@ public class activity_registration extends AppCompatActivity {
             return;
         }
 
+        progressbar.setVisibility(View.VISIBLE);
 
-        progressbar.setVisibility(View.GONE);
         // create new user or register new user
         mAuth
                 .createUserWithEmailAndPassword(email, password)
@@ -136,7 +132,7 @@ public class activity_registration extends AppCompatActivity {
 
                             // hide the progress bar
                             progressbar.setVisibility(View.GONE);
-
+                            finish();
                             // if the user created intent to login activity
                             Intent intent
                                     = new Intent(activity_registration.this,

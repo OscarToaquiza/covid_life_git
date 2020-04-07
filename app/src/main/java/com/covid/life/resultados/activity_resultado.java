@@ -65,7 +65,7 @@ public class activity_resultado extends AppCompatActivity {
             txtResultado.setText("ALTA SOSPECHA");
             txtDetalle.setText("Según la información proporcionada, usted tiene una alta probabilidad de estar contagiado del coronavirus." +
                     " Quédese en casa y comuníquese inmediatamente con el 171.");
-            txtInformacion.setText("¡QUÉDATE EN CASA!\n\nINFORMACIÓN");
+            txtInformacion.setText("¡QUÉDATE EN CASA!\n\n\n");
             btn.setText("REGISTRATE");
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
