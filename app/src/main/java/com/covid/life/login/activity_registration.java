@@ -17,6 +17,7 @@ import com.covid.life.MainActivity;
 import com.covid.life.R;
 import com.covid.life.form.activity_paciente;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -76,8 +77,8 @@ public class activity_registration extends AppCompatActivity {
 
         // Take the value of two edit texts in Strings
         String email, password;
-        email = emailTextView.getText().toString();
-        password = passwordTextView.getText().toString();
+        email = emailTextView.getText().toString().trim();
+        password = passwordTextView.getText().toString().trim();
 
         if (TextUtils.isEmpty(txtCedula.getText().toString())) {
             Toast.makeText(getApplicationContext(),
@@ -156,6 +157,15 @@ public class activity_registration extends AppCompatActivity {
                             // hide the progress bar
                             progressbar.setVisibility(View.GONE);
                         }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(),
+                                e.getMessage(),
+                                Toast.LENGTH_LONG)
+                                .show();
                     }
                 });
     }

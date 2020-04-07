@@ -86,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:entries="@array/provincias"
                     android:layout_marginTop="10dip"
-                    android:prompt="@string/spn_title" />
+                     />
 
                 <TextView
                     android:id="@+id/textView9"
@@ -103,6 +103,20 @@
                     android:hint="Ingrese su canton" />
 
                 <TextView
+                    android:id="@+id/textView20"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:text="Dirección :"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/direccion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Ingrese su dirección " />
+
+                <TextView
                     android:id="@+id/textView10"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -116,7 +130,7 @@
                     android:layout_height="wrap_content"
                     android:entries="@array/aislamiento"
                     android:layout_marginTop="10dip"
-                    android:prompt="@string/spn_title" />
+                     />
 
                 <TextView
                     android:id="@+id/textView7"
@@ -132,7 +146,7 @@
                     android:layout_height="wrap_content"
                     android:entries="@array/generos"
                     android:layout_marginTop="10dip"
-                    android:prompt="@string/spn_title" />
+                    />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -174,8 +188,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:entries="@array/seleccion"
-                    android:layout_marginTop="10dip"
-                    android:prompt="@string/spn_title" />
+                    android:layout_marginTop="10dip" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -188,8 +201,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:entries="@array/seleccion"
-                    android:layout_marginTop="10dip"
-                    android:prompt="@string/spn_title" />
+                    android:layout_marginTop="10dip" />
 
             </LinearLayout>
 
@@ -234,8 +246,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:entries="@array/seleccion"
-                    android:layout_marginTop="10dip"
-                    android:prompt="@string/spn_title" />
+                    android:layout_marginTop="10dip"/>
 
 
                 <TextView
@@ -249,8 +260,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:entries="@array/seleccion"
-                    android:layout_marginTop="10dip"
-                    android:prompt="@string/spn_title" />
+                    android:layout_marginTop="10dip" />
 
 
                 <TextView
@@ -264,8 +274,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:entries="@array/seleccion"
-                    android:layout_marginTop="10dip"
-                    android:prompt="@string/spn_title" />
+                    android:layout_marginTop="10dip" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -278,8 +287,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:entries="@array/seleccion"
-                    android:layout_marginTop="10dip"
-                    android:prompt="@string/spn_title" />
+                    android:layout_marginTop="10dip"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -292,8 +300,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:entries="@array/seleccion"
-                    android:layout_marginTop="10dip"
-                    android:prompt="@string/spn_title" />
+                    android:layout_marginTop="10dip" />
 
                 <TextView
                     android:layout_width="match_parent"

@@ -21,7 +21,6 @@
         <activity android:name=".login.activity_login" />
         <activity
             android:name=".form.activity_test"
-            android:label="@string/title_activity_test"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".menu.activity_menu">
             <intent-filter>

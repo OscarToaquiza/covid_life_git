@@ -16,6 +16,7 @@ import com.covid.life.MainActivity;
 import com.covid.life.R;
 import com.covid.life.form.activity_test;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -59,8 +60,8 @@ public class activity_login extends AppCompatActivity {
 
         // Take the value of two edit texts in Strings
         String email, password;
-        email = emailTextView.getText().toString();
-        password = passwordTextView.getText().toString();
+        email = emailTextView.getText().toString().trim();
+        password = passwordTextView.getText().toString().trim();
 
         // validations for input email and password
         if (TextUtils.isEmpty(email)) {
@@ -83,6 +84,7 @@ public class activity_login extends AppCompatActivity {
 
         // signin existing user
         mAuth.signInWithEmailAndPassword(email, password)
+
                 .addOnCompleteListener(
                         new OnCompleteListener<AuthResult>() {
                             @Override
@@ -118,7 +120,17 @@ public class activity_login extends AppCompatActivity {
                                     progressbar.setVisibility(View.GONE);
                                 }
                             }
-                        });
+                        })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(),
+                                "Error: "+e.getMessage(),
+                                Toast.LENGTH_LONG)
+                                .show();
+                    }
+                });
+
     }
 
     public void recuperarPass(View view) {

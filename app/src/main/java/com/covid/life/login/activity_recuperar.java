@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.covid.life.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -49,7 +50,7 @@ public class activity_recuperar extends AppCompatActivity {
 
         // Take the value of two edit texts in Strings
         String email, password;
-        email = emailTextView.getText().toString();
+        email = emailTextView.getText().toString().trim();
 
         // validations for input email and password
         if (TextUtils.isEmpty(email)) {
@@ -72,6 +73,15 @@ public class activity_recuperar extends AppCompatActivity {
                         }
 
                         progressbar.setVisibility(View.GONE);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(),
+                                "Error: "+e.getMessage(),
+                                Toast.LENGTH_LONG)
+                                .show();
                     }
                 });
     }
