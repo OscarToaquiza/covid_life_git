@@ -3,6 +3,8 @@ package com.covid.life.manage.camera;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -87,15 +89,24 @@ public class pre_camera extends AppCompatActivity {
     private  void graficaUno(){
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
         Double i = 0.0;
+        mScatterPlot.setTitle("Variación Canal Rojo");
         mScatterPlot.getViewport().setScalable(true);
         mScatterPlot.getViewport().setMinY(0);
         mScatterPlot.getViewport().setMaxY(300);
         mScatterPlot.getViewport().setXAxisBoundsManual(true);
+        mScatterPlot.getGridLabelRenderer().setTextSize(12);
+
+
+        mScatterPlot.getGridLabelRenderer().setVerticalLabelsAlign(Paint.Align.CENTER);
+
 
         for( Double valorY: puntos  ){
             series.appendData(new DataPoint( i , valorY   ),true,1000);
             i++;
         }
+        series.setColor(Color.RED);
+        series.setDrawDataPoints(true);
+        series.setDataPointsRadius(5);
         mScatterPlot.addSeries(series);
 
     }
@@ -145,7 +156,8 @@ public class pre_camera extends AppCompatActivity {
         * P1 = abs(Y/L)
         * */
 
-        int Fs = 913;
+        //int Fs = 913;
+        double Fs = (913*tiempo)/60;
         int L = vector.length;
         double[] frecuencia = new double[vector.length/2];
         for(int q = 0;q< listaComplejo.size() ;q++  ) {
@@ -155,8 +167,15 @@ public class pre_camera extends AppCompatActivity {
 
 
         LineGraphSeries<DataPoint> series2 = new LineGraphSeries<>();
+
+
         //mScatterPlot2.getViewport().setScalable(true);
         mScatterPlot2.getViewport().setScalableY(true);
+        mScatterPlot2.setTitle("Varaicón de la Frecuencia");
+        mScatterPlot2.getGridLabelRenderer().setTextSize(12);
+        mScatterPlot2.getGridLabelRenderer().setVerticalLabelsAlign(Paint.Align.RIGHT);
+
+        //mScatterPlot2.getGridLabelRenderer().setLabelVerticalWidth(100);
 
         Log.d("Tamaño de la Frecuencia",""+frecuencia.length);
 
@@ -168,6 +187,7 @@ public class pre_camera extends AppCompatActivity {
                 if (magnitudP1[j] > mayorFrecuenciaRanog) {
                     mayorFrecuenciaRanog = magnitudP1[j];
                     frecuenciaEstimada = frecuencia[j];
+                    Log.d("FRecuencia Esmitada",""+frecuencia[j]);
                 }
             }
 
@@ -176,7 +196,8 @@ public class pre_camera extends AppCompatActivity {
         }
 
 
-
+        series2.setDrawDataPoints(true);
+        series2.setDataPointsRadius(5);
         mScatterPlot2.addSeries(series2);
 
 
@@ -205,11 +226,10 @@ public class pre_camera extends AppCompatActivity {
         Log.d("ArrayProm",Arrays.toString(vectorPromedio));
         promedioGeneral = promedioGeneral/( (int) frmSegundo/2);
         Log.d("ArrayProm", "" + promedioGeneral );
-
-        DecimalFormat formato = new DecimalFormat("#.00");
         txtRitmoCardiacoP.setText(""+ formato.format(promedioGeneral) + " BMP");
-        */
-        txtRitmoCardiacoP.setText( frecuenciaEstimada + "BPM");
+         */
+        DecimalFormat formato = new DecimalFormat("#.00");
+        txtRitmoCardiacoP.setText( formato.format(frecuenciaEstimada) + "BPM");
 
 
     }
