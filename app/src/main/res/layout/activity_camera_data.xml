@@ -12,7 +12,9 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.5">
+        android:layout_weight="0.4"
+        android:backgroundTint="@color/colorPrimary"
+        >
         <org.opencv.android.JavaCameraView
             android:id="@+id/camaraOpenCV"
             android:layout_width="match_parent"
@@ -25,33 +27,46 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.4"
+        android:layout_weight="0.5"
         android:orientation="vertical">
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_instruccion_1"
+            android:textColor="@color/colorBlack"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            />
 
-
-
-        <!--<TextView
+        <TextView
             android:id="@+id/textView5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Coloca tu dedo indice detras de la camara"
-            android:textSize="14dp"
-            android:gravity="center_horizontal"
-           />
+            android:text="@string/text_instruccion_2"
+            android:textColor="@color/colorBlack"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            />
 
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/textView6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-            <Button
-                android:id="@+id/btnModoRGB"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/btn_modo_rgb"></Button>
-        </LinearLayout>
-   -->
+            android:text="@string/text_instruccion_3"
+            android:textColor="@color/colorBlack"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:src="@drawable/captura_dedo"
+            android:outlineAmbientShadowColor="@color/colorPrimary"
+            />
 
     </LinearLayout>
 
@@ -66,14 +81,13 @@
             android:id="@+id/btnIniciarTiempo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_marginLeft="10dp"
-
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
-
             android:layout_gravity="center|center_horizontal|center_vertical"
-            android:src="@drawable/icon_play_green" />
+            android:src="@drawable/icon_play_green"
+            android:backgroundTint="@color/colorPrimary"
+            />
 
         <Chronometer
             android:id="@+id/ChronometerTime"
@@ -89,17 +103,16 @@
             android:id="@+id/btnEnviarTiempo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:layout_alignParentStart="true"
-
             android:layout_alignParentBottom="true"
-
-
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:src="@drawable/icon_play_green"
             android:text="Enviar Datos"
             android:textSize="20dp"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/colorBlanco"
+            android:layout_marginRight="10dp"
             />
 
     </LinearLayout>
