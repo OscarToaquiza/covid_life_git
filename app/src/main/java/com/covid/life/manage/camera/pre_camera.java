@@ -15,6 +15,7 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import org.apache.commons.math3.complex.Complex;
 import org.jtransforms.fft.DoubleFFT_1D;
 import org.opencv.android.OpenCVLoader;
 
@@ -22,6 +23,7 @@ import java.sql.Array;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class pre_camera extends AppCompatActivity {
 
@@ -112,244 +114,73 @@ public class pre_camera extends AppCompatActivity {
         Log.d("frameSegundo FOURIER",""+frmSegundo);
 
         DoubleFFT_1D fft = new DoubleFFT_1D(vector.length);
-        Log.d("DataNueva","-------------------------------------------");
-        //fft.realForward(vector);
-        //double[] a = new double[ vector.length * 2];
-        //System.arraycopy(vector, 0, a, 0, vector.length);
+
         fft.realForward( vector );
 
-        double[] real = new double[ vector.length/2 ];
-        double[] imag = new double[ vector.length/2 ];
+        List<Complex> listaComplejo = new ArrayList<Complex>();
 
         for(int g = 0; g < vector.length / 2; ++g) {
             double re  = vector[2*g];
             double im  = vector[2*g+1];
-            Log.d("Real",""+re);
-            Log.d("Img",""+im);
+            Complex complejo = new Complex(re, im);
+            listaComplejo.add(complejo);
         }
 
-        Log.d("DataNueva","-------------------------------------------");
-
-        //for( int z = 0; z < vector.length;z++ ){
-         //   System.out.println(vector[z]);
-        //}
-
-/*
-        if(vector.length >= 64 && vector.length < 128){
-            int z = 0;
-            vectorFurier = new double[ 64 ];
-            for( z = 0; z < 65;z++ ){
-                vectorFurier[z] = vector[z];
-            }
-            Log.d("Tamaño Vector FOURIER", ""+vectorFurier.length );
-            fft  = new DoubleFFT_1D( vectorFurier.length );
-            fft.complexForward(vectorFurier);
-            z = 0;
-            for( z = 0; z < vectorFurier.length;z++ ){
-                Log.d("ParteCompleja",""+ vectorFurier[z]);
-            }
-            fft.realForward(vectorFurier);
-            z=0;
-            for( z = 0; z < vectorFurier.length;z++ ){
-                Log.d("ParteEntera",""+ vectorFurier[z]);
-            }
+        //Magnitud
+        double[] magnitudP1 = new double[ listaComplejo.size() ];
+        int z = 0;
+        System.out.println("Tamaño del vector magnitud " + listaComplejo.size() );
+        for (Complex complex : listaComplejo) {
+            magnitudP1[z] = (complex.abs()/vector.length) * 2;
+            //vector.length;
+            //System.out.println(complex.toString() + "Mag" + complex.abs() );
+            z++;
         }
-
-
-
-
-
-
-        if(vector.length >= 128 && vector.length < 256){
-            int z = 0;
-            vectorFurier = new double[ 128 ];
-            for( z = 0; z < 129;z++ ){
-                vectorFurier[z] = vector[z];
-            }
-            Log.d("Tamaño Vector FOURIER", ""+vectorFurier.length );
-            fft  = new DoubleFFT_1D( vectorFurier.length );
-            fft.complexForward(vectorFurier);
-            z = 0;
-            for( z = 0; z < vectorFurier.length;z++ ){
-                Log.d("ParteCompleja",""+ vectorFurier[z]);
-            }
-            fft.realForward(vectorFurier);
-            z=0;
-            for( z = 0; z < vectorFurier.length;z++ ){
-                Log.d("ParteEntera",""+ vectorFurier[z]);
-            }
-        }
-
-
-
-
-        if(vector.length >= 256 && vector.length < 512){
-            int z = 0;
-            vectorFurier = new double[ 256 ];
-            for( z = 0; z < 256;z++ ){
-                vectorFurier[z] = vector[z];
-            }
-            Log.d("Tamaño Vector FOURIER", ""+vectorFurier.length );
-            fft  = new DoubleFFT_1D( vectorFurier.length);
-            fft.realForward(vectorFurier);
-            z = 0;
-            for( z = 0; z < vectorFurier.length;z++ ){
-                Log.d("VF",""+ vectorFurier[z]);
-            }
-
-            fft.realForward(vectorFurier);
-            z=0;
-            for( z = 0; z < vectorFurier.length;z++ ){
-                Log.d("ParteEntera",""+ vectorFurier[z]);
-            }
-        }
-
-
-
-
-
-
-        if(vector.length >= 512 && vector.length < 1024){
-            int z = 0;
-            vectorFurier = new double[ 512 ];
-            for( z = 0; z < 513;z++ ){
-                vectorFurier[z] = vector[z];
-            }
-            Log.d("Tamaño Vector FOURIER", ""+vectorFurier.length );
-            fft  = new DoubleFFT_1D( vectorFurier.length );
-            fft.complexForward(vectorFurier);
-            z = 0;
-            for( z = 0; z < vectorFurier.length;z++ ){
-                Log.d("ParteCompleja",""+ vectorFurier[z]);
-            }
-            fft.realForward(vectorFurier);
-            z=0;
-            for( z = 0; z < vectorFurier.length;z++ ){
-                Log.d("ParteEntera",""+ vectorFurier[z]);
-            }
-        }
-
-
-
-
-
-
-
-        if(vector.length >= 1024 && vector.length < 2048){
-            int z = 0;
-            vectorFurier = new double[ 1024 ];
-            for( z = 0; z < 1025;z++ ){
-                vectorFurier[z] = vector[z];
-            }
-            Log.d("Tamaño Vector FOURIER", ""+vectorFurier.length );
-            fft  = new DoubleFFT_1D( vectorFurier.length );
-            fft.complexForward(vectorFurier);
-            z = 0;
-            for( z = 0; z < vectorFurier.length;z++ ){
-                Log.d("ParteCompleja",""+ vectorFurier[z]);
-            }
-            fft.realForward(vectorFurier);
-            z=0;
-            for( z = 0; z < vectorFurier.length;z++ ){
-                Log.d("ParteEntera",""+ vectorFurier[z]);
-            }
-        }
-
-
-
-
-        if(vector.length >= 2048 && vector.length < 4096){
-            int z = 0;
-            vectorFurier = new double[ 2048 ];
-            for( z = 0; z < 2049;z++ ){
-                vectorFurier[z] = vector[z];
-            }
-            Log.d("Tamaño Vector FOURIER", ""+vectorFurier.length );
-            fft  = new DoubleFFT_1D( vectorFurier.length );
-            fft.complexForward(vectorFurier);
-            z = 0;
-            for( z = 0; z < vectorFurier.length;z++ ){
-                Log.d("ParteCompleja",""+ vectorFurier[z]);
-            }
-            fft.realForward(vectorFurier);
-            z=0;
-            for( z = 0; z < vectorFurier.length;z++ ){
-                Log.d("ParteEntera",""+ vectorFurier[z]);
-            }
-        }
-
-        if(vector.length >= 4096 && vector.length < 8192){
-            int z = 0;
-            vectorFurier = new double[ 4096 ];
-            for( z = 0; z < 4097;z++ ){
-                vectorFurier[z] = vector[z];
-            }
-            Log.d("Tamaño Vector FOURIER", ""+vectorFurier.length );
-            fft  = new DoubleFFT_1D( vectorFurier.length );
-            fft.complexForward(vectorFurier);
-            z = 0;
-            for( z = 0; z < vectorFurier.length;z++ ){
-                Log.d("ParteCompleja",""+ vectorFurier[z]);
-            }
-            fft.realForward(vectorFurier);
-            z=0;
-            for( z = 0; z < vectorFurier.length;z++ ){
-                Log.d("ParteEntera",""+ vectorFurier[z]);
-            }
-        }
-
-        if(vector.length >= 8192 && vector.length < 16384){
-
-            int z = 0;
-            vectorFurier = new double[ 8192 ];
-            for( z = 0; z < 8193;z++ ){
-                vectorFurier[z] = vector[z];
-            }
-            Log.d("Tamaño Vector FOURIER", ""+vectorFurier.length );
-            fft  = new DoubleFFT_1D( vectorFurier.length );
-            fft.complexForward(vectorFurier);
-            z = 0;
-            for( z = 0; z < vectorFurier.length;z++ ){
-                Log.d("ParteCompleja",""+ vectorFurier[z]);
-            }
-            fft.realForward(vectorFurier);
-            z=0;
-            for( z = 0; z < vectorFurier.length;z++ ){
-                Log.d("ParteEntera",""+ vectorFurier[z]);
-            }
-        }
-
-*/
 
         /*
-        * Fs = 100 100 muestras por cada 10 segundos
+        * Fs = 913 defecto
         * T = 1/Fs
-        * L = 200 Tiempo.
+        * L = total de frames.
         * Y = ftt(R)    FFT del vector R
-        * P2 = abs(Y/L)
+        * P1 = abs(Y/L)
         * */
 
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
-        Double ejex = 0.0;
-        mScatterPlot2.getViewport().setScalable(true);
-        mScatterPlot2.getViewport().setMinY(0);
-        mScatterPlot2.getViewport().setMaxY(300);
-        mScatterPlot2.getViewport().setXAxisBoundsManual(true);
-
-        double f = 0.0;
-        double g = 0.0;
-        for(int j = 1; j < vector.length; j++){
-         /*   if ( vector[j]> f){
-                f = vector[j];
-                Log.d("ECIADOR",""+ f);
-            }*/
-            series.appendData(new DataPoint( ejex ,  (Math.abs(vector[j]))  ),true,1000);
-            ejex++;
+        int Fs = 913;
+        int L = vector.length;
+        double[] frecuencia = new double[vector.length/2];
+        for(int q = 0;q< listaComplejo.size() ;q++  ) {
+            frecuencia[q] = (Fs*q)/L;
         }
 
 
-        mScatterPlot2.addSeries(series);
 
+        LineGraphSeries<DataPoint> series2 = new LineGraphSeries<>();
+        //mScatterPlot2.getViewport().setScalable(true);
+        mScatterPlot2.getViewport().setScalableY(true);
+
+        Log.d("Tamaño de la Frecuencia",""+frecuencia.length);
+
+        double mayorFrecuenciaRanog = 0.0;
+        double frecuenciaEstimada = 0;
+        for(int j = 1; j < frecuencia.length ; j++){
+
+            if( frecuencia[j]>=45 && frecuencia[j]<=145){
+                if (magnitudP1[j] > mayorFrecuenciaRanog) {
+                    mayorFrecuenciaRanog = magnitudP1[j];
+                    frecuenciaEstimada = frecuencia[j];
+                }
+            }
+
+
+            series2.appendData(new DataPoint( frecuencia[j] ,  magnitudP1[j]  ),true,1000);
+        }
+
+
+
+        mScatterPlot2.addSeries(series2);
+
+
+        /*
         i = 0;
 
         for (int x = 0; x < vector.length; x++) {
@@ -376,9 +207,9 @@ public class pre_camera extends AppCompatActivity {
         Log.d("ArrayProm", "" + promedioGeneral );
 
         DecimalFormat formato = new DecimalFormat("#.00");
-
         txtRitmoCardiacoP.setText(""+ formato.format(promedioGeneral) + " BMP");
-        //txtRitmoCardiacoP.setText(""+ (vector[0]+vector[1]+vector[3])/3 + " BMP");
+        */
+        txtRitmoCardiacoP.setText( frecuenciaEstimada + "BPM");
 
 
     }
