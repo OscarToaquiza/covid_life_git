@@ -25,49 +25,51 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:orientation="vertical"
+                android:padding="15dp"
                >
-
-                <androidx.cardview.widget.CardView
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
                     android:gravity="center"
-                    android:layout_margin="8dp"
-                    app:cardBackgroundColor="@color/cardview_light_background"
-                    app:cardCornerRadius="15dp">
-                    <Button
-                        android:id="@+id/btntest"
-                        android:layout_width="175dp"
-                        android:layout_height="wrap_content"
-                        android:background="@color/colorPrimary"
-                        android:textColor="@color/colorBlanco"
-                        android:text="Test Covid 19"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="50dp"
-                        android:layout_marginBottom="50dp"
-                        android:drawableTop="@drawable/ic_list_alt"
-                        android:drawableTint="@color/colorBlanco"
-                        android:textSize="20dp"/>
+                    android:text="COVID LIFE"
+                    android:textSize="30dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="25dp"/>
 
-                </androidx.cardview.widget.CardView>
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_estetoscopio"
+                    android:layout_marginBottom="35dp"/>
 
+                <Button
+                    android:id="@+id/btntest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/colorPrimary"
+                    android:text="Test Covid"
+                    android:textColor="@color/colorBlanco"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:drawableTint="@color/colorBlanco"/>
 
                 <Button
                     android:id="@+id/btnlogin"
-                    android:layout_width="175dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:background="@color/colorPrimary"
-                    android:textColor="@color/colorBlanco"
                     android:text="Inicia sesión"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="50dp"
-                    android:layout_marginBottom="50dp"
-                    android:drawableTop="@drawable/ic_people"
-                    android:drawableTint="@color/colorBlanco"
-                    android:textSize="20dp"/>
+                    android:textColor="@color/colorBlanco"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:drawableTint="@color/colorBlanco"/>
 
 
 

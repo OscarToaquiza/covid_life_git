@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.covid.life.R;
 import com.covid.life.menu.activity_menu_inicio;
-import com.covid.life.models.SignosVitales;
+import com.covid.life.models.Seguimiento;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,8 +23,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Date;
 
-import static java.lang.Boolean.FALSE;
-
 public class activity_signosVitales extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
@@ -32,14 +30,14 @@ public class activity_signosVitales extends AppCompatActivity {
     private TextView txtTemperatura, txtFrecuencia,txtSaturacion;
     private Button btnAgregar;
     private ProgressBar progressBar;
-    private SignosVitales signosVitales;
+    private Seguimiento signosVitales;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signos_vitales);
 
-        signosVitales = new SignosVitales();
+        signosVitales = new Seguimiento();
         mAuth = FirebaseAuth.getInstance();
         String uid = mAuth.getCurrentUser().getUid();
         signosVitales.setIdPaciente(uid);
@@ -80,15 +78,15 @@ public class activity_signosVitales extends AppCompatActivity {
             return;
         }
 
-        signosVitales.setSaturacionOxigeno(Double.parseDouble(txtSaturacion.getText().toString().trim()));
-        signosVitales.setFrecuenciaCardiaca(Double.parseDouble(txtFrecuencia.getText().toString().trim()));
+        signosVitales.setSat_oxigeno(Double.parseDouble(txtSaturacion.getText().toString().trim()));
+        signosVitales.setRitmo_cardiaco(Double.parseDouble(txtFrecuencia.getText().toString().trim()));
         signosVitales.setTemperatura(Double.parseDouble(txtTemperatura.getText().toString().trim()));
 
         Date fecha = new Date();
         signosVitales.setFecha(fecha);
 
         progressBar.setVisibility(View.VISIBLE);
-        db.collection("signos_vitales")
+        db.collection("seguimiento")
                 .add(signosVitales)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override

@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_vertical"
+    android:layout_height="wrap_content"
+    android:gravity="center"
     android:orientation="vertical"
-    android:padding="15dp"
     tools:context=".login.activity_registration">
-
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        android:padding="15dp">
+        android:padding="25dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="300dp"
@@ -25,6 +23,7 @@
             android:gravity="center"
             app:cardBackgroundColor="@color/cardview_light_background"
             app:cardCornerRadius="15dp"
+            android:padding="25dp"
             >
 
 
@@ -126,5 +125,4 @@
         </androidx.cardview.widget.CardView>
     </RelativeLayout>
 
-
-</LinearLayout>
+</ScrollView>

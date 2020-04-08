@@ -23,7 +23,7 @@
         <activity
             android:name=".form.activity_test"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".menu.activity_menu">
+        <activity android:name=".menu.activity_menu" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
