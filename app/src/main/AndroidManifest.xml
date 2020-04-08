@@ -9,7 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".form.activity_signosVitales"></activity>
+        <activity android:name=".menu.activity_menu_inicio" />
+        <activity android:name=".resultados.activity_resultado" />
+        <activity
+            android:name=".form.activity_paciente"
+            android:label="@string/title_activity_paciente"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".login.activity_recuperar" />
+        <activity android:name=".login.activity_registration" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".login.activity_login" />
+        <activity
+            android:name=".form.activity_test"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".menu.activity_menu" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
