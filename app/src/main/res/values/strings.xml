@@ -1,5 +1,22 @@
 <resources>
     <string name="app_name">Covid Life</string>
+    <string name="btn_home">Iniciar</string>
+    <string name="btn_tomar_pulsos">Tomar Signos Vitales</string>
+    <string name="text__titulo_pulso_cardiaco">Frecuencia Cardica Pro.</string>
+    <string name="text_pulso_cardiaco"> -- </string>
+    <string name="text_tiutlo_temperatura">Temperatura Pro.</string>
+    <string name="text_temperatura"> -- ªC </string>
+
+    <string name="text_ritmos_cardiaco">
+        Su frecuencia cardíaca, o pulso, es el número de veces que su corazón late por minuto.
+        La frecuencia cardíaca normal varía de una persona a otra.
+        Conocer la suya puede ser un indicador importante de salud cardíaca.
+    </string>
+    <!-- https://www.goredforwomen.org/es/health-topics/high-blood-pressure/the-facts-about-high-blood-pressure/all-about-heart-rate-pulse -->
+    <string name="text_instruccion_1">1. Coloca tu dedo índice sobre el lente de la camara del telefono.</string>
+    <string name="text_instruccion_2">2. Presione el boton de Inicio y espere durante 60 segundos.</string>
+    <string name="text_instruccion_3">3. Despues de 60 segundos seleccione "Enviar Datos", para su respectivo análisis.</string>
+
     <string name="title_activity_paciente"> Paciente</string>
     <string name="action_settings">Settings</string>
 
@@ -39,7 +56,6 @@
     <string name="NoSospechoInfo">
         ¡QUÉDATE EN CASA!\n\nINFORMACIÓN
     </string>
-
     <string-array name="aislamiento">
         <item>-- Seleccione --</item>
         <item>MPS</item>
@@ -48,14 +64,11 @@
         <item>ISSPOL</item>
         <item>PRIVADO</item>
     </string-array>
-
     <string-array name="seleccion">
         <item>-- Seleccione --</item>
         <item>Si</item>
         <item>No</item>
     </string-array>
-
-
     <string-array name="generos">
         <item>-- Seleccione --</item>
         <item>Mujer</item>
@@ -90,6 +103,4 @@
         <item>Galapagos </item>
         <item>Zamora Chinchipe    </item>
     </string-array>
-
-
 </resources>

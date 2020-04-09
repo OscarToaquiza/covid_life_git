@@ -21,6 +21,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        main {
+            jni {
+                srcDirs 'src/main/jni', 'src/main/jniLibs/'
+            }
+        }
+    }
 
 }
 
@@ -38,10 +45,12 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation project(path: ':openCVLibrary349')
+    implementation 'com.jjoe64:graphview:4.2.2'
+    implementation 'com.github.wendykierp:JTransforms:3.1'
     implementation 'com.google.firebase:firebase-auth:19.1.0'
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation "androidx.viewpager2:viewpager2:1.0.0"
     api 'com.google.android.material:material:1.1.0-alpha06'
-
 }
