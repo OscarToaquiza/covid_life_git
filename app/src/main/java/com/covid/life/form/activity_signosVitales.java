@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.covid.life.R;
+import com.covid.life.manage.camera.pre_camera;
 import com.covid.life.menu.activity_menu_inicio;
 import com.covid.life.models.Seguimiento;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -21,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class activity_signosVitales extends AppCompatActivity {
@@ -28,7 +30,7 @@ public class activity_signosVitales extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private TextView txtTemperatura, txtFrecuencia,txtSaturacion;
-    private Button btnAgregar;
+    private Button btnAgregar, btnTomarSignosVitalesAutomatico;
     private ProgressBar progressBar;
     private Seguimiento signosVitales;
 
@@ -46,12 +48,22 @@ public class activity_signosVitales extends AppCompatActivity {
         txtFrecuencia = findViewById(R.id.frecuenciaCardiaca);
         txtSaturacion = findViewById(R.id.saturacionOxigeno);
         btnAgregar = findViewById(R.id.RegistrarSignos);
+        btnTomarSignosVitalesAutomatico = findViewById(R.id.btnTomarSignosAUtomatico);
         progressBar = findViewById(R.id.progressBar);
 
         btnAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 guardarSignosVitales();
+            }
+        });
+
+        btnTomarSignosVitalesAutomatico.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Intent inicioLayout = new Intent( v.getContext() , pre_camera.class);
+               inicioLayout.putExtra("Puntos",new ArrayList<Double>());
+               startActivity(inicioLayout );
             }
         });
     }

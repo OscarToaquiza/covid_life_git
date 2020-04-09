@@ -8,4 +8,5 @@
     <color name="colorBlancoTransparente">#cccccc</color>
     <color name="colorBlanco">#FFFFFF</color>
     <color name="colorTexto">#2488DD</color>
+    <color name="colorRed">#DC3B45</color>
 </resources>

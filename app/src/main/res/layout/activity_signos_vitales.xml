@@ -100,6 +100,16 @@
                     android:textColor="@color/colorBlanco"
                     android:text="Registrar"  />
 
+                <Button
+                    android:id="@+id/btnTomarSignosAUtomatico"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorRed"
+                    android:textColor="@color/colorBlanco"
+                    android:text="Tomar (Pruebas)"
+                    android:layout_marginTop="5dp"
+                    />
+
 
 
 
