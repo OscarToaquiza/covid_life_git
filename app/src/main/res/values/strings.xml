@@ -3,9 +3,9 @@
     <string name="btn_home">Iniciar</string>
 
     <string name="btn_tomar_pulsos">Tomar Signos Vitales</string>
-    <string name="text__titulo_pulso_cardiaco">Ritmo Cardiaco Prom</string>
+    <string name="text__titulo_pulso_cardiaco">Frecuencia Cardica Pro.</string>
     <string name="text_pulso_cardiaco"> -- </string>
-    <string name="text_tiutlo_temperatura">Temperatura Prom</string>
+    <string name="text_tiutlo_temperatura">Temperatura Pro.</string>
     <string name="text_temperatura"> -- ªC </string>
 
     <string name="text_ritmos_cardiaco">

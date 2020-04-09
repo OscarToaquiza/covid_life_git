@@ -75,11 +75,12 @@ public class pre_camera extends AppCompatActivity {
             mScatterPlot.setVisibility(View.VISIBLE);
             mScatterPlot2.setVisibility(View.VISIBLE);
 
-            for( int w = 0; w < puntos.size(); w++){
-                Log.d("Vector R"+w,""+puntos.get(w));
-            }
+            //for( int w = 0; w < puntos.size(); w++){
+             //   Log.d("Vector R"+w,""+puntos.get(w));
+            //}
 
             graficaUno();
+            Log.d("tiempo final",""+seconds);
             graficaDos(puntos,seconds);
         }else{
             //Mostrar Img y Parrafo
@@ -94,7 +95,7 @@ public class pre_camera extends AppCompatActivity {
 
     private  void graficaUno(){
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
-        Double i = 0.0;
+        double i = 0.0;
         mScatterPlot.setTitle("Variación Canal Rojo");
         mScatterPlot.getViewport().setScalable(true);
         mScatterPlot.getViewport().setMinY(0);
@@ -114,13 +115,34 @@ public class pre_camera extends AppCompatActivity {
 
     private  void graficaDos( ArrayList<Double> puntosVectorR, long tiempo){
 
+
+        int j = 0;
+        int i;
+        //Limitar el vector R a 30 segundos..
+        //Eliminando los 15 segundos iniciales y 15 segundos finales.
+        int FramesSegundo = puntosVectorR.size() / (int)tiempo;
+        int FraneInicial = FramesSegundo * 15;
+        int FrameFInal = puntosVectorR.size() - FraneInicial;
+
+        //Log.d("TotalFrames", ""+ puntosVectorR.size());
+        //Log.d("FramesSegundo", ""+ FramesSegundo);
+        //Log.d("FrameInicial", ""+ FraneInicial);
+        //Log.d("FrameFInal", ""+ FrameFInal);
         // Transformar de ArryaList a Double, porque la funcion fft slo acpeta double[]
-        double[] vector = new double[puntosVectorR.size()];
-        int i = 0;
-        for( Double valorY: puntosVectorR  ){
-            vector[i] = valorY;
-            i++;
+        double[] vector = new double[ FrameFInal - FraneInicial ];
+
+        for ( i = FraneInicial; i< FrameFInal;i++ ){
+            vector[j] = puntosVectorR.get(i);
+            j++;
+            Log.d("VALOR J ", ""+j);
         }
+        /*for( Double valorY: puntosVectorR ){
+                vector[i] = valorY;
+                i++;
+        }*/
+
+        Log.d("Tamaño del vector R", ""+ vector.length);
+
         //Log.d("VectorR FOURIER",""+vector.length);
         //Log.d("Tiempo FOURIER",""+tiempo);
         //Log.d("frameSegundo FOURIER",""+frmSegundo);
@@ -155,8 +177,9 @@ public class pre_camera extends AppCompatActivity {
         * P1 = abs(Y/L)
         * */
 
-        //int Fs = 913;
-        double Fs = (913*tiempo)/60;
+        //double Fs = 913;
+        double Fs = (913*(tiempo -30 ))/60;
+        Log.d("Valor de FS",""+Fs);
         int L = vector.length;
         double[] frecuencia = new double[vector.length/2];
         for(int q = 0;q< listaComplejo.size() ;q++  ) {
@@ -166,7 +189,7 @@ public class pre_camera extends AppCompatActivity {
         LineGraphSeries<DataPoint> series2 = new LineGraphSeries<>();
 
         mScatterPlot2.getViewport().setScalableY(true);
-        mScatterPlot2.setTitle("Varaicón de la Frecuencia");
+        mScatterPlot2.setTitle("Variación de la Frecuencia");
         mScatterPlot2.getGridLabelRenderer().setTextSize(12);
         mScatterPlot2.getGridLabelRenderer().setVerticalLabelsAlign(Paint.Align.RIGHT);
 
@@ -174,7 +197,10 @@ public class pre_camera extends AppCompatActivity {
 
         double mayorFrecuenciaRanog = 0.0;
         double frecuenciaEstimada = 0;
-        for(int j = 1; j < frecuencia.length ; j++){
+        j = 0;
+        for(j = 1; j < frecuencia.length ; j++){
+            //70-106
+            //60-120
             if( frecuencia[j]>=55 && frecuencia[j]<=145){
                 if (magnitudP1[j] > mayorFrecuenciaRanog) {
                     mayorFrecuenciaRanog = magnitudP1[j];
@@ -183,7 +209,13 @@ public class pre_camera extends AppCompatActivity {
                 }
             }
             series2.appendData(new DataPoint( frecuencia[j] ,  magnitudP1[j]  ),true,1000);
+            Log.d("FRecuencia Estimaada",""+magnitudP1[j]);
         }
+        j= 0;
+        //for(j = 1; j< frecuencia.length; j++){
+         //   Log.d("Valor de P1",""+magnitudP1[j]);
+          //  Log.d("Valor de f",""+frecuencia[j]);
+        //}
 
         series2.setDrawDataPoints(true);
         series2.setDataPointsRadius(5);
@@ -192,7 +224,6 @@ public class pre_camera extends AppCompatActivity {
         Log.d("Frecuencia final" ,""+ frecuenciaEstimada);
         DecimalFormat formato = new DecimalFormat("#.00");
         txtRitmoCardiacoP.setText( formato.format(frecuenciaEstimada) + "BPM");
-
 
     }
 }

@@ -8,7 +8,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.hardware.camera2.CameraManager;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
@@ -44,8 +43,7 @@ public class camera_data extends Activity implements CameraBridgeViewBase.CvCame
     private ImageButton btnSTratTime;
     private boolean mIsRecord = false;
     private Chronometer mChronometer;
-    private Button btnSendData;
-    private ImageButton btnStartTime;
+    private Button btnStartTime;
     private long secondTotal;
 
     //Variables para manejar los frames de video
@@ -64,7 +62,7 @@ public class camera_data extends Activity implements CameraBridgeViewBase.CvCame
         // Verificar Permisos de la cammara... docuemtacion oficial rápida
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
             if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)){
-
+                Log.d("PERMISOS","PERMISOS ACEPTADO");
             }else{
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},PERNISSION_CAMERA);
             }
@@ -74,20 +72,16 @@ public class camera_data extends Activity implements CameraBridgeViewBase.CvCame
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_camera_data);
         // Inicializar vista de camara
-        mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.camaraOpenCV);
+        mOpenCvCameraView = findViewById(R.id.camaraOpenCV);
         mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
         mOpenCvCameraView.setCvCameraViewListener(this);
         // Inicializar objetos de la vista
         // Objetos
-        mChronometer = (Chronometer) findViewById(R.id.ChronometerTime);
+        mChronometer = findViewById(R.id.ChronometerTime);
         btnStartTime = findViewById(R.id.btnIniciarTiempo);
-        btnSendData = findViewById(R.id.btnEnviarTiempo);
         // Variables
         mDataPoints = new ArrayList<Double>();
         channels = new ArrayList<Mat>();
-        // desabilitsr boton de grabacion
-        btnSendData.setEnabled(mIsRecord);
-
 
 
         // Activar cronometro e inicio de obtencion de datos para dibujar la grafica.
@@ -96,37 +90,30 @@ public class camera_data extends Activity implements CameraBridgeViewBase.CvCame
             public void onClick(View v) {
                 if(!mIsRecord){
                     mIsRecord = true;
-                    btnSendData.setEnabled(!mIsRecord);
-                    btnStartTime.setImageResource(R.drawable.icon_play_red);
+                    btnStartTime.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_play_red,0,0,0);
                     mChronometer.setBase(SystemClock.elapsedRealtime());
                     mChronometer.start();
                     showElapsedTime();
                 }else{
                     mIsRecord = false;
-                    btnSendData.setEnabled(!mIsRecord);
-                    btnStartTime.setImageResource(R.drawable.icon_play_green);
+                    btnStartTime.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_play_green,0,0,0);
                     //Toast.makeText(getApplicationContext(), "Tiempo transurrido" + mChronometer.getText().toString(),Toast.LENGTH_SHORT).show();
-
                     mChronometer.stop();
                     showElapsedTime();
-
-
                 }
             }
         });
 
-        // Volver y analizar.
-        btnSendData.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //onBackPressed();
-                Intent formularioSintomas = new Intent(v.getContext() , pre_camera.class);
-                formularioSintomas.putExtra("Puntos", mDataPoints );
-                formularioSintomas.putExtra("Segundos", secondTotal );
-                startActivity(formularioSintomas);
-                finish();
-            }
-        });
+    }
+
+    private void irAtras(){
+        long elapsedMillis = (SystemClock.elapsedRealtime() - mChronometer.getBase() );
+        secondTotal = elapsedMillis / 1000;
+        Intent formularioSintomas = new Intent( this , pre_camera.class);
+        formularioSintomas.putExtra("Puntos", mDataPoints );
+        formularioSintomas.putExtra("Segundos", secondTotal );
+        startActivity(formularioSintomas);
+        finish();
     }
 
     private void showElapsedTime() {
@@ -214,24 +201,30 @@ public class camera_data extends Activity implements CameraBridgeViewBase.CvCame
             //Log.d( "-",red.submat(( ancho/2 )- 2,(ancho/2) + 2,(alto/2) - 2,( alto/2 )+ 2).dump());
 
 
-            PX1 = getMatrizCentral(                       0,                   0,      (int) (witdhFRame/3),     (int)(heigthFrame/3) );
-            PX2 = getMatrizCentral(      (int) witdhFRame/3,                   0,(int) (witdhFRame/3)*2,     (int)(heigthFrame/3) );
-            PX3 = getMatrizCentral(  (int) (witdhFRame/3)*2,                   0,                witdhFRame,     (int)(heigthFrame/3) );
+            PX1 = getMatrizCentral(                       0,                   0, witdhFRame/3, heigthFrame/3);
+            PX2 = getMatrizCentral(      witdhFRame /3,                   0, (witdhFRame/3) *2, heigthFrame/3);
+            PX3 = getMatrizCentral(  (witdhFRame/3) *2,                   0,                witdhFRame, heigthFrame/3);
 
-            PX4 = getMatrizCentral(                      0 , (int) heigthFrame/3,    (int) witdhFRame/3,(int)(heigthFrame/3)*2 );
-            PX5 = getMatrizCentral(     (int) witdhFRame/3 , (int) heigthFrame/3,(int) (witdhFRame/3)*2,(int)(heigthFrame/3)*2 );
-            PX6 = getMatrizCentral(  (int) (witdhFRame/3)*2, (int) heigthFrame/3,         (int) witdhFRame ,(int)(heigthFrame/3)*2 );
+            PX4 = getMatrizCentral(                      0 , heigthFrame /3,    witdhFRame /3, (heigthFrame/3) *2 );
+            PX5 = getMatrizCentral(     witdhFRame /3 , heigthFrame /3, (witdhFRame/3) *2, (heigthFrame/3) *2 );
+            PX6 = getMatrizCentral(  (witdhFRame/3) *2, heigthFrame /3, witdhFRame, (heigthFrame/3) *2 );
 
-            PX7 = getMatrizCentral(                     0 , (int)(heigthFrame/3)*2,(int)    witdhFRame/3 ,        (int)heigthFrame);
-            PX8 = getMatrizCentral(    (int) witdhFRame/3 , (int)(heigthFrame/3)*2,(int) (witdhFRame/3)*2, (int) (int)heigthFrame );
-            PX9 = getMatrizCentral( (int)(witdhFRame/3)*2 , (int)(heigthFrame/3)*2,    (int)      witdhFRame ,            heigthFrame );
+            PX7 = getMatrizCentral(                     0 , (heigthFrame/3) *2, witdhFRame /3 , heigthFrame);
+            PX8 = getMatrizCentral(    witdhFRame /3 , (heigthFrame/3) *2, (witdhFRame/3) *2, heigthFrame);
+            PX9 = getMatrizCentral( (witdhFRame/3) *2 , (heigthFrame/3) *2, witdhFRame,            heigthFrame );
 
 
             valueY = (PX1+PX2+PX3+PX4+PX5+PX6+PX7+PX8 +PX9) / 9;
             // Agregando los puntos de la gráfica
             mDataPoints.add(valueY);
 
-            Log.d("TAMANIOARRAY",""+ mDataPoints.size()) ;
+            //Log.d("TAMANIOARRAY",""+ mDataPoints.size()) ;
+            long elapsedMillis = (SystemClock.elapsedRealtime() - mChronometer.getBase() );
+            secondTotal = elapsedMillis / 1000;
+            if(secondTotal >= 60){
+                //Log.d("Se acabo el tiempo",""+secondTotal);
+                this.irAtras();
+            }
 
         }
 
@@ -287,5 +280,5 @@ public class camera_data extends Activity implements CameraBridgeViewBase.CvCame
 
         return  promedioMatrizPIxeles;
 
-    };
+    }
 }
