@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".resultados.activity_resultado">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="300dp"
+                android:layout_height="575dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                app:cardBackgroundColor="@color/cardview_light_background"
+                app:cardCornerRadius="15dp">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:padding="25dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="TEST COVID 19"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorPrimary"/>
+                        <ImageView
+                            android:id="@+id/icono"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:padding="10dp"/>
+
+                        <TextView
+                            android:id="@+id/tvResultado"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:textSize="25dp"
+                            android:padding="10dp"/>
+                        <TextView
+                            android:id="@+id/tvDetalle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:textSize="17dp"
+                            android:padding="10dp"/>
+                        <TextView
+                            android:id="@+id/tvInformacion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                           android:textSize="15dp"
+                            android:textStyle="bold"
+                            android:padding="10dp"/>
+                        <TextView
+                            android:id="@+id/tvEnlace"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:autoLink="web"
+                            android:padding="15dp"
+                            android:textColorLink="@color/colorAccent" >
+                        </TextView>
+
+                        <Button
+                            android:id="@+id/btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:background="@color/colorPrimary"
+                            android:textColor="@color/colorBlanco"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+
+                </ScrollView>
+
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

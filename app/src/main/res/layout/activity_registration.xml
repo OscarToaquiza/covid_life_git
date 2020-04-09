@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".login.activity_registration">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="25dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="300dp"
+            android:layout_height="575dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            app:cardBackgroundColor="@color/cardview_light_background"
+            app:cardCornerRadius="15dp"
+            android:padding="25dp"
+            >
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:padding="25dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Registrate"
+                    android:textAlignment="center"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:padding="15dp"/>
+
+                <EditText
+                    android:id="@+id/cedula"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Ingresa tu Cédula "
+                    android:layout_marginBottom="10dp"
+                    android:inputType="number"
+                    android:imeOptions="actionSend"/>
+
+                <EditText
+                    android:id="@+id/nombres"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Ingresa tus Nombres"
+                    android:layout_marginBottom="10dp"
+                    android:inputType="textCapSentences|textAutoCorrect"
+                    android:imeOptions="actionSend"/>
+                <EditText
+                    android:id="@+id/apellidos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Ingresa tus Apellidos"
+                    android:layout_marginBottom="10dp"
+                    android:inputType="textCapSentences|textAutoCorrect"
+                    android:imeOptions="actionSend"/>
+
+                <EditText
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Ingresa tu Email"
+                    android:layout_marginBottom="10dp"
+                    android:inputType="textCapSentences|textAutoCorrect"
+                    android:imeOptions="actionSend"/>
+
+                <!-- Edit text for password -->
+                <EditText
+                    android:id="@+id/passwd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Ingresa tu Contraseña"
+                    android:inputType="textPassword"
+                    android:layout_marginBottom="10dp"/>
+
+                <CheckBox
+                    android:id="@+id/cbTerminos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Acepto los términos y condiciones del aviso legal. "
+                    android:layout_marginBottom="10dp">
+                </CheckBox>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Leer términos y condiciones del aviso legal."
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12dp"
+                    android:layout_marginBottom="10dp">
+
+                </TextView>
+                <Button
+                    android:id="@+id/btnregister"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Registrate"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/colorBlanco"/>
+
+
+                <ProgressBar
+                    android:id="@+id/progressbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+
+</ScrollView>
