@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".form.activity_signosVitales"></activity>
+        <activity android:name=".form.activity_temperatura"></activity>
+        <activity android:name=".form.activity_recuerda" />
+        <activity android:name=".form.activity_guia" />
+        <activity android:name=".menu.menu_pacientes" />
+        <activity android:name=".form.activity_signosVitales" />
         <activity android:name=".menu.activity_menu_inicio" />
         <activity android:name=".resultados.activity_resultado" />
         <activity
@@ -23,7 +27,7 @@
         <activity
             android:name=".form.activity_test"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".menu.activity_menu" >
+        <activity android:name=".menu.activity_menu">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

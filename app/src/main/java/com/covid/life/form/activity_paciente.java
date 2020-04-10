@@ -48,6 +48,7 @@ public class activity_paciente extends AppCompatActivity {
     private int validar = 0;
     private ProgressBar progressbar;
     private FirebaseAuth mAuth;
+    private String uid;
 
 
     @Override
@@ -60,8 +61,7 @@ public class activity_paciente extends AppCompatActivity {
         datos =  getIntent().getExtras().getStringArray("datos");
 
         mAuth = FirebaseAuth.getInstance();
-        String  udi = mAuth.getCurrentUser().getUid();
-        paciente.setId(udi);
+        uid = mAuth.getCurrentUser().getUid();
 
         btnGuardar = findViewById(R.id.guardar);
         cvAntecedentes = (CardView) findViewById(R.id.antecedentes);
@@ -107,7 +107,7 @@ public class activity_paciente extends AppCompatActivity {
 
 
     private void mostrarAntecedentes(int position) {
-        if (position == 1) {
+        if (position == 1 || position == 3) {
             cvAntecedentes.setVisibility(View.VISIBLE);
         } else {
             cvAntecedentes.setVisibility(View.GONE);
@@ -123,8 +123,14 @@ public class activity_paciente extends AppCompatActivity {
         obtenerFecha();
         progressbar.setVisibility(View.VISIBLE);
             db.collection("paciente")
-                    .add(paciente)
-                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    .document(uid)
+                    .set(paciente);
+            finish();
+            Intent intent
+                    = new Intent(getApplicationContext(),
+                    activity_menu_inicio.class);
+            startActivity(intent);
+                    /*.addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
                             Toast.makeText(getApplicationContext(),
@@ -149,7 +155,7 @@ public class activity_paciente extends AppCompatActivity {
                                     .show();
                             progressbar.setVisibility(View.GONE);
                         }
-                    });
+                    });*/
 
 
     }

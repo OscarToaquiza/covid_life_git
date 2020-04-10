@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".form.activity_temperatura">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="25dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            app:cardBackgroundColor="@color/cardview_light_background"
+            app:cardCornerRadius="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:padding="25dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="COVID LIFE"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary"/>
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="114dp"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_help" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:text="¿Cómo medir la temperatura axilar?"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@string/temperatura"
+                    android:textSize="17dp"
+                     android:layout_marginTop="15dp"   />
+                <TextView
+                    android:id="@+id/tvEnlace"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Necesitas mas informacion !! Da click en el siguiente enlace: https://www.youtube.com/watch?v=byIsxJi9TCQ"
+                    android:autoLink="web"
+                    android:textColorLink="@color/colorAccent"
+                    android:layout_marginBottom="25dp"/>
+
+                <Button
+                    android:id="@+id/btnAgregarSignos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/colorPrimary"
+                    android:text="Signos Vitales"
+                    android:textColor="@color/colorBlanco"
+                    android:textStyle="bold"   />
+
+
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+
+    </RelativeLayout>
+
+
+
+
+
+</ScrollView>

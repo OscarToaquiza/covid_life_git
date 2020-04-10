@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".menu.activity_menu">
+    tools:context=".menu.menu_pacientes">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -28,7 +29,7 @@
                 android:gravity="center"
                 android:orientation="vertical"
                 android:padding="15dp"
-               >
+                >
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -44,61 +45,34 @@
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
                     android:padding="10dp"
-                    android:src="@drawable/ic_estetoscopio"
-                    android:layout_marginBottom="35dp"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:text="SOY NUEVO!! deseo realizar el test"
-                    android:textColor="@color/colorNegro"/>
+                    android:src="@drawable/ic_informe_medico"
+                    android:layout_marginBottom="45dp"/>
+
                 <Button
-                    android:id="@+id/btntest"
+                    android:id="@+id/btnGuia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:background="@color/colorPrimary"
+                    android:text="Guia para signos vitales"
+                    android:textColor="@color/colorBlanco"
+                    android:textSize="20dp"
+                    android:drawableTint="@color/colorBlanco"/>
+
+
+                <Button
+                    android:id="@+id/btnSignosVitales"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:background="@color/colorPrimary"
-                    android:text="Test Covid"
+                    android:text="Signos Vitales"
                     android:textColor="@color/colorBlanco"
                     android:textStyle="bold"
                     android:textSize="20dp"
                     android:drawableTint="@color/colorBlanco"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:textColor="@color/colorNegro"
-                    android:text="SOY paciente ya registrado"/>
-                <Button
-                    android:id="@+id/btnlogin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:background="@color/colorPrimary"
-                    android:text="Inicia sesión"
-                    android:textColor="@color/colorBlanco"
-                    android:textStyle="bold"
-                    android:textSize="20dp"
-                    android:drawableTint="@color/colorBlanco"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:textColor="@color/colorNegro"
-                    android:text="Trabajo con COVID LIFE"/>
-                <Button
-                    android:id="@+id/btnPersonal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:background="@color/colorPrimary"
-                    android:text="Personal de salud"
-                    android:textColor="@color/colorBlanco"
-                    android:textStyle="bold"
-                    android:textSize="20dp"
-                    android:drawableTint="@color/colorBlanco"/>
 
 
 

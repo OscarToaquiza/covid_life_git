@@ -13,7 +13,9 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.covid.life.R;
+import com.covid.life.menu.activity_menu;
 import com.covid.life.menu.activity_menu_inicio;
+import com.covid.life.menu.menu_pacientes;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -103,7 +105,7 @@ public class activity_login extends AppCompatActivity {
                                     // intent to home activity
                                     Intent intent
                                             = new Intent(activity_login.this,
-                                            activity_menu_inicio.class);
+                                            menu_pacientes.class);
                                     startActivity(intent);
                                 }
 

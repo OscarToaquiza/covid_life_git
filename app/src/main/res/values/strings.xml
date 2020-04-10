@@ -3,10 +3,29 @@
     <string name="title_activity_paciente"> Paciente</string>
     <string name="action_settings">Settings</string>
 
+    <string name="guia">
+        Guía  para aislamiento domiciliario en personas contagiadas de coronavirus
+    </string>
+
+    <string name="temperatura">
+        Modo de uso del termómetro digital: \n\n
+        - Limpie la punta del termómetro usando agua y jabón o alcohol. \n
+        - Ponga el termómetro debajo de la axila.\n
+        - Mantenga el termómetro debajo de la axila, apretando el brazo contra el cuerpo hasta que el termómetro suene con un pito.\n
+        - Retire el termómetro del brazo. \n
+        - Lea los números que aparecen en la ventana. \n
+        - Estos números indican su temperatura\n
+
+    </string>
+
+    <string name="recuerda">
+        Si durante el seguimiento presentas dificultad al respirar o tus síntomas  empeoran llama urgente al 171 o 911
+    </string>
+
     <string name="bienvenida">
         Trataremos de ayudarte con sencillos pasos ante el COVID 19.\n
         Responde a las preguntas y te guiaremos en tu estado de salud.\n
-        Esta herramienta no reemplaza al 171 en Ecuador.\n
+        Esta herramienta no reemplaza al 171 y Salud EC en Ecuador.\n
     </string>
 
     <string name="inicio">

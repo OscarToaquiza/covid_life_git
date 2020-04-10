@@ -31,7 +31,6 @@ public class activity_menu_inicio extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private List<Seguimiento> signosVitalesList;
-    private int contador=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +45,6 @@ public class activity_menu_inicio extends AppCompatActivity {
         btnAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
                 Intent intent = new Intent(getApplicationContext(),
                         activity_signosVitales.class);
                 startActivity(intent);
@@ -106,28 +104,5 @@ public class activity_menu_inicio extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed(){
-        if(contador == 0){
-            Toast.makeText(getApplicationContext(),
-                    "Presione de nuevo para cerrar sesión ", Toast.LENGTH_SHORT).show();
-            contador++;
-        }else{
-            super.onBackPressed();
-        }
 
-        new CountDownTimer(3000,1000){
-
-            @Override
-            public void onTick(long millisUntilFinished) {
-
-            }
-
-            @Override
-            public void onFinish() {
-                mAuth.signOut();
-                contador = 0;
-            }
-        }.start();
-    }
 }

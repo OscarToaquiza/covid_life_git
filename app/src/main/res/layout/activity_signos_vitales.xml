@@ -51,7 +51,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:text="Grados Celsius (°C)"
+                    android:text="Grados Centigrados (°C)"
                     android:textStyle="bold"
                     android:layout_marginBottom="10dp"
                     android:textColor="@color/colorNegro"/>
