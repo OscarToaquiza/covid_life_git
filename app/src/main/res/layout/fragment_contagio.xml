@@ -48,9 +48,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:padding="5dp"
+                    android:text="¿Ha tenido contacto estrecho con personas enfermas de coronavirus?"
+                    android:textAlignment="center"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:text="@string/contagio"
                     android:textSize="15dp"
-                    android:padding="13dp"/>
+                    android:padding="5dp"/>
 
                 <Button
                     android:id="@+id/btnContagioSi"

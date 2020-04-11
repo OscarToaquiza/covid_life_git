@@ -22,6 +22,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
+
 public class activity_registration extends AppCompatActivity {
     private EditText emailTextView, passwordTextView, txtNombres,txtApellidos,txtCedula;
     private CheckBox cbTerminos;
@@ -78,11 +81,19 @@ public class activity_registration extends AppCompatActivity {
 
         if (TextUtils.isEmpty(txtCedula.getText().toString())) {
             Toast.makeText(getApplicationContext(),
-                    "Ingrese su cedula !!",
+                    "Ingrese su numero de cédula  !!",
                     Toast.LENGTH_LONG)
                     .show();
             return;
         }
+        if(validarCedula(txtCedula.getText().toString())==FALSE){
+            Toast.makeText(getApplicationContext(),
+                    "Numero de cédula incorecta !!",
+                    Toast.LENGTH_LONG)
+                    .show();
+            return;
+        }
+
         if (TextUtils.isEmpty(txtNombres.getText().toString())) {
             Toast.makeText(getApplicationContext(),
                     "Ingrese sus nombres!!",
@@ -173,6 +184,45 @@ public class activity_registration extends AppCompatActivity {
         datos[3] = emailTextView.getText().toString();
         return datos;
     }
+
+    private boolean validarCedula(String x){
+        int suma = 0;
+        if (x.length() == 9) {
+            System.out.println("Ingrese su cedula de 10 digitos");
+            return false;
+        } else {
+            int a[] = new int[x.length() / 2];
+            int b[] = new int[(x.length() / 2)];
+            int c = 0;
+            int d = 1;
+            for (int i = 0; i < x.length() / 2; i++) {
+                a[i] = Integer.parseInt(String.valueOf(x.charAt(c)));
+                c = c + 2;
+                if (i < (x.length() / 2) - 1) {
+                    b[i] = Integer.parseInt(String.valueOf(x.charAt(d)));
+                    d = d + 2;
+                }
+            }
+            for (int i = 0; i < a.length; i++) {
+                a[i] = a[i] * 2;
+                if (a[i] > 9) {
+                    a[i] = a[i] - 9;
+                }
+                suma = suma + a[i] + b[i];
+            }
+            int aux = suma / 10;
+            int dec = (aux + 1) * 10;
+            if ((dec - suma) == Integer.parseInt(String.valueOf(x.charAt(x.length() - 1))))
+                return true;
+            else if (suma % 10 == 0 && x.charAt(x.length() - 1) == '0') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+
 
 
 

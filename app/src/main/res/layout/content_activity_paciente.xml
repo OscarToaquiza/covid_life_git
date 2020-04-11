@@ -73,7 +73,7 @@
                     android:hint="Ingrese su número telefónico"
                     android:layout_marginBottom="15dp"
                     android:inputType="phone"
-                    android:imeOptions="actionSend"/>
+                    android:imeOptions="actionDone"/>
 
                 <TextView
                     android:id="@+id/textView4"
@@ -105,7 +105,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Ingrese su canton"
                     android:inputType="textCapSentences|textAutoCorrect"
-                    android:imeOptions="actionSend"
+                    android:imeOptions="actionDone"
                     android:layout_marginBottom="15dp"/>
 
                 <TextView
@@ -122,7 +122,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Ingrese su dirección "
                     android:inputType="textCapSentences|textAutoCorrect"
-                    android:imeOptions="actionSend"
+                    android:imeOptions="actionDone"
                     android:layout_marginBottom="15dp"/>
 
                 <TextView
@@ -326,7 +326,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Ingrese su enfermedad"
                     android:inputType="textCapSentences|textAutoCorrect"
-                    android:imeOptions="actionSend"
+                    android:imeOptions="actionDone"
                     android:layout_marginBottom="15dp"/>
 
                 <TextView
@@ -342,7 +342,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Ingrese el medicamento"
                     android:inputType="textCapSentences|textAutoCorrect"
-                    android:imeOptions="actionSend"
+                    android:imeOptions="actionDone"
                     android:layout_marginBottom="15dp"/>
 
                 <TextView
@@ -358,7 +358,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Ingrese el numero de familiares"
                     android:inputType="number"
-                    android:imeOptions="actionSend"
+                    android:imeOptions="actionDone"
                     android:layout_marginBottom="15dp"/>
 
                 <Button

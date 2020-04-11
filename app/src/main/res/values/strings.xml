@@ -34,17 +34,14 @@
     </string>
 
     <string name="fiebre">
-        ¿Tiene fiebre mayor de 38°C?\n\n
         Necesitas la ayuda de un termómetro
     </string>
 
     <string name="respirar">
-        ¿Tiene sensación de falta de aire o dificultad para respirar?\n\n
         Le cuesta o es incomodo respirar de inicio brusco, sin ninguna causa antes ya experimentada.
     </string>
 
     <string name="contagio">
-        ¿Ha tenido contacto estrecho con personas enfermas de coronavirus?\n\n
         Incluye si en su barrio, trabajo o algún lugar donde haya viajado
         y conozca Ud que hay casos confirmados de coronavirus en los últimos 14 días.
     </string>

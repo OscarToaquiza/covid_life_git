@@ -48,17 +48,8 @@
                     android:background="@color/colorPrimary"
                     android:textColor="@color/colorBlanco"
                     android:text="Agregar "
-                    />
+                    android:visibility="gone" />
 
-                <Button
-                    android:id="@+id/cerrrarSesion"
-                    android:layout_width="180dp"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
-                    android:textColor="@color/colorBlanco"
-                    android:text="Cerrar Sesion"
-                    android:visibility="gone"
-                    />
 
 
                 <ProgressBar

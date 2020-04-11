@@ -48,6 +48,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:padding="5dp"
+                    android:text="¿Tiene sensación de falta de aire o dificultad para respirar?"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:text="@string/respirar"
                     android:textSize="16dp"
                     android:padding="15dp"/>

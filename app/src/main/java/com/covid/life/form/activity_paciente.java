@@ -45,7 +45,6 @@ public class activity_paciente extends AppCompatActivity {
     private TextView txtTelefono,txtCanton,txtDireccion,txtEnfermedad,txtAlergia,txtCerco;
     private Paciente paciente;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private int validar = 0;
     private ProgressBar progressbar;
     private FirebaseAuth mAuth;
     private String uid;
@@ -116,37 +115,16 @@ public class activity_paciente extends AppCompatActivity {
 
     private void guardarPaciente(){
         obtenerDatos();
-        obtenerSpinners();
-        if(obtenerText()==FALSE){
+        if(obtenerSpinners()==FALSE)
             return;
-        }
+        if(obtenerText()==FALSE)
+            return;
+
         obtenerFecha();
         progressbar.setVisibility(View.VISIBLE);
             db.collection("paciente")
                     .document(uid)
-                    .set(paciente);
-            finish();
-            Intent intent
-                    = new Intent(getApplicationContext(),
-                    activity_menu_inicio.class);
-            startActivity(intent);
-                    /*.addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            Toast.makeText(getApplicationContext(),
-                                    "Bienvenido !!", Toast.LENGTH_SHORT)
-                                    .show();
-                            progressbar.setVisibility(View.GONE);
-                            finish();
-                            Intent intent
-                                    = new Intent(getApplicationContext(),
-                                    activity_menu_inicio.class);
-                            startActivity(intent);
-
-
-
-                        }
-                    })
+                    .set(paciente)
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
@@ -154,9 +132,15 @@ public class activity_paciente extends AppCompatActivity {
                                     "Error: "+e.getMessage(), Toast.LENGTH_SHORT)
                                     .show();
                             progressbar.setVisibility(View.GONE);
+                            return;
                         }
-                    });*/
-
+                    });
+        progressbar.setVisibility(View.GONE);
+        finish();
+        Intent intent
+                = new Intent(getApplicationContext(),
+                activity_menu_inicio.class);
+        startActivity(intent);
 
     }
     private void obtenerDatos(){
@@ -225,130 +209,127 @@ public class activity_paciente extends AppCompatActivity {
         paciente.setFechaNacimiento(fechaNacimiento);
         paciente.setFecha_creacion(fechaCreacion);
     }
-    private void obtenerSpinners(){
-        paciente.setGenero(sGenero.getSelectedItem().toString());
-        paciente.setProvincia(sProvincia.getSelectedItem().toString());
-        paciente.setAislado_por(sAislamiento.getSelectedItem().toString());
+    private Boolean obtenerSpinners(){
+        String seleccione = "-- Seleccione --";
 
-        if(sPresion.getSelectedItem().toString().trim().equals("Si"))
-            paciente.setTiene_presion_alta(TRUE);
-        else
-            paciente.setTiene_presion_alta(FALSE);
-
-        if(sDiabetes.getSelectedItem().toString().trim().equals("Si"))
-            paciente.setTiene_diabetes(TRUE);
-        else
-            paciente.setTiene_diabetes(FALSE);
-
-        if(sFumador.getSelectedItem().toString().trim().equals("Si"))
-            paciente.setFue_es_fumador(TRUE);
-        else
-            paciente.setFue_es_fumador(FALSE);
-
-        if(sCancer.getSelectedItem().toString().trim().equals("Si"))
-            paciente.setEs_diagnosticado_cancer(TRUE);
-        else
-            paciente.setEs_diagnosticado_cancer(FALSE);
-
-        if(sDiscapacidad.getSelectedItem().toString().trim().equals("Si"))
-            paciente.setTiene_carnet_discapacidad(TRUE);
-        else
-            paciente.setTiene_carnet_discapacidad(FALSE);
-
-        if(sEmbarazada.getSelectedItem().toString().trim().equals("Si"))
-            paciente.setEs_embarazada(TRUE);
-        else
-            paciente.setEs_embarazada(FALSE);
-
-        if(sLactar.getSelectedItem().toString().trim().equals("Si"))
-            paciente.setEsta_dando_lactar(TRUE);
-        else
-            paciente.setEsta_dando_lactar(FALSE);
-    }
-
-    /*private void obtenerSpinners() {
-        if(sGenero.getSelectedItemPosition()!=0){
+        if(sGenero.getSelectedItem().toString().trim().equals(seleccione)){
+            Toast.makeText(getApplicationContext(),
+                    "Seleccione su género ", Toast.LENGTH_LONG)
+                    .show();
+            return FALSE;
+        }else{
             paciente.setGenero(sGenero.getSelectedItem().toString());
-            validar = 1;
         }
-        else
-            validar=0;
 
-        if(sProvincia.getSelectedItemPosition() != 0){
+        if(sProvincia.getSelectedItem().toString().trim().equals(seleccione)){
+            Toast.makeText(getApplicationContext(),
+                    "Seleccione su provincia", Toast.LENGTH_LONG)
+                    .show();
+            return FALSE;
+        }else{
             paciente.setProvincia(sProvincia.getSelectedItem().toString());
-            validar=1;
-        }else
-            validar=0;
+        }
 
-        if(sAislamiento.getSelectedItemPosition() != 0){
+        if(sAislamiento.getSelectedItem().toString().trim().equals(seleccione)){
+            Toast.makeText(getApplicationContext(),
+                    "Seleccione su tipo de aislamiento", Toast.LENGTH_LONG)
+                    .show();
+            return FALSE;
+        }else{
             paciente.setAislado_por(sAislamiento.getSelectedItem().toString());
-            validar=1;
-        }else
-            validar=0;
+        }
 
-        if(sPresion.getSelectedItemPosition() != 0){
-
+        if(sPresion.getSelectedItem().toString().trim().equals(seleccione)){
+            Toast.makeText(getApplicationContext(),
+                    "Seleccione si sufre de presión arterial alta", Toast.LENGTH_LONG)
+                    .show();
+            return FALSE;
+        }else{
             if(sPresion.getSelectedItem().toString().trim().equals("Si"))
                 paciente.setTiene_presion_alta(TRUE);
             else
                 paciente.setTiene_presion_alta(FALSE);
-            validar=1;
-        }else
-            validar=0;
+        }
 
-        if(sDiabetes.getSelectedItemPosition() != 0){
+        if(sDiabetes.getSelectedItem().toString().trim().equals(seleccione)){
+            Toast.makeText(getApplicationContext(),
+                    "Seleccione si sufre de diabetes", Toast.LENGTH_LONG)
+                    .show();
+            return FALSE;
+        }else{
             if(sDiabetes.getSelectedItem().toString().trim().equals("Si"))
                 paciente.setTiene_diabetes(TRUE);
             else
                 paciente.setTiene_diabetes(FALSE);
-            validar=1;
-        }else
-            validar=0;
+        }
 
-        if(sFumador.getSelectedItemPosition() != 0){
+        if(sFumador.getSelectedItem().toString().trim().equals(seleccione)){
+            Toast.makeText(getApplicationContext(),
+                    "Seleccione si es o fue fumador", Toast.LENGTH_LONG)
+                    .show();
+            return FALSE;
+        }else{
             if(sFumador.getSelectedItem().toString().trim().equals("Si"))
                 paciente.setFue_es_fumador(TRUE);
             else
                 paciente.setFue_es_fumador(FALSE);
-            validar=1;
-        }else
-            validar=0;
+        }
 
-        if( sCancer.getSelectedItemPosition() != 0){
+        if(sCancer.getSelectedItem().toString().trim().equals(seleccione)){
+            Toast.makeText(getApplicationContext(),
+                    "Seleccione si le han diagnosticado cancer", Toast.LENGTH_LONG)
+                    .show();
+            return FALSE;
+        }else{
             if(sCancer.getSelectedItem().toString().trim().equals("Si"))
                 paciente.setEs_diagnosticado_cancer(TRUE);
             else
                 paciente.setEs_diagnosticado_cancer(FALSE);
-            validar=1;
-        }else
-            validar=0;
+        }
 
-        if(sDiscapacidad.getSelectedItemPosition() != 0){
+        if(sDiscapacidad.getSelectedItem().toString().trim().equals(seleccione)){
+            Toast.makeText(getApplicationContext(),
+                    "Seleccione si tiene carnet de discapacidad", Toast.LENGTH_LONG)
+                    .show();
+            return FALSE;
+        }else{
             if(sDiscapacidad.getSelectedItem().toString().trim().equals("Si"))
                 paciente.setTiene_carnet_discapacidad(TRUE);
             else
                 paciente.setTiene_carnet_discapacidad(FALSE);
-            validar=1;
-        }else
-            validar=0;
+        }
 
-        if( sEmbarazada.getSelectedItemPosition() != 0){
-            if(sEmbarazada.getSelectedItem().toString().trim().equals("Si"))
-                paciente.setEs_embarazada(TRUE);
-            else
-                paciente.setEs_embarazada(FALSE);
-            validar=1;
-        }else
-            validar=0;
+        if(sGenero.getSelectedItem().toString().trim().equals("Hombre")){
+            paciente.setEs_embarazada(FALSE);
+            paciente.setEsta_dando_lactar(FALSE);
+        }else{
+            if(sEmbarazada.getSelectedItem().toString().trim().equals(seleccione)){
+                Toast.makeText(getApplicationContext(),
+                        "Seleccione si esta embarazada", Toast.LENGTH_LONG)
+                        .show();
+                return FALSE;
+            }else{
+                if(sEmbarazada.getSelectedItem().toString().trim().equals("Si"))
+                    paciente.setEs_embarazada(TRUE);
+                else
+                    paciente.setEs_embarazada(FALSE);
+            }
 
-        if(sLactar.getSelectedItemPosition() != 0){
-            if(sLactar.getSelectedItem().toString().trim().equals("Si"))
-                paciente.setEsta_dando_lactar(TRUE);
-            else
-                paciente.setEsta_dando_lactar(FALSE);
-            validar=1;
-        }else
-            validar=0;
+            if(sLactar.getSelectedItem().toString().trim().equals(seleccione)){
+                Toast.makeText(getApplicationContext(),
+                        "Seleccione si esta dando de lactar", Toast.LENGTH_LONG)
+                        .show();
+                return FALSE;
+            }else{
+                if(sLactar.getSelectedItem().toString().trim().equals("Si"))
+                    paciente.setEsta_dando_lactar(TRUE);
+                else
+                    paciente.setEsta_dando_lactar(FALSE);
+            }
+        }
 
-    }*/
+
+        return TRUE;
+    }
+
 }
