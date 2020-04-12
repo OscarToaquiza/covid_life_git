@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.covid.life.MainActivity;
@@ -32,6 +33,7 @@ public class activity_registration extends AppCompatActivity {
     private ProgressBar progressbar;
     private FirebaseAuth mAuth;
     private String[] datos;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,10 @@ public class activity_registration extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
+                /*Intent intent
+                        = new Intent(activity_registration.this,
+                        activity_paciente.class);
+                startActivity(intent);*/
                 if(cbTerminos.isChecked())
                     registerNewUser();
                 else {

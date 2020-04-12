@@ -50,7 +50,15 @@
                     android:text="Agregar "
                     android:visibility="gone" />
 
-
+                <TextView
+                    android:id="@+id/smsSignos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:padding="25dp"
+                    android:textColor="@color/colorNegro" />
 
                 <ProgressBar
                     android:id="@+id/progressBar"

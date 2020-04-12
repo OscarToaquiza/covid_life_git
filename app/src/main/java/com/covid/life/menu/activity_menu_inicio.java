@@ -9,6 +9,7 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.covid.life.R;
@@ -34,6 +35,8 @@ public class activity_menu_inicio extends AppCompatActivity {
     private List<Seguimiento> signosVitalesList;
     private ProgressBar progressbar;
     private int contador;
+    private TextView mensaje;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +45,7 @@ public class activity_menu_inicio extends AppCompatActivity {
         btnAgregar = findViewById(R.id.Agregar);
         progressbar = findViewById(R.id.progressBar);
         signosVitalesList = new ArrayList<Seguimiento>() ;
+        mensaje = findViewById(R.id.smsSignos);
 
         obtenerSignosVitales();
         btnAgregar.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +84,10 @@ public class activity_menu_inicio extends AppCompatActivity {
                                     cont++;
                                 }
                              }
+
+                            if(cont == 3){
+                                mensaje.setText("Ya no puedes agregar mas signos vitales por hoy dia !!");
+                            }
                             if(cont < 3)
                                 btnAgregar.setVisibility(View.VISIBLE);
 

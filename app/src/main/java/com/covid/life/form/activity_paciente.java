@@ -1,6 +1,12 @@
 package com.covid.life.form;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 
 import com.covid.life.menu.activity_menu_inicio;
@@ -12,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
 
 import android.text.TextUtils;
 import android.view.View;
@@ -39,10 +46,10 @@ import static java.lang.Boolean.TRUE;
 public class activity_paciente extends AppCompatActivity {
     private Button btnGuardar;
     private CardView cvAntecedentes;
-    private Spinner sGenero ,sProvincia,sAislamiento,sPresion,sDiabetes,sFumador,sCancer,sDiscapacidad ,sEmbarazada,sLactar;
+    private Spinner sGenero, sProvincia, sAislamiento, sPresion, sDiabetes, sFumador, sCancer, sDiscapacidad, sEmbarazada, sLactar;
     private DatePicker dtFechaNacimiento;
     private String[] datos;
-    private TextView txtTelefono,txtCanton,txtDireccion,txtEnfermedad,txtAlergia,txtCerco;
+    private TextView txtTelefono, txtCanton, txtDireccion, txtEnfermedad, txtAlergia, txtCerco;
     private Paciente paciente;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ProgressBar progressbar;
@@ -56,8 +63,8 @@ public class activity_paciente extends AppCompatActivity {
         setContentView(R.layout.activity_paciente);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        paciente= new Paciente();
-        datos =  getIntent().getExtras().getStringArray("datos");
+        paciente = new Paciente();
+        datos = getIntent().getExtras().getStringArray("datos");
 
         mAuth = FirebaseAuth.getInstance();
         uid = mAuth.getCurrentUser().getUid();
@@ -88,8 +95,10 @@ public class activity_paciente extends AppCompatActivity {
                 mostrarAntecedentes(position);
 
             }
+
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {  }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
 
         btnGuardar.setOnClickListener(new View.OnClickListener() {
@@ -104,7 +113,6 @@ public class activity_paciente extends AppCompatActivity {
     }
 
 
-
     private void mostrarAntecedentes(int position) {
         if (position == 1 || position == 3) {
             cvAntecedentes.setVisibility(View.VISIBLE);
@@ -113,14 +121,35 @@ public class activity_paciente extends AppCompatActivity {
         }
     }
 
-    private void guardarPaciente(){
+    private void guardarPaciente() {
         obtenerDatos();
-        if(obtenerSpinners()==FALSE)
+        if (obtenerSpinners() == FALSE)
             return;
-        if(obtenerText()==FALSE)
+        if (obtenerText() == FALSE)
             return;
-
         obtenerFecha();
+
+        //obtener latitud y longitud del paciente
+        LocationManager locationManager = (LocationManager)
+                getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
+            Toast.makeText(getApplicationContext(),
+                    "Necesitamos permisos de ubicación ", Toast.LENGTH_LONG)
+                    .show();
+            return;
+        }
+
+        Location location = locationManager.getLastKnownLocation(locationManager
+                .getBestProvider(criteria, false));
+        double latitude = location.getLatitude();
+        double longitud = location.getLongitude();
+
+        paciente.setLatitud(String.valueOf(latitude));
+        paciente.setLongitud(String.valueOf(longitud));
+
         progressbar.setVisibility(View.VISIBLE);
             db.collection("paciente")
                     .document(uid)
@@ -136,6 +165,9 @@ public class activity_paciente extends AppCompatActivity {
                         }
                     });
         progressbar.setVisibility(View.GONE);
+        Toast.makeText(getApplicationContext(),
+                "Bienvenido !!", Toast.LENGTH_SHORT)
+                .show();
         finish();
         Intent intent
                 = new Intent(getApplicationContext(),

@@ -6,7 +6,6 @@ import com.google.firebase.firestore.GeoPoint;
 import java.util.Date;
 
 public class Paciente {
-    private String id;
     private String cedula;
     private String nombres;
     private String apellidos;
@@ -16,7 +15,8 @@ public class Paciente {
     private String provincia;
     private String canton;
     private String telefono;
-    private GeoPoint ubicacion;
+    private String latitud;
+    private String longitud;
     private String direccion;
     private String aislado_por;
     private String alergia_medicamentos;
@@ -35,8 +35,7 @@ public class Paciente {
     public Paciente() {
     }
 
-    public Paciente(String id, String cedula, String nombres, String apellidos, String correo, Date fechaNacimiento, String genero, String provincia, String canton, String telefono, GeoPoint ubicacion, String direccion, String aislado_por, String alergia_medicamentos, String tiene_diagnosticado_enfermedad, boolean es_diagnosticado_cancer, boolean es_embarazada, boolean esta_dando_lactar, boolean fue_es_fumador, boolean tiene_carnet_discapacidad, boolean tiene_diabetes, boolean tiene_presion_alta, int estado_actual, int familiares_cerco, Date fecha_creacion) {
-        this.id = id;
+    public Paciente(String cedula, String nombres, String apellidos, String correo, Date fechaNacimiento, String genero, String provincia, String canton, String telefono, String latitud, String longitud, String direccion, String aislado_por, String alergia_medicamentos, String tiene_diagnosticado_enfermedad, boolean es_diagnosticado_cancer, boolean es_embarazada, boolean esta_dando_lactar, boolean fue_es_fumador, boolean tiene_carnet_discapacidad, boolean tiene_diabetes, boolean tiene_presion_alta, int estado_actual, int familiares_cerco, Date fecha_creacion) {
         this.cedula = cedula;
         this.nombres = nombres;
         this.apellidos = apellidos;
@@ -46,7 +45,8 @@ public class Paciente {
         this.provincia = provincia;
         this.canton = canton;
         this.telefono = telefono;
-        this.ubicacion = ubicacion;
+        this.latitud = latitud;
+        this.longitud = longitud;
         this.direccion = direccion;
         this.aislado_por = aislado_por;
         this.alergia_medicamentos = alergia_medicamentos;
@@ -61,14 +61,6 @@ public class Paciente {
         this.estado_actual = estado_actual;
         this.familiares_cerco = familiares_cerco;
         this.fecha_creacion = fecha_creacion;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getCedula() {
@@ -143,16 +135,24 @@ public class Paciente {
         this.telefono = telefono;
     }
 
-    public GeoPoint getUbicacion() {
-        return ubicacion;
-    }
-
-    public void setUbicacion(GeoPoint ubicacion) {
-        this.ubicacion = ubicacion;
-    }
-
     public String getDireccion() {
         return direccion;
+    }
+
+    public String getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(String latitud) {
+        this.latitud = latitud;
+    }
+
+    public String getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(String longitud) {
+        this.longitud = longitud;
     }
 
     public void setDireccion(String direccion) {

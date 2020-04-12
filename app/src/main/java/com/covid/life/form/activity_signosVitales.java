@@ -23,6 +23,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Date;
 
+import static java.lang.Boolean.TRUE;
+
 public class activity_signosVitales extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
@@ -41,6 +43,7 @@ public class activity_signosVitales extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         String uid = mAuth.getCurrentUser().getUid();
         signosVitales.setIdPaciente(uid);
+        signosVitales.setCreadoporPaciente(TRUE);
 
         txtTemperatura = findViewById(R.id.temperatura);
         txtFrecuencia = findViewById(R.id.frecuenciaCardiaca);

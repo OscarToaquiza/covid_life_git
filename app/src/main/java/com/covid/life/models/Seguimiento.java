@@ -10,26 +10,20 @@ public class Seguimiento {
     private Double ritmo_cardiaco;
     private Double sat_oxigeno;
     private Date fecha;
-    private Integer dificultad_respirar;
-    private Integer toma_muestra;
-    private Integer tipo;
-    private Integer estado_alta;
+    private boolean creadoporPaciente;
 
     public Seguimiento(){
 
     }
 
-    public Seguimiento(String idPaciente, String idDoctor, Double temperatura, Double ritmo_cardiaco, Double sat_oxigeno, Date fecha, Integer dificultad_respirar, Integer toma_muestra, Integer tipo, Integer estado_alta) {
+    public Seguimiento(String idPaciente, String idDoctor, Double temperatura, Double ritmo_cardiaco, Double sat_oxigeno, Date fecha, boolean creadoporPaciente) {
         this.idPaciente = idPaciente;
         this.idDoctor = idDoctor;
         this.temperatura = temperatura;
         this.ritmo_cardiaco = ritmo_cardiaco;
         this.sat_oxigeno = sat_oxigeno;
         this.fecha = fecha;
-        this.dificultad_respirar = dificultad_respirar;
-        this.toma_muestra = toma_muestra;
-        this.tipo = tipo;
-        this.estado_alta = estado_alta;
+        this.creadoporPaciente = creadoporPaciente;
     }
 
     public String getIdPaciente() {
@@ -80,35 +74,11 @@ public class Seguimiento {
         this.fecha = fecha;
     }
 
-    public Integer getDificultad_respirar() {
-        return dificultad_respirar;
+    public boolean isCreadoporPaciente() {
+        return creadoporPaciente;
     }
 
-    public void setDificultad_respirar(Integer dificultad_respirar) {
-        this.dificultad_respirar = dificultad_respirar;
-    }
-
-    public Integer getToma_muestra() {
-        return toma_muestra;
-    }
-
-    public void setToma_muestra(Integer toma_muestra) {
-        this.toma_muestra = toma_muestra;
-    }
-
-    public Integer getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(Integer tipo) {
-        this.tipo = tipo;
-    }
-
-    public Integer getEstado_alta() {
-        return estado_alta;
-    }
-
-    public void setEstado_alta(Integer estado_alta) {
-        this.estado_alta = estado_alta;
+    public void setCreadoporPaciente(boolean creadoporPaciente) {
+        this.creadoporPaciente = creadoporPaciente;
     }
 }
