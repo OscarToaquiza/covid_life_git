@@ -4,12 +4,15 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
 import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 
 import com.covid.life.menu.activity_menu_inicio;
+import com.covid.life.menu.menu_pacientes;
 import com.covid.life.models.Paciente;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -35,10 +38,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Locale;
 
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
@@ -104,7 +110,11 @@ public class activity_paciente extends AppCompatActivity {
         btnGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                guardarPaciente();
+                try {
+                    guardarPaciente();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
             }
         });
@@ -121,7 +131,7 @@ public class activity_paciente extends AppCompatActivity {
         }
     }
 
-    private void guardarPaciente() {
+    private void guardarPaciente() throws IOException {
         obtenerDatos();
         if (obtenerSpinners() == FALSE)
             return;
@@ -146,6 +156,14 @@ public class activity_paciente extends AppCompatActivity {
                 .getBestProvider(criteria, false));
         double latitude = location.getLatitude();
         double longitud = location.getLongitude();
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        List<Address> list = geocoder.getFromLocation(
+                location.getLatitude(), location.getLongitude(), 1);
+        if (!list.isEmpty()) {
+            Address DirCalle = list.get(0);
+            paciente.setDireccionGPS(DirCalle.getAddressLine(0));
+        }
+
 
         paciente.setLatitud(String.valueOf(latitude));
         paciente.setLongitud(String.valueOf(longitud));
@@ -171,7 +189,7 @@ public class activity_paciente extends AppCompatActivity {
         finish();
         Intent intent
                 = new Intent(getApplicationContext(),
-                activity_menu_inicio.class);
+                menu_pacientes.class);
         startActivity(intent);
 
     }

@@ -18,6 +18,7 @@ public class Paciente {
     private String latitud;
     private String longitud;
     private String direccion;
+    private String direccionGPS;
     private String aislado_por;
     private String alergia_medicamentos;
     private String tiene_diagnosticado_enfermedad;
@@ -61,6 +62,14 @@ public class Paciente {
         this.estado_actual = estado_actual;
         this.familiares_cerco = familiares_cerco;
         this.fecha_creacion = fecha_creacion;
+    }
+
+    public String getDireccionGPS() {
+        return direccionGPS;
+    }
+
+    public void setDireccionGPS(String direccionGPS) {
+        this.direccionGPS = direccionGPS;
     }
 
     public String getCedula() {

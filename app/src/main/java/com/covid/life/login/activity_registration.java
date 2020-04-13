@@ -71,8 +71,6 @@ public class activity_registration extends AppCompatActivity {
                             Toast.LENGTH_LONG)
                             .show();
                 }
-
-
             }
         });
 
