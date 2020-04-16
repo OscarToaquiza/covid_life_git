@@ -61,18 +61,28 @@
 
 
                 <Button
-                    android:id="@+id/btnSignosVitales"
+                android:id="@+id/btnSignosVitales"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:background="@color/colorPrimary"
+                android:text="Signos Vitales"
+                android:textColor="@color/colorBlanco"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:drawableTint="@color/colorBlanco"/>
+
+                <Button
+                    android:id="@+id/btnEmergencia"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:background="@color/colorPrimary"
-                    android:text="Signos Vitales"
+                    android:text="Emergencias"
                     android:textColor="@color/colorBlanco"
                     android:textStyle="bold"
                     android:textSize="20dp"
                     android:drawableTint="@color/colorBlanco"/>
-
-
 
 
 

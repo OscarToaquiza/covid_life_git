@@ -62,20 +62,6 @@
                     android:layout_marginBottom="10dp"
                     android:imeOptions="actionSend"/>
 
-                <!-- Button for Login with text "Login" -->
-                <!--
-                <TextView
-                    android:id="@+id/registro"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="Regístrate"
-                    android:textAllCaps="false"
-                    android:textStyle="bold"
-                    android:onClick="registrar"
-                    android:padding="15dp"
-                    android:textColor="@color/colorPrimary"/>
-                -->
                 <Button
                     android:id="@+id/login"
                     android:layout_width="match_parent"
@@ -84,6 +70,15 @@
                     android:textColor="@color/colorBlanco"
                     android:text="Inicia sesión"
                     />
+
+                <CheckBox
+                    android:id="@+id/cbGuardarSesion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="¿Desea mantener sesión iniciada?"
+                    android:layout_marginTop="15dp">
+
+                </CheckBox>
 
                 <TextView
                     android:id="@+id/recuperar"

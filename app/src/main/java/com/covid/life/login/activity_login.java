@@ -3,11 +3,14 @@ package com.covid.life.login;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -16,6 +19,7 @@ import com.covid.life.R;
 import com.covid.life.menu.activity_menu;
 import com.covid.life.menu.activity_menu_inicio;
 import com.covid.life.menu.menu_pacientes;
+import com.covid.life.notificaciones.Notificacion;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -26,6 +30,8 @@ public class activity_login extends AppCompatActivity {
     private EditText emailTextView, passwordTextView;
     private Button Btn;
     private ProgressBar progressbar;
+    private String email, password;
+    private CheckBox cbMantenerSesion;
 
     private FirebaseAuth mAuth;
     @Override
@@ -41,7 +47,9 @@ public class activity_login extends AppCompatActivity {
         passwordTextView = findViewById(R.id.password);
         Btn = findViewById(R.id.login);
         progressbar = findViewById(R.id.progressBar);
+        cbMantenerSesion = findViewById(R.id.cbGuardarSesion);
 
+        cargarPreferencias();
         // Set on Click Listener on Sign-in button
         Btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +68,7 @@ public class activity_login extends AppCompatActivity {
         progressbar.setVisibility(View.VISIBLE);
 
         // Take the value of two edit texts in Strings
-        String email, password;
+
         email = emailTextView.getText().toString().trim();
         password = passwordTextView.getText().toString().trim();
 
@@ -85,7 +93,6 @@ public class activity_login extends AppCompatActivity {
 
         // signin existing user
         mAuth.signInWithEmailAndPassword(email, password)
-
                 .addOnCompleteListener(
                         new OnCompleteListener<AuthResult>() {
                             @Override
@@ -93,6 +100,10 @@ public class activity_login extends AppCompatActivity {
                                     @NonNull Task<AuthResult> task)
                             {
                                 if (task.isSuccessful()) {
+                                    if(cbMantenerSesion.isChecked())
+                                        guardarPreferencias();
+                                    else
+                                        borrarPreferencias();
                                     Toast.makeText(getApplicationContext(),
                                             "Bienvenido !!",
                                             Toast.LENGTH_LONG)
@@ -141,10 +152,33 @@ public class activity_login extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void registrar(View view) {
-        Intent intent
-                = new Intent(activity_login.this,
-                activity_registration.class);
-        startActivity(intent);
+    public void guardarPreferencias(){
+        SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("email",email);
+        editor.putString("password",password);
+
+        emailTextView.setText(email);
+        passwordTextView.setText(password);
+
+        editor.commit();
     }
+
+    public void cargarPreferencias(){
+        SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+        String correo = preferences.getString("email","");
+        String contrasena = preferences.getString("password","");
+
+        emailTextView.setText(correo);
+        passwordTextView.setText(contrasena);
+    }
+
+    public void borrarPreferencias(){
+        SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("email","");
+        editor.putString("password","");
+    }
+
+
 }

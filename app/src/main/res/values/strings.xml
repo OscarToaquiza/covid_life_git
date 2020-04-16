@@ -22,6 +22,10 @@
         Si durante el seguimiento presentas dificultad al respirar o tus síntomas  empeoran llama urgente al 171 o 911
     </string>
 
+    <string name="videollamada">
+        Hola!, Da click en el siguiente enlace para realizar tu cita médica.
+    </string>
+
     <string name="bienvenida">
         Trataremos de ayudarte con sencillos pasos ante el COVID 19.\n
         Responde a las preguntas y te guiaremos en tu estado de salud.\n

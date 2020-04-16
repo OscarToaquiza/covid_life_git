@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.fragment_actividades">
+    tools:context=".notificaciones.activity_llamada">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,68 +15,67 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="300dp"
-            android:layout_height="500dp"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:gravity="center"
             app:cardBackgroundColor="@color/cardview_light_background"
-            app:cardCornerRadius="15dp">
+            app:cardCornerRadius="15dp"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="vertical"
-                android:padding="25dp">
+                android:padding="15dp">
+
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="TEST COVID 19"
+                    android:text="COVID LIFE"
                     android:textSize="20dp"
                     android:textStyle="bold"
-                    android:textColor="@color/colorPrimary"/>
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginBottom="15dp"/>
+
                 <ImageView
                     android:id="@+id/imageView"
                     android:layout_width="match_parent"
                     android:layout_height="114dp"
                     android:padding="10dp"
-                    android:src="@drawable/ic_directions_run" />
+                    android:src="@drawable/ic_phone_call"
+                    android:layout_marginBottom="15dp"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="¿Tiene debilidad o fatiga que impide hacer tus actividades diarias?"
-                    android:textSize="24dp"
-                    android:padding="18dp"/>
-
-                <Button
-                    android:id="@+id/btnActividadesSi"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:background="@color/colorPrimary"
-                    android:text="Si"
-                    android:textColor="@color/colorBlanco"
+                    android:padding="15dp"
+                    android:text="! Videollamada entrante !"
+                    android:textSize="20dp"
                     android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/btnActividadesNo"
-                    android:layout_width="match_parent"
+                <TextView
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@color/colorPrimary"
-                    android:text="No"
-                    android:textColor="@color/colorBlanco"
-                    android:textStyle="bold" />
+                    android:layout_width="wrap_content"
+                    android:text="@string/videollamada"
+                    android:textSize="17dp"
+                    android:padding="15dp"
+                    android:layout_marginBottom="20dp"/>
+
+                <TextView
+                    android:id="@+id/tvEnlaceLlamada"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:autoLink="web"
+                    android:padding="15dp"
+                    android:textColorLink="@color/colorAccent" />
+
             </LinearLayout>
-
-
         </androidx.cardview.widget.CardView>
 
     </RelativeLayout>
 
-</FrameLayout>
+</LinearLayout>

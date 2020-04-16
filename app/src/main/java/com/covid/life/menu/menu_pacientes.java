@@ -3,6 +3,7 @@ package com.covid.life.menu;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -14,7 +15,7 @@ import com.covid.life.form.activity_guia;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class menu_pacientes extends AppCompatActivity {
-    Button btnGuia, btnSignosVitales;
+    private Button btnGuia, btnSignosVitales, btnEmergencias;
     private int contador=0;
     private FirebaseAuth mAuth;
 
@@ -26,7 +27,7 @@ public class menu_pacientes extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         btnGuia = findViewById(R.id.btnGuia);
         btnSignosVitales = findViewById(R.id.btnSignosVitales);
-
+        btnEmergencias = findViewById(R.id.btnEmergencia);
         btnSignosVitales.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,6 +43,17 @@ public class menu_pacientes extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(),
                         activity_guia.class);
                 startActivity(intent);
+
+            }
+        });
+
+        btnEmergencias.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String dial = "tel:171";
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse(dial));
+                startActivity(intent);
+
 
             }
         });

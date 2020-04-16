@@ -32,11 +32,12 @@ public class Paciente {
     private int estado_actual;
     private int familiares_cerco;
     private Date fecha_creacion;
+    private String token;
 
     public Paciente() {
     }
 
-    public Paciente(String cedula, String nombres, String apellidos, String correo, Date fechaNacimiento, String genero, String provincia, String canton, String telefono, String latitud, String longitud, String direccion, String aislado_por, String alergia_medicamentos, String tiene_diagnosticado_enfermedad, boolean es_diagnosticado_cancer, boolean es_embarazada, boolean esta_dando_lactar, boolean fue_es_fumador, boolean tiene_carnet_discapacidad, boolean tiene_diabetes, boolean tiene_presion_alta, int estado_actual, int familiares_cerco, Date fecha_creacion) {
+    public Paciente(String cedula, String nombres, String apellidos, String correo, Date fechaNacimiento, String genero, String provincia, String canton, String telefono, String latitud, String longitud, String direccion, String direccionGPS, String aislado_por, String alergia_medicamentos, String tiene_diagnosticado_enfermedad, boolean es_diagnosticado_cancer, boolean es_embarazada, boolean esta_dando_lactar, boolean fue_es_fumador, boolean tiene_carnet_discapacidad, boolean tiene_diabetes, boolean tiene_presion_alta, int estado_actual, int familiares_cerco, Date fecha_creacion, String token) {
         this.cedula = cedula;
         this.nombres = nombres;
         this.apellidos = apellidos;
@@ -49,6 +50,7 @@ public class Paciente {
         this.latitud = latitud;
         this.longitud = longitud;
         this.direccion = direccion;
+        this.direccionGPS = direccionGPS;
         this.aislado_por = aislado_por;
         this.alergia_medicamentos = alergia_medicamentos;
         this.tiene_diagnosticado_enfermedad = tiene_diagnosticado_enfermedad;
@@ -62,6 +64,15 @@ public class Paciente {
         this.estado_actual = estado_actual;
         this.familiares_cerco = familiares_cerco;
         this.fecha_creacion = fecha_creacion;
+        this.token = token;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getDireccionGPS() {

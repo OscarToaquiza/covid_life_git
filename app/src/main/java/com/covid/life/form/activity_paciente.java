@@ -14,6 +14,7 @@ import android.os.Bundle;
 import com.covid.life.menu.activity_menu_inicio;
 import com.covid.life.menu.menu_pacientes;
 import com.covid.life.models.Paciente;
+import com.covid.life.notificaciones.Notificacion;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
@@ -99,7 +100,6 @@ public class activity_paciente extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mostrarAntecedentes(position);
-
             }
 
             @Override
@@ -147,7 +147,7 @@ public class activity_paciente extends AppCompatActivity {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
             Toast.makeText(getApplicationContext(),
-                    "Necesitamos permisos de ubicación ", Toast.LENGTH_LONG)
+                    "Necesitamos permisos de ubicación !!", Toast.LENGTH_LONG)
                     .show();
             return;
         }
@@ -164,9 +164,9 @@ public class activity_paciente extends AppCompatActivity {
             paciente.setDireccionGPS(DirCalle.getAddressLine(0));
         }
 
-
         paciente.setLatitud(String.valueOf(latitude));
         paciente.setLongitud(String.valueOf(longitud));
+        paciente.setToken(Notificacion.getToken(this));
 
         progressbar.setVisibility(View.VISIBLE);
             db.collection("paciente")
