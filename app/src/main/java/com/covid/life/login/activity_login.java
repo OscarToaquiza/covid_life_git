@@ -111,9 +111,7 @@ public class activity_login extends AppCompatActivity {
 
                                     // hide the progress bar
                                     progressbar.setVisibility(View.GONE);
-
-                                    // if sign-in is successful
-                                    // intent to home activity
+                                    finish();
                                     Intent intent
                                             = new Intent(activity_login.this,
                                             menu_pacientes.class);
@@ -178,6 +176,7 @@ public class activity_login extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("email","");
         editor.putString("password","");
+        editor.commit();
     }
 
 

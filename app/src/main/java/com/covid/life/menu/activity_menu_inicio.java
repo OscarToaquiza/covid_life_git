@@ -2,8 +2,12 @@ package com.covid.life.menu;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.app.DownloadManager;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -41,6 +45,7 @@ public class activity_menu_inicio extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_inicio);
+
         mAuth = FirebaseAuth.getInstance();
         btnAgregar = findViewById(R.id.Agregar);
         progressbar = findViewById(R.id.progressBar);
