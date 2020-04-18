@@ -30,23 +30,17 @@
                 android:orientation="vertical"
                 android:padding="15dp"
                 >
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="COVID LIFE"
-                    android:textSize="30dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_marginTop="25dp"/>
+
 
                 <ImageView
                     android:id="@+id/imageView"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
                     android:padding="10dp"
-                    android:src="@drawable/ic_informe_medico"
-                    android:layout_marginBottom="45dp"/>
+                    android:src="@drawable/ic_espe_covid_life"
+                    android:layout_marginBottom="45dp"
+                    android:layout_marginTop="45dp"
+                    />
 
                 <Button
                     android:id="@+id/btnGuia"

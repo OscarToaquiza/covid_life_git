@@ -5,7 +5,5 @@
         android:id="@+id/menu"
         android:icon="@drawable/ic_cerrar_sesion"
         android:title="Cerrar Sesión "
-        app:showAsAction="ifRoom"
-        android:iconTint="@color/design_default_color_background"
-        android:iconTintMode="add"></item>
+        ></item>
 </menu>

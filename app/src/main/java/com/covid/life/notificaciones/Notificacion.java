@@ -26,7 +26,6 @@ public class Notificacion extends FirebaseMessagingService {
     @Override
     public void onNewToken(String s) {
         super.onNewToken(s);
-        Log.e("token","mi token es:"+s);
         getSharedPreferences("notificacion", MODE_PRIVATE).edit().putString("token", s).apply();
     }
 

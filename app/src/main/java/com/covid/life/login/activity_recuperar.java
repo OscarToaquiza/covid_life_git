@@ -3,6 +3,8 @@ package com.covid.life.login;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -23,10 +25,12 @@ public class activity_recuperar extends AppCompatActivity {
     private ProgressBar progressbar;
 
     private FirebaseAuth mAuth;
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recuperar);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         // taking instance of FirebaseAuth
         mAuth = FirebaseAuth.getInstance();
 

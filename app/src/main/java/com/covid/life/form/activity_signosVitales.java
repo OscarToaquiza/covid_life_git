@@ -3,7 +3,9 @@ package com.covid.life.form;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -34,10 +36,12 @@ public class activity_signosVitales extends AppCompatActivity {
     private ProgressBar progressBar;
     private Seguimiento signosVitales;
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signos_vitales);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         signosVitales = new Seguimiento();
         mAuth = FirebaseAuth.getInstance();

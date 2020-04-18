@@ -34,9 +34,10 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="75dp"
-                    android:src="@drawable/logo_espe"
+                    android:src="@drawable/espe_logo"
                     android:layout_marginBottom="5dp"
                     android:layout_marginTop="25dp"/>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -54,7 +55,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
                     android:padding="10dp"
-                    android:src="@drawable/ic_estetoscopio"
+                    android:src="@drawable/ic_espe_covid_life"
                     android:layout_marginBottom="15dp"/>
                 <TextView
                     android:layout_width="match_parent"

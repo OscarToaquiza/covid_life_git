@@ -2,7 +2,9 @@ package com.covid.life.resultados;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,10 +19,13 @@ import org.w3c.dom.Text;
 
 public class activity_resultado extends AppCompatActivity {
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultado);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         int totalPuntaje = getIntent().getExtras().getInt("totalPuntaje");
         ImageView icono = findViewById(R.id.icono);
         TextView txtResultado = findViewById(R.id.tvResultado);
