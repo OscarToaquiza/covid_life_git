@@ -3,6 +3,7 @@ package com.covid.life.form;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -10,6 +11,7 @@ import android.location.Address;
 import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 
@@ -17,15 +19,18 @@ import com.covid.life.menu.activity_menu_inicio;
 import com.covid.life.menu.menu_pacientes;
 import com.covid.life.models.Paciente;
 import com.covid.life.notificaciones.Notificacion;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -37,6 +42,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.covid.life.R;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -147,7 +153,7 @@ public class activity_paciente extends AppCompatActivity {
         //obtener latitud y longitud del paciente
         LocationManager locationManager = (LocationManager)
                 getSystemService(Context.LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
+
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
@@ -157,8 +163,14 @@ public class activity_paciente extends AppCompatActivity {
             return;
         }
 
-        Location location = locationManager.getLastKnownLocation(locationManager
-                .getBestProvider(criteria, false));
+        Location location = locationManager.getLastKnownLocation( locationManager.GPS_PROVIDER);
+        if(location == null)
+             location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+        if(location == null){
+            AlertActivarGps();
+            return;
+        }
         double latitude = location.getLatitude();
         double longitud = location.getLongitude();
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
@@ -177,6 +189,21 @@ public class activity_paciente extends AppCompatActivity {
             db.collection("paciente")
                     .document(uid)
                     .set(paciente)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                                progressbar.setVisibility(View.GONE);
+                                Toast.makeText(getApplicationContext(),
+                                        "Bienvenido !!", Toast.LENGTH_SHORT)
+                                        .show();
+                                finish();
+                                Intent intent
+                                        = new Intent(getApplicationContext(),
+                                        menu_pacientes.class);
+                                startActivity(intent);
+                            }
+
+                    })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
@@ -187,15 +214,7 @@ public class activity_paciente extends AppCompatActivity {
                             return;
                         }
                     });
-        progressbar.setVisibility(View.GONE);
-        Toast.makeText(getApplicationContext(),
-                "Bienvenido !!", Toast.LENGTH_SHORT)
-                .show();
-        finish();
-        Intent intent
-                = new Intent(getApplicationContext(),
-                menu_pacientes.class);
-        startActivity(intent);
+
 
     }
     private void obtenerDatos(){
@@ -387,4 +406,17 @@ public class activity_paciente extends AppCompatActivity {
         return TRUE;
     }
 
-}
+    public void AlertActivarGps(){
+        new AlertDialog.Builder(activity_paciente.this)
+                .setIcon(R.drawable.ic_report_problem)
+                .setTitle("Ubicación")
+                .setMessage("Para un mejor resultado esta aplicacion necesita que la ubicación este activada.")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(settingsIntent);
+                    }
+                }).show();
+    }
+ }
