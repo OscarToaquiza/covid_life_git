@@ -29,28 +29,22 @@
                 android:orientation="vertical"
                 android:padding="25dp">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="TEST COVID 19"
-                    android:textSize="20dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/colorPrimary"/>
+
                 <ImageView
                     android:id="@+id/imageView"
                     android:layout_width="match_parent"
                     android:layout_height="114dp"
                     android:padding="10dp"
-                    android:src="@drawable/ic_directions_run" />
+                    android:layout_marginTop="45dp"
+                    android:src="@drawable/ic_fatiga" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:padding="18dp"
                     android:text="¿Tiene debilidad o fatiga que impide hacer tus actividades diarias?"
-                    android:textSize="24dp"
-                    android:padding="18dp"/>
+                    android:textSize="24dp" />
 
                 <Button
                     android:id="@+id/btnActividadesSi"
