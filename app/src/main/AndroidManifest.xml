@@ -17,9 +17,6 @@
         android:theme="@style/AppTheme"
         android:debuggable="false"
         tools:ignore="HardcodedDebugMode">
-        <activity android:name=".notificaciones.activity_llamada"
-            android:parentActivityName=".menu.activity_menu"
-            ></activity>
         <activity android:name=".form.activity_temperatura" />
         <activity android:name=".form.activity_recuerda" />
         <activity android:name=".form.activity_guia" />
@@ -44,10 +41,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".notificaciones.activity_llamada">
+            <intent-filter>
+                <action android:name="ACTIVITYLLAMADA" />
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
         <service
             android:name=".notificaciones.Notificacion"
-            android:exported="false">
+            android:enabled="true"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

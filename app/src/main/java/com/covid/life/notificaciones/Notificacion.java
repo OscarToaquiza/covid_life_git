@@ -4,11 +4,15 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.Service;
+import android.app.TaskStackBuilder;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 
@@ -22,12 +26,14 @@ import com.google.firebase.messaging.RemoteMessage;
 import java.util.Random;
 
 public class Notificacion extends FirebaseMessagingService {
-
+    private String enlace;
     @Override
     public void onNewToken(String s) {
         super.onNewToken(s);
         getSharedPreferences("notificacion", MODE_PRIVATE).edit().putString("token", s).apply();
     }
+
+
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -36,7 +42,8 @@ public class Notificacion extends FirebaseMessagingService {
         if(remoteMessage.getData().size() > 0){
             String titulo = remoteMessage.getNotification().getTitle();
             String descripcion = remoteMessage.getNotification().getBody();
-            String enlace = remoteMessage.getData().get("enlace");
+            enlace = remoteMessage.getData().get("enlace");
+            guardarPreferencias(enlace);
             superiorOreo(titulo,descripcion,enlace);
         }
     }
@@ -62,10 +69,10 @@ public class Notificacion extends FirebaseMessagingService {
                 .setContentTitle(titulo)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentText(descripcion)
-                .setContentIntent(clickNotificacion(enlace))
                 .setContentInfo("nuevo")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
+                .setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE)
+                .setContentIntent(clickNotificacion(enlace));
 
         Random random = new Random();
         int idNotify = random.nextInt(8000);
@@ -75,9 +82,28 @@ public class Notificacion extends FirebaseMessagingService {
     }
 
     public PendingIntent clickNotificacion(String enlace){
-        Intent nf = new Intent(Intent.makeMainActivity(new ComponentName(this, activity_llamada.class)));
+       
+        Intent nf = new Intent(this, activity_llamada.class);
         nf.putExtra("enlace",enlace);
         nf.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        return PendingIntent.getActivity(this,0,nf,PendingIntent.FLAG_UPDATE_CURRENT);
+        //nf.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+       /*TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addNextIntentWithParentStack(nf);
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);*/
+        PendingIntent notifyPendingIntent = PendingIntent.getActivity(
+                this, 0,nf, PendingIntent.FLAG_ONE_SHOT );
+
+        return notifyPendingIntent;
     }
+
+    public void guardarPreferencias(String enlace){
+        SharedPreferences preferences = getSharedPreferences("notificacion", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("enlace",enlace);
+        editor.commit();
+    }
+
+
+
 }

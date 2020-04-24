@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.covid.life.R;
 import com.covid.life.form.activity_guia;
+import com.covid.life.notificaciones.activity_llamada;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class menu_pacientes extends AppCompatActivity {
@@ -105,10 +106,21 @@ public class menu_pacientes extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.menu:
                 mostrarDialogo();
+
+            case R.id.videollamada:
+                mostrarLlamada();
         }
         return super.onOptionsItemSelected(item);
     }
 
+    public void mostrarLlamada(){
+        SharedPreferences preferences = getSharedPreferences("notificacion", Context.MODE_PRIVATE);
+        String enlace = preferences.getString("enlace","");
+        Intent intent = new Intent(getApplicationContext(),
+                activity_llamada.class);
+        intent.putExtra("enlace",enlace);
+        startActivity(intent);
+    }
     public void mostrarDialogo(){
         AlertDialog.Builder builder = new AlertDialog.Builder(menu_pacientes.this);
         builder.setTitle("Cerrar Sesión");
@@ -143,4 +155,6 @@ public class menu_pacientes extends AppCompatActivity {
         correo = preferences.getString("email","");
         contrasena = preferences.getString("password","");
     }
+
+
 }

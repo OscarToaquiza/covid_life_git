@@ -3,7 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menu"
-        android:icon="@drawable/ic_cerrar_sesion"
         android:title="Cerrar Sesión "
+        ></item>
+    <item
+        android:id="@+id/videollamada"
+        android:icon="@drawable/ic_phone_call"
+        app:showAsAction="always"
+        android:title="Add"
+
         ></item>
 </menu>
