@@ -66,6 +66,7 @@ public class activity_recuperar extends AppCompatActivity {
             return;
         }
 
+        Btn.setEnabled(false);
         mAuth.sendPasswordResetEmail(email)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -82,6 +83,7 @@ public class activity_recuperar extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        Btn.setEnabled(true);
                         Toast.makeText(getApplicationContext(),
                                 "Error: "+e.getMessage(),
                                 Toast.LENGTH_LONG)

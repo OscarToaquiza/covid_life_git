@@ -52,12 +52,12 @@ public class activity_menu extends AppCompatActivity {
 
         url = "https://covid-life.firebaseapp.com";
 
+
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cargarPreferencias();
-
-
             }
         });
 
@@ -108,7 +108,7 @@ public class activity_menu extends AppCompatActivity {
     }
 
     public void login(String email, String password){
-
+        btnLogin.setEnabled(false);
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(
                         new OnCompleteListener<AuthResult>() {
@@ -141,11 +141,18 @@ public class activity_menu extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        btnLogin.setEnabled(true);
                         Toast.makeText(getApplicationContext(),
                                 "Error: "+e.getMessage(),
                                 Toast.LENGTH_LONG)
                                 .show();
                     }
                 });
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        btnLogin.setEnabled(true);
     }
 }

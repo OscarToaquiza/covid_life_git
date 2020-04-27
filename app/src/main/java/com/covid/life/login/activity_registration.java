@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -35,6 +37,7 @@ public class activity_registration extends AppCompatActivity {
     private ProgressBar progressbar;
     private FirebaseAuth mAuth;
     private String[] datos;
+    private String email, password;
 
 
     @SuppressLint("SourceLockedOrientationActivity")
@@ -84,7 +87,7 @@ public class activity_registration extends AppCompatActivity {
     private void registerNewUser()
     {
 
-        String email, password;
+
         email = emailTextView.getText().toString().trim();
         password = passwordTextView.getText().toString().trim();
 
@@ -135,7 +138,7 @@ public class activity_registration extends AppCompatActivity {
         }
 
         progressbar.setVisibility(View.VISIBLE);
-
+        Btn.setEnabled(false);
         // create new user or register new user
         mAuth
                 .createUserWithEmailAndPassword(email, password)
@@ -145,6 +148,7 @@ public class activity_registration extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task)
                     {
                         if (task.isSuccessful()) {
+                            guardarPreferencias();
                             Toast.makeText(getApplicationContext(),
                                     "Bienvenido !!",
                                     Toast.LENGTH_LONG)
@@ -178,6 +182,7 @@ public class activity_registration extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        Btn.setEnabled(true);
                         Toast.makeText(getApplicationContext(),
                                 e.getMessage(),
                                 Toast.LENGTH_LONG)
@@ -231,6 +236,17 @@ public class activity_registration extends AppCompatActivity {
         }
     }
 
+    public void guardarPreferencias(){
+        SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("email",email);
+        editor.putString("password",password);
+
+        emailTextView.setText(email);
+        passwordTextView.setText(password);
+
+        editor.commit();
+    }
 
 
 

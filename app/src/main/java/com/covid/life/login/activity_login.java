@@ -94,7 +94,7 @@ public class activity_login extends AppCompatActivity {
             progressbar.setVisibility(View.GONE);
             return;
         }
-
+        Btn.setEnabled(false);
         // signin existing user
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(
@@ -138,6 +138,7 @@ public class activity_login extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        Btn.setEnabled(false);
                         Toast.makeText(getApplicationContext(),
                                 "Error: "+e.getMessage(),
                                 Toast.LENGTH_LONG)

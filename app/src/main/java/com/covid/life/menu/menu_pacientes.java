@@ -44,9 +44,11 @@ public class menu_pacientes extends AppCompatActivity {
         btnGuia = findViewById(R.id.btnGuia);
         btnSignosVitales = findViewById(R.id.btnSignosVitales);
         btnEmergencias = findViewById(R.id.btnEmergencia);
+
         btnSignosVitales.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(getApplicationContext(),
                         activity_menu_inicio.class);
                 startActivity(intent);
@@ -56,6 +58,7 @@ public class menu_pacientes extends AppCompatActivity {
         btnGuia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(getApplicationContext(),
                         activity_guia.class);
                 startActivity(intent);
@@ -65,6 +68,7 @@ public class menu_pacientes extends AppCompatActivity {
         btnEmergencias.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String dial = "tel:911";
                 Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse(dial));
                 startActivity(intent);
@@ -106,9 +110,11 @@ public class menu_pacientes extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.menu:
                 mostrarDialogo();
+                break;
 
             case R.id.videollamada:
                 mostrarLlamada();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

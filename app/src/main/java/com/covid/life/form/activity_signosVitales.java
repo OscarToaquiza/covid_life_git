@@ -93,6 +93,7 @@ public class activity_signosVitales extends AppCompatActivity {
         signosVitales.setFecha(fecha);
 
         progressBar.setVisibility(View.VISIBLE);
+        btnAgregar.setEnabled(false);
         db.collection("seguimiento")
                 .add(signosVitales)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -115,6 +116,7 @@ public class activity_signosVitales extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        btnAgregar.setEnabled(true);
                         Toast.makeText(getApplicationContext(),
                                 "Error: "+e.getMessage(), Toast.LENGTH_SHORT)
                                 .show();
