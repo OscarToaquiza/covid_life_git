@@ -36,7 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="114dp"
                     android:padding="10dp"
-                    android:src="@drawable/ic_explore" />
+                    android:src="@drawable/ic_espe_covid_life" />
 
                 <TextView
                     android:layout_width="match_parent"

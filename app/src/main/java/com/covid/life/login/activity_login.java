@@ -18,15 +18,18 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.covid.life.R;
-import com.covid.life.menu.activity_menu;
-import com.covid.life.menu.activity_menu_inicio;
 import com.covid.life.menu.menu_pacientes;
-import com.covid.life.notificaciones.Notificacion;
+import com.covid.life.models.Paciente;
+import com.covid.life.notificaciones.NotificacionFirebase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Source;
 
 public class activity_login extends AppCompatActivity {
     private EditText emailTextView, passwordTextView;
@@ -36,6 +39,8 @@ public class activity_login extends AppCompatActivity {
     private CheckBox cbMantenerSesion;
 
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
+
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +50,7 @@ public class activity_login extends AppCompatActivity {
 
         // taking instance of FirebaseAuth
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
         // initialising all views through id defined above
         emailTextView = findViewById(R.id.email);
@@ -104,6 +110,7 @@ public class activity_login extends AppCompatActivity {
                                     @NonNull Task<AuthResult> task)
                             {
                                 if (task.isSuccessful()) {
+                                    actualizarToken();
                                     if(cbMantenerSesion.isChecked())
                                         guardarPreferencias();
                                     else
@@ -183,6 +190,13 @@ public class activity_login extends AppCompatActivity {
         editor.putString("password","");
         editor.commit();
     }
+
+    public void actualizarToken(){
+        String idPaciente = mAuth.getUid();
+        String newToken = NotificacionFirebase.getToken(getApplicationContext());
+        DocumentReference docRef =  db.collection("paciente").document(idPaciente);
+        docRef.update("token", newToken);
+     }
 
 
 }

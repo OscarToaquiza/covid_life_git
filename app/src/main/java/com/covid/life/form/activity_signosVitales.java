@@ -1,12 +1,24 @@
 package com.covid.life.form;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Criteria;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -23,7 +35,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.IOException;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 import static java.lang.Boolean.TRUE;
 
@@ -35,6 +50,9 @@ public class activity_signosVitales extends AppCompatActivity {
     private Button btnAgregar;
     private ProgressBar progressBar;
     private Seguimiento signosVitales;
+    private double latitude,longitud ;
+
+
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
@@ -92,6 +110,9 @@ public class activity_signosVitales extends AppCompatActivity {
         Date fecha = new Date();
         signosVitales.setFecha(fecha);
 
+        if(obtenerLocalizacion()!=true)
+            return;
+
         progressBar.setVisibility(View.VISIBLE);
         btnAgregar.setEnabled(false);
         db.collection("seguimiento")
@@ -123,5 +144,58 @@ public class activity_signosVitales extends AppCompatActivity {
                         progressBar.setVisibility(View.GONE);
                     }
                 });
+    }
+
+    private boolean obtenerLocalizacion(){
+        LocationManager locationManager = (LocationManager)
+                getSystemService(Context.LOCATION_SERVICE);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
+            Toast.makeText(getApplicationContext(),
+                    "Necesitamos permisos de ubicación !!", Toast.LENGTH_LONG)
+                    .show();
+            return false;
+        }
+
+        Location location = locationManager.getLastKnownLocation( locationManager.GPS_PROVIDER);
+        if(location == null)
+            location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+        if(location == null){
+            AlertActivarGps();
+            return false;
+        }
+        latitude = location.getLatitude();
+        longitud = location.getLongitude();
+        signosVitales.setLatitud(String.valueOf(latitude));
+        signosVitales.setLongitud(String.valueOf(longitud));
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        List<Address> list = null;
+        try {
+            list = geocoder.getFromLocation(
+                    location.getLatitude(), location.getLongitude(), 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (!list.isEmpty()) {
+            Address DirCalle = list.get(0);
+            signosVitales.setDireccion(DirCalle.getAddressLine(0));
+        }
+        return true;
+    }
+
+    public void AlertActivarGps(){
+        new AlertDialog.Builder(activity_signosVitales.this)
+                .setIcon(R.drawable.ic_report_problem)
+                .setTitle("Ubicación")
+                .setMessage("Para un mejor resultado esta aplicacion necesita que la ubicación este activada.")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(settingsIntent);
+                    }
+                }).show();
     }
 }

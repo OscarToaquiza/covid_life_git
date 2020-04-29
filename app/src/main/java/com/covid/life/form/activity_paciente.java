@@ -8,18 +8,14 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.location.Address;
-import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 
-import com.covid.life.menu.activity_menu_inicio;
 import com.covid.life.menu.menu_pacientes;
 import com.covid.life.models.Paciente;
-import com.covid.life.notificaciones.Notificacion;
-import com.google.android.gms.tasks.OnCompleteListener;
+import com.covid.life.notificaciones.NotificacionFirebase;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
@@ -42,9 +38,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.covid.life.R;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
@@ -183,7 +177,7 @@ public class activity_paciente extends AppCompatActivity {
 
         paciente.setLatitud(String.valueOf(latitude));
         paciente.setLongitud(String.valueOf(longitud));
-        paciente.setToken(Notificacion.getToken(this));
+        paciente.setToken(NotificacionFirebase.getToken(this));
 
         progressbar.setVisibility(View.VISIBLE);
             db.collection("paciente")

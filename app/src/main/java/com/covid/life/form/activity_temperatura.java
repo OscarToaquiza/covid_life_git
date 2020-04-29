@@ -28,9 +28,6 @@ public class activity_temperatura extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                Intent intent = new Intent(getApplicationContext(),
-                        menu_pacientes.class);
-                startActivity(intent);
             }
         });
     }

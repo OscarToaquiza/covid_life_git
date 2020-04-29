@@ -11,12 +11,15 @@ public class Seguimiento {
     private Double sat_oxigeno;
     private Date fecha;
     private boolean creadoporPaciente;
+    private String Latitud;
+    private String Longitud;
+    private String Direccion;
 
     public Seguimiento(){
 
     }
 
-    public Seguimiento(String idPaciente, String idDoctor, Double temperatura, Double ritmo_cardiaco, Double sat_oxigeno, Date fecha, boolean creadoporPaciente) {
+    public Seguimiento(String idPaciente, String idDoctor, Double temperatura, Double ritmo_cardiaco, Double sat_oxigeno, Date fecha, boolean creadoporPaciente, String latitud, String longitud, String direccion) {
         this.idPaciente = idPaciente;
         this.idDoctor = idDoctor;
         this.temperatura = temperatura;
@@ -24,6 +27,9 @@ public class Seguimiento {
         this.sat_oxigeno = sat_oxigeno;
         this.fecha = fecha;
         this.creadoporPaciente = creadoporPaciente;
+        Latitud = latitud;
+        Longitud = longitud;
+        Direccion = direccion;
     }
 
     public String getIdPaciente() {
@@ -80,5 +86,29 @@ public class Seguimiento {
 
     public void setCreadoporPaciente(boolean creadoporPaciente) {
         this.creadoporPaciente = creadoporPaciente;
+    }
+
+    public String getLatitud() {
+        return Latitud;
+    }
+
+    public void setLatitud(String latitud) {
+        Latitud = latitud;
+    }
+
+    public String getLongitud() {
+        return Longitud;
+    }
+
+    public void setLongitud(String longitud) {
+        Longitud = longitud;
+    }
+
+    public String getDireccion() {
+        return Direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        Direccion = direccion;
     }
 }

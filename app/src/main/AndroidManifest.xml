@@ -48,7 +48,7 @@
             </intent-filter>
         </activity>
         <service
-            android:name=".notificaciones.Notificacion"
+            android:name=".notificaciones.NotificacionFirebase"
             android:enabled="true"
             android:exported="true" >
             <intent-filter>

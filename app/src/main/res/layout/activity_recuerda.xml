@@ -30,12 +30,13 @@
                 android:textSize="20dp"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimary"/>
+
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="114dp"
                 android:padding="10dp"
-                android:src="@drawable/ic_help" />
+                android:src="@drawable/ic_dificultad_para_respirar" />
 
             <TextView
                 android:layout_width="match_parent"
