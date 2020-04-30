@@ -1,4 +1,4 @@
-<?xml version="1.1" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.covid.life">
@@ -10,13 +10,15 @@
 
     <application
         android:allowBackup="true"
+        android:debuggable="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:debuggable="false"
         tools:ignore="HardcodedDebugMode">
+        <activity android:name=".form.activity_colaboradores"></activity>
+        <activity android:name=".doctor.activity_menu_doctor" />
         <activity android:name=".form.activity_temperatura" />
         <activity android:name=".form.activity_recuerda" />
         <activity android:name=".form.activity_guia" />
@@ -38,19 +40,22 @@
         <activity android:name=".menu.activity_menu">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".notificaciones.activity_llamada">
             <intent-filter>
                 <action android:name="ACTIVITYLLAMADA" />
-                <category android:name="android.intent.category.DEFAULT"/>
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
         <service
             android:name=".notificaciones.NotificacionFirebase"
             android:enabled="true"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

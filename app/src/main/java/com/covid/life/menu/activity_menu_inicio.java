@@ -12,6 +12,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -25,6 +26,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -75,6 +77,7 @@ public class activity_menu_inicio extends AppCompatActivity {
 
         db.collection("seguimiento")
                 .whereEqualTo("idPaciente", mAuth.getUid())
+                .orderBy("fecha", Query.Direction.DESCENDING)
                 .limit(3)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -92,6 +95,7 @@ public class activity_menu_inicio extends AppCompatActivity {
                                 if(fechaPac.equals(fechaAct)){
                                     cont++;
                                 }
+
                              }
 
                             if(cont == 3){
@@ -99,9 +103,6 @@ public class activity_menu_inicio extends AppCompatActivity {
                             }
                             if(cont < 3)
                                 btnAgregar.setVisibility(View.VISIBLE);
-
-
-
                         } else {
                             Toast.makeText(getApplicationContext(),
                                     task.getException().getMessage(), Toast.LENGTH_SHORT).show();

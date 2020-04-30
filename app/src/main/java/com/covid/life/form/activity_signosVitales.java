@@ -23,6 +23,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,16 +41,18 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
 public class activity_signosVitales extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private TextView txtTemperatura, txtFrecuencia,txtSaturacion;
+    private TextView txtTemperatura, txtFrecuencia,txtSaturacion,txtEstadoActual;
     private Button btnAgregar;
     private ProgressBar progressBar;
     private Seguimiento signosVitales;
+    private Spinner estado;
     private double latitude,longitud ;
 
 
@@ -72,6 +75,8 @@ public class activity_signosVitales extends AppCompatActivity {
         txtSaturacion = findViewById(R.id.saturacionOxigeno);
         btnAgregar = findViewById(R.id.RegistrarSignos);
         progressBar = findViewById(R.id.progressBar);
+        txtEstadoActual = findViewById(R.id.estadoActual);
+        estado = findViewById(R.id.spnEstado);
 
         btnAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +93,7 @@ public class activity_signosVitales extends AppCompatActivity {
                     .show();
             return;
         }
-
+    /*
         if (TextUtils.isEmpty(txtFrecuencia.getText().toString().trim())) {
             Toast.makeText(getApplicationContext(),
                     "Ingrese la frecuencia cardíaca ", Toast.LENGTH_LONG)
@@ -101,11 +106,34 @@ public class activity_signosVitales extends AppCompatActivity {
                     "Ingrese la saturación de oxígeno ", Toast.LENGTH_LONG)
                     .show();
             return;
+        }*/
+
+        String seleccione = "-- Seleccione --";
+
+        if(estado.getSelectedItem().toString().trim().equals(seleccione)){
+            Toast.makeText(getApplicationContext(),
+                    "Seleccione su estado", Toast.LENGTH_LONG)
+                    .show();
+            return;
+        }else{
+            switch (estado.getSelectedItem().toString()){
+                case "Estoy Empeorando":
+                    signosVitales.setEstadoSalud("DETERIORO");
+                    break;
+                case "Sigo Estable":
+                    signosVitales.setEstadoSalud("BUENA_EVOLUCION");
+                    break;
+                case "Mejoría de síntomas":
+                    signosVitales.setEstadoSalud("IGUAL_EVOLUCION");
+                    break;
+            }
+
         }
 
         signosVitales.setSat_oxigeno(Double.parseDouble(txtSaturacion.getText().toString().trim()));
         signosVitales.setRitmo_cardiaco(Double.parseDouble(txtFrecuencia.getText().toString().trim()));
         signosVitales.setTemperatura(Double.parseDouble(txtTemperatura.getText().toString().trim()));
+        signosVitales.setEstadoActual(txtEstadoActual.getText().toString().trim());
 
         Date fecha = new Date();
         signosVitales.setFecha(fecha);
@@ -129,8 +157,6 @@ public class activity_signosVitales extends AppCompatActivity {
                                 = new Intent(getApplicationContext(),
                                 activity_menu_inicio.class);
                         startActivity(intent);
-
-
 
                     }
                 })

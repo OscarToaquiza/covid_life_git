@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -15,10 +15,12 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="300dp"
-            android:layout_height="500dp"
+            android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:gravity="center"
+            android:layout_marginTop="45dp"
+            android:layout_marginBottom="45dp"
             app:cardBackgroundColor="@color/cardview_light_background"
             app:cardCornerRadius="15dp"
             >
@@ -29,16 +31,25 @@
                 android:gravity="center_vertical"
                 android:orientation="vertical"
                 android:padding="15dp">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Registro de signos vitales"
                     android:textAlignment="center"
-                    android:textSize="30sp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     android:padding="25dp" />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="Grados Centigrados (°C)"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/colorNegro"/>
                 <EditText
                     android:id="@+id/temperatura"
                     android:layout_width="match_parent"
@@ -51,11 +62,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:text="Grados Centigrados (°C)"
+                    android:text="Latidos por minuto"
                     android:textStyle="bold"
                     android:layout_marginBottom="10dp"
                     android:textColor="@color/colorNegro"/>
-
 
                 <EditText
                     android:id="@+id/frecuenciaCardiaca"
@@ -65,11 +75,12 @@
                     android:layout_marginBottom="10dp"
                     android:inputType="numberDecimal"
                     android:imeOptions="actionSend"/>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:text="Latidos por minuto"
+                    android:text="% SpO2"
                     android:textStyle="bold"
                     android:layout_marginBottom="10dp"
                     android:textColor="@color/colorNegro"/>
@@ -82,15 +93,48 @@
                     android:layout_marginBottom="10dp"
                     android:inputType="numberDecimal"
                     android:imeOptions="actionSend"/>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:text="% SpO2"
+                    android:text="Seleccione su estado de salud"
                     android:textStyle="bold"
                     android:layout_marginBottom="10dp"
                     android:textColor="@color/colorNegro"/>
 
+                <Spinner
+                    android:id="@+id/spnEstado"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/estado"
+                    android:layout_marginBottom="15dp"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="Seleccione su estado de salud"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/colorNegro"/>
+
+                <EditText
+                    android:id="@+id/estadoActual"
+                    android:inputType="text|textMultiLine"
+                    android:minLines="2"
+                    android:gravity="top|left"
+                    android:maxLines="4"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:overScrollMode="always"
+                    android:scrollbarStyle="insideInset"
+                    android:scrollbars="vertical"
+                    android:layout_marginBottom="10dp"
+                    android:hint="Ingrese su estado Actual"
+                    android:imeOptions="actionSend"
+                     />
 
                 <Button
                     android:id="@+id/RegistrarSignos"
@@ -100,19 +144,19 @@
                     android:textColor="@color/colorBlanco"
                     android:text="Registrar"  />
 
-
-
-
                 <ProgressBar
                     android:id="@+id/progressBar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:visibility="gone" />
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="25dp"
+                    android:visibility="gone"
+                    />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
     </RelativeLayout>
 
-</LinearLayout>
+</ScrollView>

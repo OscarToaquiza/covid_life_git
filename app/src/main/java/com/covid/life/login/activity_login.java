@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -18,17 +19,20 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.covid.life.R;
+import com.covid.life.doctor.activity_menu_doctor;
 import com.covid.life.menu.menu_pacientes;
 import com.covid.life.models.Paciente;
 import com.covid.life.notificaciones.NotificacionFirebase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Source;
 
 public class activity_login extends AppCompatActivity {
@@ -110,23 +114,18 @@ public class activity_login extends AppCompatActivity {
                                     @NonNull Task<AuthResult> task)
                             {
                                 if (task.isSuccessful()) {
-                                    actualizarToken();
                                     if(cbMantenerSesion.isChecked())
                                         guardarPreferencias();
                                     else
                                         borrarPreferencias();
-                                    Toast.makeText(getApplicationContext(),
+                                    /*Toast.makeText(getApplicationContext(),
                                             "Bienvenido !!",
                                             Toast.LENGTH_LONG)
-                                            .show();
+                                            .show();*/
 
                                     // hide the progress bar
                                     progressbar.setVisibility(View.GONE);
-                                    finish();
-                                    Intent intent
-                                            = new Intent(activity_login.this,
-                                            menu_pacientes.class);
-                                    startActivity(intent);
+                                    actualizarToken();
                                 }
 
                                 else {
@@ -192,11 +191,39 @@ public class activity_login extends AppCompatActivity {
     }
 
     public void actualizarToken(){
-        String idPaciente = mAuth.getUid();
-        String newToken = NotificacionFirebase.getToken(getApplicationContext());
-        DocumentReference docRef =  db.collection("paciente").document(idPaciente);
-        docRef.update("token", newToken);
+        final String idPaciente = mAuth.getUid();
+        final DocumentReference docRef = db.collection("paciente").document(idPaciente);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    String newToken = NotificacionFirebase.getToken(getApplicationContext());
+                    finish();
+                    if (document.exists()) {
+                        DocumentReference docRef = db.collection("paciente").document(idPaciente);
+                        docRef.update("token", newToken);
+                        Intent intent
+                                = new Intent(activity_login.this,
+                                menu_pacientes.class);
+                        startActivity(intent);
+                    } else {
+                        DocumentReference docRef = db.collection("doctor").document(idPaciente);
+                        docRef.update("token", newToken);
+                        Intent intent
+                                = new Intent(activity_login.this,
+                                activity_menu_doctor.class);
+                        startActivity(intent);
+                    }
+                } else {
+                    Log.d("paciente1", "get failed with ", task.getException());
+                }
+            }
+        });
+
+
      }
+
 
 
 }

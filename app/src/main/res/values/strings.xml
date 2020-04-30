@@ -3,6 +3,25 @@
     <string name="title_activity_paciente"> Paciente</string>
     <string name="action_settings">Settings</string>
 
+    <string-array name="estado">
+        <item>-- Seleccione --</item>
+        <item>Estoy Empeorando</item>
+        <item>Sigo Estable</item>
+        <item>Mejoría de síntomas</item>
+    </string-array>
+
+    <string name="integrantes">
+        Ing. José Luis Carrillo M. PhD \n
+        Tcrn. Esp. Avc. Gonzalo Pullas T. PhD \n
+        Dr. Bolívar Ernesto Llamuca C. \n
+        Ing. David Rivas Lalaleo PhD. \n
+        Sr. Oscar Toaquiza Casa \n
+        Sr. Santiago Collaguazo Pozo \n
+        Sr. Daniel Caballeros Tejada \n
+        Sr. Byron Rosas Salguero \n
+        Sr. Darwin Guailla Chulco \n
+        Sr. Daniel Quingaluisa Parra \n
+    </string>
     <string name="guia">
         Guía  para aislamiento domiciliario en personas contagiadas de coronavirus
     </string>

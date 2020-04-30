@@ -14,6 +14,8 @@ public class Seguimiento {
     private String Latitud;
     private String Longitud;
     private String Direccion;
+    private String estadoActual;
+    private String estadoSalud;
 
     public Seguimiento(){
 
@@ -30,6 +32,22 @@ public class Seguimiento {
         Latitud = latitud;
         Longitud = longitud;
         Direccion = direccion;
+    }
+
+    public String getEstadoActual() {
+        return estadoActual;
+    }
+
+    public void setEstadoActual(String estadoActual) {
+        this.estadoActual = estadoActual;
+    }
+
+    public String getEstadoSalud() {
+        return estadoSalud;
+    }
+
+    public void setEstadoSalud(String estadoSalud) {
+        this.estadoSalud = estadoSalud;
     }
 
     public String getIdPaciente() {

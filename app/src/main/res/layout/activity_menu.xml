@@ -111,6 +111,12 @@
                     android:textSize="20dp"
                     android:drawableTint="@color/colorBlanco"/>
 
+                <ProgressBar
+                    android:id="@+id/progressBarInicio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:visibility="gone" />
 
 
             </LinearLayout>
