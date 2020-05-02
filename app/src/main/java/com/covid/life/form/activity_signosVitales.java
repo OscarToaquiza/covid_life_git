@@ -88,25 +88,25 @@ public class activity_signosVitales extends AppCompatActivity {
 
     private void guardarSignosVitales(){
         if (TextUtils.isEmpty(txtTemperatura.getText().toString().trim())) {
-            Toast.makeText(getApplicationContext(),
-                    "Ingrese la temperatura ", Toast.LENGTH_LONG)
-                    .show();
-            return;
-        }
-    /*
-        if (TextUtils.isEmpty(txtFrecuencia.getText().toString().trim())) {
-            Toast.makeText(getApplicationContext(),
-                    "Ingrese la frecuencia cardíaca ", Toast.LENGTH_LONG)
-                    .show();
+            txtTemperatura.setError("Ingrese la temperatura");
             return;
         }
 
+        if (TextUtils.isEmpty(txtFrecuencia.getText().toString().trim())) {
+            signosVitales.setRitmo_cardiaco(0.0);
+        }else
+            signosVitales.setRitmo_cardiaco(Double.parseDouble(txtFrecuencia.getText().toString().trim()));
+
         if (TextUtils.isEmpty(txtSaturacion.getText().toString().trim())) {
-            Toast.makeText(getApplicationContext(),
-                    "Ingrese la saturación de oxígeno ", Toast.LENGTH_LONG)
-                    .show();
+            signosVitales.setSat_oxigeno(0.0);
+        }else
+            signosVitales.setSat_oxigeno(Double.parseDouble(txtSaturacion.getText().toString().trim()));
+
+        if (TextUtils.isEmpty(txtEstadoActual.getText().toString().trim())) {
+            txtEstadoActual.setError("Describa su estado actual de salud");
             return;
-        }*/
+        }
+
 
         String seleccione = "-- Seleccione --";
 
@@ -130,8 +130,8 @@ public class activity_signosVitales extends AppCompatActivity {
 
         }
 
-        signosVitales.setSat_oxigeno(Double.parseDouble(txtSaturacion.getText().toString().trim()));
-        signosVitales.setRitmo_cardiaco(Double.parseDouble(txtFrecuencia.getText().toString().trim()));
+
+
         signosVitales.setTemperatura(Double.parseDouble(txtTemperatura.getText().toString().trim()));
         signosVitales.setEstadoActual(txtEstadoActual.getText().toString().trim());
 
@@ -148,15 +148,8 @@ public class activity_signosVitales extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(getApplicationContext(),
-                                "Signos Vitales Agregados !!", Toast.LENGTH_SHORT)
-                                .show();
                         progressBar.setVisibility(View.GONE);
-                        finish();
-                        Intent intent
-                                = new Intent(getApplicationContext(),
-                                activity_menu_inicio.class);
-                        startActivity(intent);
+                        AlertSignosVitales();
 
                     }
                 })
@@ -215,12 +208,34 @@ public class activity_signosVitales extends AppCompatActivity {
         new AlertDialog.Builder(activity_signosVitales.this)
                 .setIcon(R.drawable.ic_report_problem)
                 .setTitle("Ubicación")
-                .setMessage("Para un mejor resultado esta aplicacion necesita que la ubicación este activada.")
+                .setMessage("Para un mejor resultado, esta aplicacion necesita que la ubicación este activada.")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         startActivity(settingsIntent);
+                    }
+                }).show();
+    }
+
+    public void AlertSignosVitales(){
+        new AlertDialog.Builder(activity_signosVitales.this)
+                .setIcon(R.drawable.ic_check_circle)
+                .setTitle("Signos Vitales")
+                .setCancelable(false)
+                .setMessage(
+                        "** ¡Sus signos vitales han sido ingresados con éxito!\n" +
+                        "** Si es necesario nos comunicaremos contigo\n" +
+                        "** ¡Recuerda!\n" +
+                        "Los signos vitales se ingresan a las 6H00, 12h00 y 18H00.")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                        Intent intent
+                                = new Intent(getApplicationContext(),
+                                activity_menu_inicio.class);
+                        startActivity(intent);
                     }
                 }).show();
     }

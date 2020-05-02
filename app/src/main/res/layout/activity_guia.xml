@@ -53,6 +53,8 @@
                     android:text="Da click en el siguiente enlace: https://drive.google.com/file/d/1Ux0xhjUgQnvCkS847zNUjVA_HbMf6DNg/view?usp=sharing"
                     android:autoLink="web"
                     android:padding="15dp"
+                    android:textStyle="bold"
+                    android:textSize="15dp"
                     android:textColorLink="@color/colorAccent" />
 
                 <Button

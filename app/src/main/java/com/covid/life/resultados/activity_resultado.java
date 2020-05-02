@@ -52,18 +52,20 @@ public class activity_resultado extends AppCompatActivity {
             });
         } else if (totalPuntaje>2 && totalPuntaje<5){
             icono.setImageResource(R.drawable.ic_baja_sospecha);
-            txtResultado.setText("Baja SOSPECHA");
+            txtResultado.setText("BAJA SOSPECHA");
             txtDetalle.setText("Según la información proporcionada, al momento usted es un caso sospechoso de portar" +
                     " coronavirus, por lo que debe permanecer en su casa en aislamiento. A continuación le enviaremos el instructivo.");
             txtInformacion.setText("¡QUÉDATE EN CASA!\n\nLea atentamente estas recomendaciones y llame al 171. " +
                     "las personas con las que usted convive también deben recibir esta información.");
             txtEnlace.setVisibility(View.VISIBLE);
             txtEnlace.setText("https://www.salud.gob.ec/medidas-de-proteccion-basicas-contra-el-nuevo-coronavirus/");
-            btn.setText("Salir");
+            btn.setText("REGISTRATE");
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     finish();
+                    Intent intent = new Intent(getApplicationContext(), activity_registration.class);
+                    startActivity(intent);
                 }
             });
 
@@ -86,7 +88,7 @@ public class activity_resultado extends AppCompatActivity {
 
         } else if (totalPuntaje>7){
             icono.setImageResource(R.drawable.ic_atencion_urgente);
-            txtResultado.setText("ATENCION URGENTE");
+            txtResultado.setText("ATENCIÓN URGENTE");
             txtDetalle.setText("LLAME AL 171 o 911");
             txtInformacion.setText("¡REQUIERE EVALUACIÓN MÉDICA INMEDIATA!");
             txtEnlace.setVisibility(View.INVISIBLE);

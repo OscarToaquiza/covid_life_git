@@ -28,7 +28,7 @@
 
     <string name="temperatura">
         Modo de uso del termómetro digital: \n\n
-        - Limpie la punta del termómetro usando agua y jabón o alcohol. \n
+        - Limpie la punta del termómetro usando agua , jabón y alcohol. \n
         - Ponga el termómetro debajo de la axila.\n
         - Mantenga el termómetro debajo de la axila, apretando el brazo contra el cuerpo hasta que el termómetro suene con un pito.\n
         - Retire el termómetro del brazo. \n
@@ -46,9 +46,9 @@
     </string>
 
     <string name="bienvenida">
-        Trataremos de ayudarte con sencillos pasos ante el COVID 19.\n
-        Responde a las preguntas y te guiaremos en tu estado de salud.\n
-        Esta herramienta no reemplaza al 171 y Salud EC en Ecuador.\n
+        Trataremos de ayudarte con sencillos pasos ante el COVID 19.
+        \nResponde a las preguntas y te guiaremos en tu estado de salud.
+        \nEsta herramienta no reemplaza al 171 y Salud EC en Ecuador.\n
     </string>
 
     <string name="inicio">

@@ -61,7 +61,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:text="SOY NUEVO!! deseo realizar el test"
+                    android:text="! SOY NUEVO ¡  deseo realizar el test"
                     android:textColor="@color/colorNegro"/>
                 <Button
                     android:id="@+id/btntest"
@@ -80,7 +80,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:textColor="@color/colorNegro"
-                    android:text="SOY paciente ya registrado"/>
+                    android:text="! SOY PACIENTE ¡ ya registrado"/>
                 <Button
                     android:id="@+id/btnlogin"
                     android:layout_width="match_parent"

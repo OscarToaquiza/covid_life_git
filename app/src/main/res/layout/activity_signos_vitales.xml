@@ -48,15 +48,26 @@
                     android:gravity="center_vertical"
                     android:text="Grados Centigrados (°C)"
                     android:textStyle="bold"
-                    android:layout_marginBottom="10dp"
                     android:textColor="@color/colorNegro"/>
+
+
                 <EditText
                     android:id="@+id/temperatura"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Temperatura"
                     android:inputType="numberDecimal"
-                    android:imeOptions="actionSend"/>
+                    android:imeOptions="actionSend"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="* Obligatorio"
+                    android:textSize="10dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginBottom="15dp"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -64,7 +75,6 @@
                     android:gravity="center_vertical"
                     android:text="Latidos por minuto"
                     android:textStyle="bold"
-                    android:layout_marginBottom="10dp"
                     android:textColor="@color/colorNegro"/>
 
                 <EditText
@@ -72,7 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Frecuencia cardíaca "
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="15dp"
                     android:inputType="numberDecimal"
                     android:imeOptions="actionSend"/>
 
@@ -82,7 +92,6 @@
                     android:gravity="center_vertical"
                     android:text="% SpO2"
                     android:textStyle="bold"
-                    android:layout_marginBottom="10dp"
                     android:textColor="@color/colorNegro"/>
 
                 <EditText
@@ -90,7 +99,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Saturación de oxígeno"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="15dp"
                     android:inputType="numberDecimal"
                     android:imeOptions="actionSend"/>
 
@@ -108,16 +117,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:entries="@array/estado"
-                    android:layout_marginBottom="15dp"
                     />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="* Obligatorio"
+                    android:textSize="10dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginBottom="15dp"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:text="Seleccione su estado de salud"
+                    android:text="Describa su estado actual de salud"
                     android:textStyle="bold"
-                    android:layout_marginBottom="10dp"
                     android:textColor="@color/colorNegro"/>
 
                 <EditText
@@ -131,10 +147,19 @@
                     android:overScrollMode="always"
                     android:scrollbarStyle="insideInset"
                     android:scrollbars="vertical"
-                    android:layout_marginBottom="10dp"
-                    android:hint="Ingrese su estado Actual"
+                    android:hint="Describa su estado actual de salud"
                     android:imeOptions="actionSend"
                      />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:gravity="center_vertical"
+                    android:text="* Obligatorio"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="10dp"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/RegistrarSignos"
