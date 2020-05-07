@@ -11,16 +11,18 @@
     </string-array>
 
     <string name="integrantes">
-        Ing. José Luis Carrillo M. PhD \n
-        Tcrn. Esp. Avc. Gonzalo Pullas T. PhD \n
-        Dr. Bolívar Ernesto Llamuca C. \n
-        Ing. David Rivas Lalaleo PhD. \n
-        Sr. Oscar Toaquiza Casa \n
-        Sr. Santiago Collaguazo Pozo \n
-        Sr. Daniel Caballeros Tejada \n
-        Sr. Byron Rosas Salguero \n
-        Sr. Darwin Guailla Chulco \n
-        Sr. Daniel Quingaluisa Parra \n
+
+        Ing. José Luis Carrillo M. PhD
+        \nTcrn. E. M. Fausto de la Cadena
+        \nDr. Bolívar Ernesto Llamuca C.
+        \nTcrn. Esp. Avc. Gonzalo Pullas T. PhD.
+        \nIng. David Rivas Lalaleo PhD.
+        \nSr. Oscar Toaquiza Casa
+        \nSr. Santiago Collaguazo Pozo
+        \nSr. Byron Rosas Salguero
+        \nSr. Darwin Guailla Chulco
+        \nSr. Daniel Quingaluisa Parra
+        \nSr. Daniel Caballeros Tejada
     </string>
     <string name="guia">
         Guía  para aislamiento domiciliario en personas contagiadas de coronavirus

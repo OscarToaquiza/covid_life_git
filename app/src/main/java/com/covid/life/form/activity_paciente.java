@@ -14,8 +14,12 @@ import android.location.LocationManager;
 import android.os.Bundle;
 
 import com.covid.life.menu.menu_pacientes;
+import com.covid.life.models.Canton;
 import com.covid.life.models.Paciente;
+import com.covid.life.models.Provincia;
+import com.covid.life.models.Seguimiento;
 import com.covid.life.notificaciones.NotificacionFirebase;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
@@ -30,6 +34,7 @@ import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ProgressBar;
@@ -38,11 +43,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.covid.life.R;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -55,7 +66,7 @@ import static java.lang.Boolean.TRUE;
 public class activity_paciente extends AppCompatActivity {
     private Button btnGuardar;
     private CardView cvAntecedentes;
-    private Spinner sGenero, sProvincia, sAislamiento, sPresion, sDiabetes, sFumador, sCancer, sDiscapacidad, sEmbarazada, sLactar;
+    private Spinner sGenero, sProvincia, sAislamiento, sPresion, sDiabetes, sFumador, sCancer, sDiscapacidad, sEmbarazada, sLactar, sOrganizaciones, sCantones;
     private DatePicker dtFechaNacimiento;
     private String[] datos;
     private TextView txtTelefono, txtCanton, txtDireccion, txtEnfermedad, txtAlergia, txtCerco;
@@ -87,8 +98,9 @@ public class activity_paciente extends AppCompatActivity {
         dtFechaNacimiento = findViewById(R.id.fechaNacimiento);
         txtTelefono = findViewById(R.id.telefono);
         sProvincia = findViewById(R.id.spnProvincias);
-        txtCanton = findViewById(R.id.canton);
+        sCantones = findViewById(R.id.spnCantones);
         txtDireccion = findViewById(R.id.direccion);
+        sOrganizaciones = findViewById(R.id.spnOrganizacion);
         sAislamiento = findViewById(R.id.spnAislamiento);
         sPresion = findViewById(R.id.spnPresion);
         sDiabetes = findViewById(R.id.spnDiabetes);
@@ -101,6 +113,10 @@ public class activity_paciente extends AppCompatActivity {
         txtAlergia = findViewById(R.id.alergia);
         txtCerco = findViewById(R.id.cerco);
         progressbar = findViewById(R.id.progressBarPaciente);
+
+
+        cargarOrganizacion();
+        //cargarProvincia();
         sGenero.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -280,6 +296,15 @@ public class activity_paciente extends AppCompatActivity {
     private Boolean obtenerSpinners(){
         String seleccione = "-- Seleccione --";
 
+        if(sOrganizaciones.getSelectedItem().toString().trim().equals(seleccione)){
+            Toast.makeText(getApplicationContext(),
+                    "Seleccione su Organización ", Toast.LENGTH_LONG)
+                    .show();
+            return FALSE;
+        }else{
+            paciente.setOrganizacion(sOrganizaciones.getSelectedItem().toString());
+        }
+
         if(sGenero.getSelectedItem().toString().trim().equals(seleccione)){
             Toast.makeText(getApplicationContext(),
                     "Seleccione su género ", Toast.LENGTH_LONG)
@@ -413,4 +438,81 @@ public class activity_paciente extends AppCompatActivity {
                     }
                 }).show();
     }
+
+    public void cargarOrganizacion(){
+        db.collection("organizacion")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            List<String> organizaciones = new ArrayList<>();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                organizaciones.add(document.getData().get("nombre").toString());
+                            }
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
+                                    android.R.layout.simple_spinner_item, organizaciones);
+                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            sOrganizaciones.setAdapter(adapter);
+                        } else {
+                            Toast.makeText(getApplicationContext(),
+                                    task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+/*    public void cargarProvincia(){
+        db.collection("provincia")
+                .orderBy("posicion",Query.Direction.ASCENDING)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            final List<Provincia> provincias = new ArrayList<>();
+                            List<String> provinciasList = new ArrayList<>();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Provincia provincia = document.toObject(Provincia.class);
+                                provincias.add(provincia);
+                                provinciasList.add(provincia.getNombre());
+                            }
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
+                                    android.R.layout.simple_spinner_item, provinciasList);
+                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            sProvincia.setAdapter(adapter);
+                            sProvincia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                for(Provincia provincia: provincias){
+                                    if(provincia.getPosicion() == position)
+                                        cargarCanton(provincia.getCanton());
+                                }
+
+                            }
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+                            }
+                            });
+
+                        } else {
+                            Toast.makeText(getApplicationContext(),
+                                    task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    public void cargarCanton(List <Canton> cantones){
+        List<String> cantonesList = new ArrayList<>();
+        if(cantones != null){
+            for (Canton canton: cantones)
+                cantonesList.add(canton.getNombre());
+        }else
+            cantonesList.add("-- Seleccione --");
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
+                android.R.layout.simple_spinner_item, cantonesList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sCantones.setAdapter(adapter);
+    }*/
  }

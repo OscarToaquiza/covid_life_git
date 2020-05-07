@@ -33,11 +33,12 @@ public class Paciente {
     private int familiares_cerco;
     private Date fecha_creacion;
     private String token;
+    private String organizacion;
 
     public Paciente() {
     }
 
-    public Paciente(String cedula, String nombres, String apellidos, String correo, Date fechaNacimiento, String genero, String provincia, String canton, String telefono, String latitud, String longitud, String direccion, String direccionGPS, String aislado_por, String alergia_medicamentos, String tiene_diagnosticado_enfermedad, boolean es_diagnosticado_cancer, boolean es_embarazada, boolean esta_dando_lactar, boolean fue_es_fumador, boolean tiene_carnet_discapacidad, boolean tiene_diabetes, boolean tiene_presion_alta, int estado_actual, int familiares_cerco, Date fecha_creacion, String token) {
+    public Paciente(String cedula, String nombres, String apellidos, String correo, Date fechaNacimiento, String genero, String provincia, String canton, String telefono, String latitud, String longitud, String direccion, String direccionGPS, String aislado_por, String alergia_medicamentos, String tiene_diagnosticado_enfermedad, boolean es_diagnosticado_cancer, boolean es_embarazada, boolean esta_dando_lactar, boolean fue_es_fumador, boolean tiene_carnet_discapacidad, boolean tiene_diabetes, boolean tiene_presion_alta, int estado_actual, int familiares_cerco, Date fecha_creacion, String token,String organizacion) {
         this.cedula = cedula;
         this.nombres = nombres;
         this.apellidos = apellidos;
@@ -65,6 +66,15 @@ public class Paciente {
         this.familiares_cerco = familiares_cerco;
         this.fecha_creacion = fecha_creacion;
         this.token = token;
+        this.organizacion = organizacion;
+    }
+
+    public String getOrganizacion() {
+        return organizacion;
+    }
+
+    public void setOrganizacion(String organizacion) {
+        this.organizacion = organizacion;
     }
 
     public String getToken() {

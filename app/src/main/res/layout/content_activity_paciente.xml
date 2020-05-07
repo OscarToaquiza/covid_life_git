@@ -76,6 +76,20 @@
                     android:imeOptions="actionDone"/>
 
                 <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="Organizaciones:"
+                    android:textStyle="bold"/>
+
+                <Spinner
+                    android:id="@+id/spnOrganizacion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    />
+
+                <TextView
                     android:id="@+id/textView4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -87,8 +101,8 @@
                     android:id="@+id/spnProvincias"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:entries="@array/provincias"
                     android:layout_marginBottom="15dp"
+                    android:entries="@array/provincias"
                      />
 
                 <TextView
@@ -99,14 +113,12 @@
                     android:text="Cantón:"
                     android:textStyle="bold"/>
 
-                <EditText
-                    android:id="@+id/canton"
-                    android:layout_width="match_parent"
+                    <Spinner
+                    android:id="@+id/spnCantones"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Ingrese su canton"
-                    android:inputType="textCapSentences|textAutoCorrect"
-                    android:imeOptions="actionDone"
-                    android:layout_marginBottom="15dp"/>
+                    android:layout_marginBottom="15dp"
+                    />
 
                 <TextView
                     android:id="@+id/textView20"
