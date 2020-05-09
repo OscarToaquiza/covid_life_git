@@ -32,6 +32,7 @@ import androidx.core.app.ActivityCompat;
 
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -66,15 +67,16 @@ import static java.lang.Boolean.TRUE;
 public class activity_paciente extends AppCompatActivity {
     private Button btnGuardar;
     private CardView cvAntecedentes;
-    private Spinner sGenero, sProvincia, sAislamiento, sPresion, sDiabetes, sFumador, sCancer, sDiscapacidad, sEmbarazada, sLactar, sOrganizaciones, sCantones;
+    private Spinner sGenero, sProvincia, sAislamiento, sPresion, sDiabetes, sFumador, sCancer, sDiscapacidad, sEmbarazada, sLactar, sOrganizaciones, sCantones,sParroquias;
     private DatePicker dtFechaNacimiento;
     private String[] datos;
-    private TextView txtTelefono, txtCanton, txtDireccion, txtEnfermedad, txtAlergia, txtCerco;
+    private TextView txtTelefono, txtDireccion, txtEnfermedad, txtAlergia, txtCerco;
     private Paciente paciente;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ProgressBar progressbar;
     private FirebaseAuth mAuth;
     private String uid;
+    private ArrayList<String> otros= new ArrayList<String>();
 
 
     @SuppressLint("SourceLockedOrientationActivity")
@@ -91,7 +93,7 @@ public class activity_paciente extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         uid = mAuth.getCurrentUser().getUid();
-
+        otros.add("otros");
         btnGuardar = findViewById(R.id.guardar);
         cvAntecedentes = (CardView) findViewById(R.id.antecedentes);
         sGenero = findViewById(R.id.spnGenero);
@@ -99,6 +101,7 @@ public class activity_paciente extends AppCompatActivity {
         txtTelefono = findViewById(R.id.telefono);
         sProvincia = findViewById(R.id.spnProvincias);
         sCantones = findViewById(R.id.spnCantones);
+        sParroquias = findViewById(R.id.spnParroquias);
         txtDireccion = findViewById(R.id.direccion);
         sOrganizaciones = findViewById(R.id.spnOrganizacion);
         sAislamiento = findViewById(R.id.spnAislamiento);
@@ -116,7 +119,8 @@ public class activity_paciente extends AppCompatActivity {
 
 
         cargarOrganizacion();
-        //cargarProvincia();
+        cargarProvincia();
+        cargarCanton();
         sGenero.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -242,13 +246,6 @@ public class activity_paciente extends AppCompatActivity {
             return FALSE;
         }
 
-        if (TextUtils.isEmpty(txtCanton.getText().toString().trim())) {
-            Toast.makeText(getApplicationContext(),
-                    "Ingrese el canton ", Toast.LENGTH_LONG)
-                    .show();
-            return FALSE;
-        }
-
         if (TextUtils.isEmpty(txtDireccion.getText().toString().trim())) {
             Toast.makeText(getApplicationContext(),
                     "Ingrese su direccion ", Toast.LENGTH_LONG)
@@ -280,7 +277,6 @@ public class activity_paciente extends AppCompatActivity {
         paciente.setFamiliares_cerco(Integer.valueOf(txtCerco.getText().toString().trim()));
         paciente.setTiene_diagnosticado_enfermedad(txtEnfermedad.getText().toString().trim());
         paciente.setDireccion(txtDireccion.getText().toString().trim());
-        paciente.setCanton(txtCanton.getText().toString().trim());
         paciente.setTelefono(txtTelefono.getText().toString().trim());
         return TRUE;
     }
@@ -305,15 +301,6 @@ public class activity_paciente extends AppCompatActivity {
             paciente.setOrganizacion(sOrganizaciones.getSelectedItem().toString());
         }
 
-        if(sGenero.getSelectedItem().toString().trim().equals(seleccione)){
-            Toast.makeText(getApplicationContext(),
-                    "Seleccione su género ", Toast.LENGTH_LONG)
-                    .show();
-            return FALSE;
-        }else{
-            paciente.setGenero(sGenero.getSelectedItem().toString());
-        }
-
         if(sProvincia.getSelectedItem().toString().trim().equals(seleccione)){
             Toast.makeText(getApplicationContext(),
                     "Seleccione su provincia", Toast.LENGTH_LONG)
@@ -321,6 +308,24 @@ public class activity_paciente extends AppCompatActivity {
             return FALSE;
         }else{
             paciente.setProvincia(sProvincia.getSelectedItem().toString());
+        }
+
+        if(sCantones.getSelectedItem().toString().trim().equals(seleccione)){
+            Toast.makeText(getApplicationContext(),
+                    "Seleccione su Cantón", Toast.LENGTH_LONG)
+                    .show();
+            return FALSE;
+        }else{
+            paciente.setCanton(sCantones.getSelectedItem().toString());
+        }
+
+        if(sParroquias.getSelectedItem().toString().trim().equals(seleccione)){
+            Toast.makeText(getApplicationContext(),
+                    "Seleccione su Parroquia", Toast.LENGTH_LONG)
+                    .show();
+            return FALSE;
+        }else{
+            paciente.setParroquia(sParroquias.getSelectedItem().toString());
         }
 
         if(sAislamiento.getSelectedItem().toString().trim().equals(seleccione)){
@@ -331,6 +336,16 @@ public class activity_paciente extends AppCompatActivity {
         }else{
             paciente.setAislado_por(sAislamiento.getSelectedItem().toString());
         }
+
+        if(sGenero.getSelectedItem().toString().trim().equals(seleccione)){
+            Toast.makeText(getApplicationContext(),
+                    "Seleccione su género ", Toast.LENGTH_LONG)
+                    .show();
+            return FALSE;
+        }else{
+            paciente.setGenero(sGenero.getSelectedItem().toString());
+        }
+
 
         if(sPresion.getSelectedItem().toString().trim().equals(seleccione)){
             Toast.makeText(getApplicationContext(),
@@ -447,6 +462,7 @@ public class activity_paciente extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             List<String> organizaciones = new ArrayList<>();
+                            organizaciones.add("-- Seleccione --");
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 organizaciones.add(document.getData().get("nombre").toString());
                             }
@@ -462,7 +478,7 @@ public class activity_paciente extends AppCompatActivity {
                 });
     }
 
-/*    public void cargarProvincia(){
+    public void cargarProvincia(){
         db.collection("provincia")
                 .orderBy("posicion",Query.Direction.ASCENDING)
                 .get()
@@ -484,11 +500,18 @@ public class activity_paciente extends AppCompatActivity {
                             sProvincia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                for(Provincia provincia: provincias){
-                                    if(provincia.getPosicion() == position)
-                                        cargarCanton(provincia.getCanton());
+                                if(provincias!=null){
+                                    for(Provincia provincia: provincias){
+                                        if(provincia.getPosicion() == position)
+                                            if(provincia.getCantones()!= null){
+                                                mostrarCanton(provincia.getCantones());
+                                                return;
+                                            }else
+                                                mostrarCanton(otros);
+                                        else
+                                            mostrarCanton(otros);
+                                    }
                                 }
-
                             }
                             @Override
                             public void onNothingSelected(AdapterView<?> parent) {
@@ -503,16 +526,65 @@ public class activity_paciente extends AppCompatActivity {
                 });
     }
 
-    public void cargarCanton(List <Canton> cantones){
-        List<String> cantonesList = new ArrayList<>();
-        if(cantones != null){
-            for (Canton canton: cantones)
-                cantonesList.add(canton.getNombre());
-        }else
-            cantonesList.add("-- Seleccione --");
+    public void mostrarCanton(ArrayList <String> cantones){
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
-                android.R.layout.simple_spinner_item, cantonesList);
+                android.R.layout.simple_spinner_item, cantones);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sCantones.setAdapter(adapter);
-    }*/
+    }
+
+    public void cargarCanton(){
+        db.collection("canton")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            final List<Canton> cantones = new ArrayList<>();
+                            List<String> cantonesList = new ArrayList<>();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Canton canton = document.toObject(Canton.class);
+                                cantones.add(canton);
+                                cantonesList.add(canton.getNombre());
+                            }
+
+                            sCantones.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                                    if(cantones!=null){
+                                        for(Canton canton: cantones){
+                                            Log.d("canton",parent.getSelectedItem().toString());
+                                            if(parent.getSelectedItem().toString().trim().equals(canton.getNombre())){
+                                                if(canton.getParroquias()!= null){
+                                                    mostrarParroquia(canton.getParroquias());
+                                                    return;
+                                                }else
+                                                    mostrarParroquia(otros);
+                                            }else
+                                                if(canton.getParroquias()!= null)
+                                                    mostrarParroquia(otros);
+                                        }
+                                    }
+                                }
+                                @Override
+                                public void onNothingSelected(AdapterView<?> parent) {
+                                }
+                            });
+
+                        } else {
+                            Toast.makeText(getApplicationContext(),
+                                    task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+    }
+
+    public void mostrarParroquia(ArrayList <String> parroquias){
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
+                android.R.layout.simple_spinner_item, parroquias);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sParroquias.setAdapter(adapter);
+    }
  }

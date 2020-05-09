@@ -1,18 +1,19 @@
 package com.covid.life.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Provincia {
     String nombre;
     int posicion;
-    List <Canton> canton;
+    ArrayList <String> cantones;
 
     public Provincia(){
 
     }
-    public Provincia(String nombre, List <Canton> canton, int posicion) {
+    public Provincia(String nombre, ArrayList <String> cantones, int posicion) {
         this.nombre = nombre;
-        this.canton = canton;
+        this.cantones = cantones;
         this.posicion = posicion;
     }
 
@@ -24,12 +25,12 @@ public class Provincia {
         this.nombre = nombre;
     }
 
-    public List <Canton> getCanton() {
-        return canton;
+    public ArrayList<String> getCantones() {
+        return cantones;
     }
 
-    public void setCanton(List <Canton> canton) {
-        this.canton = canton;
+    public void setCantones(ArrayList <String> cantones) {
+        this.cantones = cantones;
     }
 
     public int getPosicion() {

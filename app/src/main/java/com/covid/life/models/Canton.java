@@ -1,21 +1,37 @@
 package com.covid.life.models;
 
+import java.util.ArrayList;
+
 public class Canton {
-    String Nombre;
+    String nombre;
+    int posicion;
+    ArrayList<String> parroquias;
 
     public Canton(){
 
     }
 
-    public Canton(String nombre) {
-        Nombre = nombre;
-    }
-
     public String getNombre() {
-        return Nombre;
+        return nombre;
     }
 
     public void setNombre(String nombre) {
-        Nombre = nombre;
+        this.nombre = nombre;
+    }
+
+    public int getPosicion() {
+        return posicion;
+    }
+
+    public void setPosicion(int posicion) {
+        this.posicion = posicion;
+    }
+
+    public ArrayList<String> getParroquias() {
+        return parroquias;
+    }
+
+    public void setParroquias(ArrayList<String> parroquias) {
+        this.parroquias = parroquias;
     }
 }

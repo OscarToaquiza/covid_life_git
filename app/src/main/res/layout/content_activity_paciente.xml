@@ -87,6 +87,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
+                    android:entries="@array/inicializar"
                     />
 
                 <TextView
@@ -102,13 +103,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
-                    android:entries="@array/provincias"
+                    android:entries="@array/inicializar"
                      />
 
                 <TextView
                     android:id="@+id/textView9"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:text="Cantón:"
                     android:textStyle="bold"/>
@@ -118,6 +119,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
+                    android:entries="@array/inicializar"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="Parroquia:"
+                    android:textStyle="bold"/>
+
+                <Spinner
+                    android:id="@+id/spnParroquias"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:entries="@array/inicializar"
                     />
 
                 <TextView

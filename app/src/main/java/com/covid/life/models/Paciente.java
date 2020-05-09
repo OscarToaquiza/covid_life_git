@@ -34,6 +34,7 @@ public class Paciente {
     private Date fecha_creacion;
     private String token;
     private String organizacion;
+    private String parroquia;
 
     public Paciente() {
     }
@@ -291,5 +292,13 @@ public class Paciente {
 
     public void setFecha_creacion(Date fecha_creacion) {
         this.fecha_creacion = fecha_creacion;
+    }
+
+    public String getParroquia() {
+        return parroquia;
+    }
+
+    public void setParroquia(String parroquia) {
+        this.parroquia = parroquia;
     }
 }

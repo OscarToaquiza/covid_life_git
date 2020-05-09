@@ -10,6 +10,10 @@
         <item>Mejoría de síntomas</item>
     </string-array>
 
+    <string-array name="inicializar">
+        <item>-- Seleccione --</item>
+    </string-array>
+
     <string name="integrantes">
 
         Ing. José Luis Carrillo M. PhD
