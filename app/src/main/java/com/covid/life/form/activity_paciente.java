@@ -319,14 +319,8 @@ public class activity_paciente extends AppCompatActivity {
             paciente.setCanton(sCantones.getSelectedItem().toString());
         }
 
-        if(sParroquias.getSelectedItem().toString().trim().equals(seleccione)){
-            Toast.makeText(getApplicationContext(),
-                    "Seleccione su Parroquia", Toast.LENGTH_LONG)
-                    .show();
-            return FALSE;
-        }else{
-            paciente.setParroquia(sParroquias.getSelectedItem().toString());
-        }
+
+        paciente.setParroquia("");
 
         if(sAislamiento.getSelectedItem().toString().trim().equals(seleccione)){
             Toast.makeText(getApplicationContext(),

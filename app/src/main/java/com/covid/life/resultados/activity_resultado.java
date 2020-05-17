@@ -1,11 +1,20 @@
 package com.covid.life.resultados;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.covid.life.R;
+import com.covid.life.form.activity_paciente;
 import com.covid.life.login.activity_registration;
 
 import org.w3c.dom.Text;
@@ -63,9 +73,11 @@ public class activity_resultado extends AppCompatActivity {
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    finish();
-                    Intent intent = new Intent(getApplicationContext(), activity_registration.class);
-                    startActivity(intent);
+                    if(validarPermisos()==true){
+                        finish();
+                        Intent intent = new Intent(getApplicationContext(), activity_registration.class);
+                        startActivity(intent);
+                    }
                 }
             });
 
@@ -80,9 +92,11 @@ public class activity_resultado extends AppCompatActivity {
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    finish();
-                    Intent intent = new Intent(getApplicationContext(), activity_registration.class);
-                    startActivity(intent);
+                    if(validarPermisos()==true){
+                        finish();
+                        Intent intent = new Intent(getApplicationContext(), activity_registration.class);
+                        startActivity(intent);
+                    }
                 }
             });
 
@@ -96,9 +110,11 @@ public class activity_resultado extends AppCompatActivity {
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    finish();
-                    Intent intent = new Intent(getApplicationContext(), activity_registration.class);
-                    startActivity(intent);
+                    if(validarPermisos()==true){
+                        finish();
+                        Intent intent = new Intent(getApplicationContext(), activity_registration.class);
+                        startActivity(intent);
+                    }
                 }
             });
 
@@ -107,5 +123,41 @@ public class activity_resultado extends AppCompatActivity {
 
     }
 
+    private boolean validarPermisos(){
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
+            Toast.makeText(getApplicationContext(),
+                    "Necesitamos permisos de ubicación !!", Toast.LENGTH_LONG)
+                    .show();
+            return false;
+        }
+
+        LocationManager locationManager = (LocationManager)
+                getSystemService(Context.LOCATION_SERVICE);
+
+        Location location = locationManager.getLastKnownLocation( locationManager.GPS_PROVIDER);
+        if(location == null)
+            location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+        if(location == null){
+            AlertActivarGps();
+            return false;
+        }
+        return true;
+    }
+
+    public void AlertActivarGps(){
+        new AlertDialog.Builder(activity_resultado.this)
+                .setIcon(R.drawable.ic_report_problem)
+                .setTitle("Ubicación")
+                .setMessage("Para un mejor resultado esta aplicacion necesita que la ubicación este activada.")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(settingsIntent);
+                    }
+                }).show();
+    }
 
 }

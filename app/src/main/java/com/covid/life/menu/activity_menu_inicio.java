@@ -1,17 +1,23 @@
 package com.covid.life.menu;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.DownloadManager;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +28,7 @@ import android.widget.Toast;
 import com.covid.life.R;
 import com.covid.life.form.activity_signosVitales;
 import com.covid.life.models.Seguimiento;
+import com.covid.life.resultados.activity_resultado;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -62,10 +69,12 @@ public class activity_menu_inicio extends AppCompatActivity {
         btnAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-                Intent intent = new Intent(getApplicationContext(),
-                        activity_signosVitales.class);
-                startActivity(intent);
+                if(validarPermisos()==true){
+                    finish();
+                    Intent intent = new Intent(getApplicationContext(),
+                            activity_signosVitales.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -119,5 +128,41 @@ public class activity_menu_inicio extends AppCompatActivity {
         return fechaStr;
     }
 
+    private boolean validarPermisos(){
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
+            Toast.makeText(getApplicationContext(),
+                    "Necesitamos permisos de ubicación !!", Toast.LENGTH_LONG)
+                    .show();
+            return false;
+        }
+
+        LocationManager locationManager = (LocationManager)
+                getSystemService(Context.LOCATION_SERVICE);
+
+        Location location = locationManager.getLastKnownLocation( locationManager.GPS_PROVIDER);
+        if(location == null)
+            location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+        if(location == null){
+            AlertActivarGps();
+            return false;
+        }
+        return true;
+    }
+
+    public void AlertActivarGps(){
+        new AlertDialog.Builder(activity_menu_inicio.this)
+                .setIcon(R.drawable.ic_report_problem)
+                .setTitle("Ubicación")
+                .setMessage("Para un mejor resultado esta aplicacion necesita que la ubicación este activada.")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(settingsIntent);
+                    }
+                }).show();
+    }
 
 }

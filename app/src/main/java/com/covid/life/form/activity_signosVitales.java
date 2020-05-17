@@ -69,6 +69,12 @@ public class activity_signosVitales extends AppCompatActivity {
         String uid = mAuth.getCurrentUser().getUid();
         signosVitales.setIdPaciente(uid);
         signosVitales.setCreadoporPaciente(TRUE);
+        signosVitales.setEstado_alta(null);
+        signosVitales.setToma_muestra(null);
+        signosVitales.setTipo(null);
+        signosVitales.setDificultad_respirar(null);
+        signosVitales.setRequerimiento(null);
+
 
         txtTemperatura = findViewById(R.id.temperatura);
         txtFrecuencia = findViewById(R.id.frecuenciaCardiaca);

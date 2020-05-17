@@ -16,12 +16,63 @@ public class Seguimiento {
     private String Direccion;
     private String estadoActual;
     private String estadoSalud;
+    private Double estado_alta;
+    private Double toma_muestra;
+    private Double tipo;
+    private Double dificultad_respirar;
+
+    public Double getRequerimiento() {
+        return requerimiento;
+    }
+
+    public void setRequerimiento(Double requerimiento) {
+        this.requerimiento = requerimiento;
+    }
+
+    private Double requerimiento;
+
+
+    public Double getEstado_alta() {
+        return estado_alta;
+    }
+
+    public void setEstado_alta(Double estado_alta) {
+        this.estado_alta = estado_alta;
+    }
+
+    public Double getToma_muestra() {
+        return toma_muestra;
+    }
+
+    public void setToma_muestra(Double toma_muestra) {
+        this.toma_muestra = toma_muestra;
+    }
+
+    public Double getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Double tipo) {
+        this.tipo = tipo;
+    }
+
+    public Double getDificultad_respirar() {
+        return dificultad_respirar;
+    }
+
+    public void setDificultad_respirar(Double dificultad_respirar) {
+        this.dificultad_respirar = dificultad_respirar;
+    }
+
 
     public Seguimiento(){
 
     }
 
-    public Seguimiento(String idPaciente, String idDoctor, Double temperatura, Double ritmo_cardiaco, Double sat_oxigeno, Date fecha, boolean creadoporPaciente, String latitud, String longitud, String direccion) {
+    public Seguimiento(String idPaciente, String idDoctor, Double temperatura,
+                       Double ritmo_cardiaco, Double sat_oxigeno, Date fecha,
+                       boolean creadoporPaciente, String latitud, String longitud,
+                       String direccion) {
         this.idPaciente = idPaciente;
         this.idDoctor = idDoctor;
         this.temperatura = temperatura;
@@ -29,9 +80,10 @@ public class Seguimiento {
         this.sat_oxigeno = sat_oxigeno;
         this.fecha = fecha;
         this.creadoporPaciente = creadoporPaciente;
-        Latitud = latitud;
-        Longitud = longitud;
-        Direccion = direccion;
+        this.Latitud = latitud;
+        this.Longitud = longitud;
+        this.Direccion = direccion;
+
     }
 
     public String getEstadoActual() {

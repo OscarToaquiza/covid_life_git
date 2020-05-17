@@ -21,11 +21,15 @@ import android.widget.Toast;
 import com.covid.life.MainActivity;
 import com.covid.life.R;
 import com.covid.life.form.activity_paciente;
+import com.covid.life.menu.menu_pacientes;
+import com.covid.life.models.Paciente;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
@@ -38,6 +42,8 @@ public class activity_registration extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String[] datos;
     private String email, password;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private Paciente paciente=new Paciente();
 
 
     @SuppressLint("SourceLockedOrientationActivity")
@@ -149,6 +155,7 @@ public class activity_registration extends AppCompatActivity {
                     {
                         if (task.isSuccessful()) {
                             guardarPreferencias();
+                            guardarDatos();
                             Toast.makeText(getApplicationContext(),
                                     "Bienvenido !!",
                                     Toast.LENGTH_LONG)
@@ -197,6 +204,36 @@ public class activity_registration extends AppCompatActivity {
         datos[2] = txtApellidos.getText().toString();
         datos[3] = emailTextView.getText().toString();
         return datos;
+    }
+
+    private void guardarDatos(){
+        paciente.setCorreo(email);
+        paciente.setCedula(txtCedula.getText().toString());
+        paciente.setNombres(txtNombres.getText().toString());
+        paciente.setApellidos(txtApellidos.getText().toString());
+
+        String uid = mAuth.getCurrentUser().getUid();
+        db.collection("paciente")
+                .document(uid)
+                .set(paciente)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+
+                    }
+
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(),
+                                "Error: "+e.getMessage(), Toast.LENGTH_SHORT)
+                                .show();
+                        progressbar.setVisibility(View.GONE);
+                        return;
+                    }
+                });
+
     }
 
     private boolean validarCedula(String x){
