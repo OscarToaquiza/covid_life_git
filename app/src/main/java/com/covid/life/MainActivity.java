@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // Pry inicial 01/04/2020
+        // PRY A PRESENTAR
         Button btnIniciar = (Button) findViewById(R.id.btnInit);
         btnIniciar.setOnClickListener(new View.OnClickListener() {
             @Override
