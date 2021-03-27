@@ -37,23 +37,28 @@ public class camera_data extends Activity implements CameraBridgeViewBase.CvCame
     private static final  int PERNISSION_CAMERA = 1001;
     // Variables para manejar la camara con opencv.
     private static final String TAG = "OpenCV:Activ:cameradata";
+
+    private Double PX5B, PX5R;
+
     private CameraBridgeViewBase mOpenCvCameraView;
 
     //Variables para manejar el Cronometro
     private ImageButton btnSTratTime;
+    private Button btnStartTime;
     private boolean mIsRecord = false;
     private Chronometer mChronometer;
-    private Button btnStartTime;
+
     private long secondTotal;
 
     //Variables para manejar los frames de video
     private List<Mat> channels;
-    private Mat viewGeneral, channelRed;
+    private Mat channelRed, channelBlue;
+
+    private Mat viewGeneral;
     private int heigthFrame, witdhFRame;
 
     //Variables para manejar el vetor
-    private Double  PX1,PX2,PX3,PX4,PX5,PX6,PX7,PX8,PX9;
-    private ArrayList<Double> mDataPoints;
+    private ArrayList<Double> mDataPoints, mDataPoints2, mDesviacionBlue, mDesviacionRed;
     private Double valueY = 0.0;
 
     @Override
@@ -83,6 +88,10 @@ public class camera_data extends Activity implements CameraBridgeViewBase.CvCame
         mDataPoints = new ArrayList<Double>();
         channels = new ArrayList<Mat>();
 
+        this.mDataPoints = new ArrayList<>();
+        this.mDataPoints2 = new ArrayList<>();
+        this.mDesviacionRed = new ArrayList<>();
+        this.mDesviacionBlue = new ArrayList<>();
 
         // Activar cronometro e inicio de obtencion de datos para dibujar la grafica.
         btnStartTime.setOnClickListener(new View.OnClickListener() {
@@ -110,8 +119,11 @@ public class camera_data extends Activity implements CameraBridgeViewBase.CvCame
         long elapsedMillis = (SystemClock.elapsedRealtime() - mChronometer.getBase() );
         secondTotal = elapsedMillis / 1000;
         Intent formularioSintomas = new Intent( this , pre_camera.class);
-        formularioSintomas.putExtra("Puntos", mDataPoints );
         formularioSintomas.putExtra("Segundos", secondTotal );
+        formularioSintomas.putExtra("PuntosRed", this.mDataPoints);
+        formularioSintomas.putExtra("PuntosBlue", this.mDataPoints2);
+        formularioSintomas.putExtra("DesvicionRedProcesar", this.mDesviacionRed);
+        formularioSintomas.putExtra("DesvicionBlueProcesar", this.mDesviacionBlue);
         startActivity(formularioSintomas);
         finish();
     }
@@ -183,6 +195,8 @@ public class camera_data extends Activity implements CameraBridgeViewBase.CvCame
     @Override
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
 
+        Mat rgba = inputFrame.rgba();
+
         viewGeneral = inputFrame.rgba();
 
         witdhFRame = viewGeneral.rows(); //ANCHO
@@ -192,31 +206,41 @@ public class camera_data extends Activity implements CameraBridgeViewBase.CvCame
         Log.d("Ancho",""+witdhFRame);
 
         Core.split(viewGeneral, channels);
-        channelRed = channels.get(0);
-        //blue = channels.get(1);
+        channelRed = this.channels.get(0);
+        channelBlue = this.channels.get(2);
         //green = channels.get(2);
+
 
         if( mIsRecord ){
             //Log.d( "R",red.submat(            708,           710,          10,           12 ).dump());
             //Log.d( "-",red.submat(( ancho/2 )- 2,(ancho/2) + 2,(alto/2) - 2,( alto/2 )+ 2).dump());
 
 
-            PX1 = getMatrizCentral(                       0,                   0, witdhFRame/3, heigthFrame/3);
-            PX2 = getMatrizCentral(      witdhFRame /3,                   0, (witdhFRame/3) *2, heigthFrame/3);
-            PX3 = getMatrizCentral(  (witdhFRame/3) *2,                   0,                witdhFRame, heigthFrame/3);
+            //PX1 = getMatrizCentral(                       0,                   0, witdhFRame/3, heigthFrame/3);
+            //PX2 = getMatrizCentral(      witdhFRame /3,                   0, (witdhFRame/3) *2, heigthFrame/3);
+            //PX3 = getMatrizCentral(  (witdhFRame/3) *2,                   0,                witdhFRame, heigthFrame/3);
 
-            PX4 = getMatrizCentral(                      0 , heigthFrame /3,    witdhFRame /3, (heigthFrame/3) *2 );
-            PX5 = getMatrizCentral(     witdhFRame /3 , heigthFrame /3, (witdhFRame/3) *2, (heigthFrame/3) *2 );
-            PX6 = getMatrizCentral(  (witdhFRame/3) *2, heigthFrame /3, witdhFRame, (heigthFrame/3) *2 );
+            //PX4 = getMatrizCentral(                      0 , heigthFrame /3,    witdhFRame /3, (heigthFrame/3) *2 );
+            //PX5 = getMatrizCentral(     witdhFRame /3 , heigthFrame /3, (witdhFRame/3) *2, (heigthFrame/3) *2 );
 
-            PX7 = getMatrizCentral(                     0 , (heigthFrame/3) *2, witdhFRame /3 , heigthFrame);
-            PX8 = getMatrizCentral(    witdhFRame /3 , (heigthFrame/3) *2, (witdhFRame/3) *2, heigthFrame);
-            PX9 = getMatrizCentral( (witdhFRame/3) *2 , (heigthFrame/3) *2, witdhFRame,            heigthFrame );
+            //PX6 = getMatrizCentral(  (witdhFRame/3) *2, heigthFrame /3, witdhFRame, (heigthFrame/3) *2 );
+
+            //PX7 = getMatrizCentral(                     0 , (heigthFrame/3) *2, witdhFRame /3 , heigthFrame);
+            //PX8 = getMatrizCentral(    witdhFRame /3 , (heigthFrame/3) *2, (witdhFRame/3) *2, heigthFrame);
+            //PX9 = getMatrizCentral( (witdhFRame/3) *2 , (heigthFrame/3) *2, witdhFRame,            heigthFrame );
 
 
-            valueY = (PX1+PX2+PX3+PX4+PX5+PX6+PX7+PX8 +PX9) / 9;
+            //valueY = (PX1+PX2+PX3+PX4+PX5+PX6+PX7+PX8 +PX9) / 9;
+
+            //*PX5 = getMatrizCentral64x64( witdhFRame /2 , heigthFrame /2 );
+            PX5R = getMatrizCentral(channelRed, witdhFRame /2 , heigthFrame /2);
             // Agregando los puntos de la gráfica
-            mDataPoints.add(valueY);
+            mDataPoints.add(PX5R);
+            mDesviacionRed.add(this.PX5R);
+
+            PX5B = getMatrizCentral(channelBlue, witdhFRame /2 , heigthFrame /2);
+            mDataPoints2.add(PX5B);
+            mDesviacionBlue.add(this.PX5B);
 
             //Log.d("TAMANIOARRAY",""+ mDataPoints.size()) ;
             long elapsedMillis = (SystemClock.elapsedRealtime() - mChronometer.getBase() );
@@ -267,7 +291,7 @@ public class camera_data extends Activity implements CameraBridgeViewBase.CvCame
     int posicionXInicial, int posicionXFinal, int posicionYInicial, int posicionYFinal
      */
 
-    private Double getMatrizCentral(  int xi, int yi, int xf, int yf   ){
+    private Double getMatrizCentralAntigua(  int xi, int yi, int xf, int yf   ){
         Double promedioMatrizPIxeles = 0.0;
 
         int xo = xf;
@@ -276,7 +300,20 @@ public class camera_data extends Activity implements CameraBridgeViewBase.CvCame
         int xm = ( (xf -xi)/2 ) + xi;
         int ym = ( (yf -yi)/2 ) + yo;
 
-        promedioMatrizPIxeles =   Core.mean( channelRed.submat(xm - 2,xm + 2, ym - 2,ym + 2) ).val[0];
+        promedioMatrizPIxeles =   Core.mean( channelRed.submat(xm - 32,xm + 32, ym - 32,ym + 32) ).val[0];
+
+        return  promedioMatrizPIxeles;
+
+    }
+
+    private Double getMatrizCentral(Mat tipoCanal, int xm, int ym) {
+        return Core.mean(tipoCanal.submat(xm - 32, xm + 32, ym - 32, ym + 32)).val[0];
+    }
+
+    private Double getMatrizCentral64x64(  int xm, int ym   ){
+        Double promedioMatrizPIxeles = 0.0;
+
+        promedioMatrizPIxeles =   Core.mean( channelRed.submat(xm - 32,xm + 32, ym - 32,ym + 32) ).val[0];
 
         return  promedioMatrizPIxeles;
 

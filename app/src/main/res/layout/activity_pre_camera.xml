@@ -9,24 +9,22 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="570dp"
         android:layout_weight="0.7"
-        >
+        android:orientation="vertical">
+
         <com.jjoe64.graphview.GraphView
             android:id="@+id/grafica"
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_weight="0.5"
-            ></com.jjoe64.graphview.GraphView>
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"></com.jjoe64.graphview.GraphView>
 
 
         <com.jjoe64.graphview.GraphView
             android:id="@+id/graficaFourier"
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_weight="0.5"
-            ></com.jjoe64.graphview.GraphView>
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"></com.jjoe64.graphview.GraphView>
 
         <ImageView
             android:id="@+id/img_ritmo_cardiaco"
@@ -106,28 +104,40 @@
         >
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/txtSaturacion"
             style="@style/Widget.AppCompat.TextView"
             android:layout_height="wrap_content"
             android:layout_width="0dp"
-            android:text="@string/text_tiutlo_temperatura"
+            android:text="@string/text_tiutlo_saturacion"
             android:textSize="20sp"
             android:layout_marginLeft="5dp"
-            android:layout_weight="0.6"
+            android:layout_weight="0.2"
             android:textColor="@color/colorBlack"
             />
+
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/txtSaturacionProm"
             style="@android:style/Widget.DeviceDefault.Light.TextView"
-            android:layout_height="wrap_content"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.6"
             android:gravity="center_horizontal"
             android:text="@string/text_temperatura"
-            android:textSize="20sp"
-            android:textStyle="normal"
-            android:layout_weight="0.4"
             android:textColor="@color/colorBlack"
-            />
+            android:textSize="20sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/txtSaturacionRedondeo"
+            style="@android:style/Widget.DeviceDefault.Light.TextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:gravity="center_horizontal"
+            android:text="@string/text_temperatura"
+            android:textColor="@color/colorBlack"
+            android:textSize="20sp"
+            android:textStyle="normal" />
 
     </LinearLayout>
 

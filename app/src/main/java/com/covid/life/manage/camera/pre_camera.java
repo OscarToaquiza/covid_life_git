@@ -31,11 +31,18 @@ public class pre_camera extends AppCompatActivity {
 
     Button btnIrTemperatura;
 
-    private  ArrayList<Double> puntos;
+    private ArrayList<Double> desviacionBlue, desviacionRed;
+
     private GraphView mScatterPlot,mScatterPlot2;
+
+    private ArrayList<Double> puntosBlue, puntosRed;
+
     private long seconds;
     private  TextView txtRitmoCardiacoP, txtParrafoRitmoCardiaco;
+
     private ImageView imgRitnoCardico;
+
+    private TextView txtSaturacion, txtSaturacionReal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +62,8 @@ public class pre_camera extends AppCompatActivity {
 
         txtParrafoRitmoCardiaco = findViewById(R.id.txt_parrafo_ritmo_cardiaco);
         imgRitnoCardico = findViewById(R.id.img_ritmo_cardiaco);
+        txtSaturacion = findViewById(R.id.txtSaturacionRedondeo);
+        txtSaturacionReal = findViewById(R.id.txtSaturacionProm);
 
         btnIrTemperatura.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,10 +73,13 @@ public class pre_camera extends AppCompatActivity {
             }
         });
 
-        puntos =  (ArrayList<Double>) getIntent().getSerializableExtra("Puntos");
-        seconds =   getIntent().getLongExtra("Segundos",0);
+        seconds = getIntent().getLongExtra("Segundos",0);
+        puntosRed = (ArrayList<Double>) getIntent().getSerializableExtra ("PuntosRed");
+        puntosBlue = (ArrayList<Double>) getIntent().getSerializableExtra("PuntosBlue");
+        desviacionRed =  (ArrayList<Double>) getIntent().getSerializableExtra("DesvicionRedProcesar");
+        desviacionBlue = (ArrayList<Double>)  getIntent().getSerializableExtra("DesvicionBlueProcesar");
 
-        if(puntos.size() > 0){
+        if(puntosRed.size() > 0){
             //Ocultar Img y Parrafo
             imgRitnoCardico.setVisibility(View.GONE);
             txtParrafoRitmoCardiaco.setVisibility(View.GONE);
@@ -81,7 +93,8 @@ public class pre_camera extends AppCompatActivity {
 
             graficaUno();
             Log.d("tiempo final",""+seconds);
-            graficaDos(puntos,seconds);
+            graficaDos(puntosRed,seconds);
+            saturacion(puntosRed, puntosBlue, desviacionRed, desviacionBlue);
         }else{
             //Mostrar Img y Parrafo
             imgRitnoCardico.setVisibility(View.VISIBLE);
@@ -103,7 +116,7 @@ public class pre_camera extends AppCompatActivity {
         mScatterPlot.getViewport().setXAxisBoundsManual(true);
         mScatterPlot.getGridLabelRenderer().setTextSize(12);
         mScatterPlot.getGridLabelRenderer().setVerticalLabelsAlign(Paint.Align.CENTER);
-        for( Double valorY: puntos  ){
+        for( Double valorY: puntosRed  ){
             series.appendData(new DataPoint( i , valorY   ),true,1000);
             i++;
         }
@@ -205,11 +218,11 @@ public class pre_camera extends AppCompatActivity {
                 if (magnitudP1[j] > mayorFrecuenciaRanog) {
                     mayorFrecuenciaRanog = magnitudP1[j];
                     frecuenciaEstimada = frecuencia[j];
-                    Log.d("FRecuencia Estimaada",""+frecuencia[j]);
+                    Log.d("FRecuencia Estimada",""+frecuencia[j]);
                 }
             }
             series2.appendData(new DataPoint( frecuencia[j] ,  magnitudP1[j]  ),true,1000);
-            Log.d("FRecuencia Estimaada",""+magnitudP1[j]);
+            Log.d("FRecuencia Estimada",""+magnitudP1[j]);
         }
         j= 0;
         //for(j = 1; j< frecuencia.length; j++){
@@ -225,5 +238,55 @@ public class pre_camera extends AppCompatActivity {
         DecimalFormat formato = new DecimalFormat("#.00");
         txtRitmoCardiacoP.setText( formato.format(frecuenciaEstimada) + "BPM");
 
+    }
+
+    private void saturacion(ArrayList<Double> puntosR, ArrayList<Double> puntosB, ArrayList<Double> desviacionR, ArrayList<Double> desviacionB) {
+        double promedioR = 0.0d;
+        double promedioB = 0.0d;
+
+        System.out.println("Tamaño de puntosR" + puntosR.size());
+        System.out.println("Tamaño de puntosB" + puntosB.size());
+
+        for (Double pixel: puntosR ) {
+            promedioR = promedioR + pixel;
+        }
+        for (Double pixel: puntosB ) {
+            promedioB = promedioB + pixel;
+        }
+
+        System.out.println("Promedio de R" + promedioR);
+        System.out.println("Promedio de B" + promedioB);
+
+
+        double promedioR2 = promedioR / ((double) puntosR.size());
+        double promedioB2 = promedioB / ((double) puntosB.size());
+
+        double total = 92.9368 - (((calculateSD(desviacionR) / promedioR2) / (calculateSD(desviacionB) / promedioB2)) * 12.3255);
+
+        txtSaturacionReal.setText(""+total);
+
+        DecimalFormat formato = new DecimalFormat("#.00");
+        Log.d("SaturacionOxigeno", "" + total);
+        txtSaturacion.setText(formato.format(total) + " %");
+
+        puntosB.clear();
+        puntosR.clear();
+    }
+
+    private double calculateSD(ArrayList<Double> numArray) {
+        ArrayList<Double> dArr = numArray;
+        double sum = 0.0d;
+        double standardDeviation = 0.0d;
+        int length = dArr.size();
+        for (double num : dArr) {
+           // System.out.println("Valor de pixel" + num);
+            sum += num;
+            // System.out.println("Suma de pixel" + sum);
+        }
+        double mean = sum / ((double) length);
+        for (double num2 : dArr) {
+            standardDeviation += Math.pow(num2 - mean, 2.0d);
+        }
+        return Math.sqrt(standardDeviation / ((double) (length - 1)));
     }
 }

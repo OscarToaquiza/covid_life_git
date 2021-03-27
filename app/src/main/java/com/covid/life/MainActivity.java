@@ -34,7 +34,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent inicioLayout = new Intent( v.getContext() , pre_camera.class);
-                inicioLayout.putExtra("Puntos",new ArrayList<Double>());
+                inicioLayout.putExtra("PuntosRed", new ArrayList());
+                inicioLayout.putExtra("PuntosBlue", new ArrayList());
+                inicioLayout.putExtra("DesvicionRedProcesar", new ArrayList());
+                inicioLayout.putExtra("DesvicionBlueProcesar", new ArrayList());
                 startActivity(inicioLayout );
             }
         });
